@@ -1,12 +1,14 @@
-# NOTE: THIS ENGINE IS STILL BEING WORKED ON! Report any bugs in the issues page!
+# NOTE : This engine is still on work.
 
-![Psych Engine Extra](https://user-images.githubusercontent.com/85134252/153526241-9f265b56-ffd1-4452-bb61-c7500471a910.png)
 
-# Friday Night Funkin' - Psych Engine Extra
-Modified version of Psych Engine adding more stuff. (see below)
+# Friday Night Funkin' - Goldy engine
+modified epic psych engine with epic fucking shits
 
 ## Credits:
-* Starmapo - Psych Engine Extra Coding and Arts
+* cheb -- coding and shit
+* ben?!?! -- coding music shit
+* artevar -- pretty cool art
+* saad - pretty cool music
 
 * Shadow Mario - Coding
 * RiverOaken - Arts and Animations
