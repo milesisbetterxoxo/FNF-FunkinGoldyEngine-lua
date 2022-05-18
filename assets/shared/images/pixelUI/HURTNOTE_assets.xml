@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="HURTNOTE_assets.png">
+	<!-- Created with Adobe Animate version 19.0.0.326 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="down0000" x="0" y="36" width="17" height="17"/>
+	<SubTexture name="down hold0000" x="18" y="18" width="7" height="6"/>
+	<SubTexture name="down tail0000" x="18" y="25" width="7" height="6"/>
+	<SubTexture name="left0000" x="0" y="0" width="17" height="17"/>
+	<SubTexture name="left hold0000" x="18" y="18" width="7" height="6"/>
+	<SubTexture name="left tail0000" x="18" y="25" width="7" height="6"/>
+	<SubTexture name="right0000" x="0" y="18" width="17" height="17"/>
+	<SubTexture name="right hold0000" x="18" y="18" width="7" height="6"/>
+	<SubTexture name="right tail0000" x="18" y="25" width="7" height="6"/>
+	<SubTexture name="up0000" x="18" y="0" width="17" height="17"/>
+	<SubTexture name="up hold0000" x="18" y="18" width="7" height="6"/>
+	<SubTexture name="up tail0000" x="18" y="25" width="7" height="6"/>
+</TextureAtlas>

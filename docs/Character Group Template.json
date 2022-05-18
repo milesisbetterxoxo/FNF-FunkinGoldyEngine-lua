@@ -1,0 +1,23 @@
+{
+	"characters": [
+		{
+			"name": "dad",
+			"position": [0, 0]
+		},
+		{
+			"name": "dad",
+			"position": [-100, 100]
+		}
+	],
+	"position": [0, 0],
+	"healthicon": "dad",
+	"healthbar_colors": [
+		175,
+		102,
+		206
+	],
+	"camera_position": [
+		0,
+		0
+	]
+}

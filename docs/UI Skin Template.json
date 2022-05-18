@@ -1,0 +1,37 @@
+{
+	"mania": [
+		{
+			"keys": 4,
+			"noteSize": 0.7,
+			"noteSpacing": 112,
+			"xOffset": 54,
+			"colors": [
+				"left",
+				"down",
+				"up",
+				"right"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT"
+			]
+		}
+	],
+	"scale": 1,
+	"noteScale": 1,
+	"sustainYScale": 1,
+	"countdownScale": 1,
+	"ratingScale": 0.7,
+	"comboNumScale": 0.5,
+	"sustainXOffset": 0,
+	"downscrollTailYOffset": -19, 
+	"noAntialiasing": false
+}
