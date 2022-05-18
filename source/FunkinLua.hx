@@ -1829,8 +1829,9 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "browserLoad", CoolUtil.browserLoad);
         //Lua_helper.add_callback(lua, "setStage", setLuaStage);
-        //Lua_helper.add_callback(lua, "discordClientID", Discord.clientID); buggy and shit!!!!!
+        //set('discordClientID', Discord.clientID);
         Lua_helper.add_callback(lua, "setSongSpeed", PlayState.instance.set_songSpeed); // maybe would be useful
+		Lua_helper.add_callback(lua, "loadStageFile", PlayState.loadLuaStage);
 
 				//SHADER SHIT
 		
