@@ -752,6 +752,10 @@ class PlayState extends MusicBeatState
 							bgGirls.updateHitbox();
 							add(bgGirls);
 						}
+						
+						//luaArray.push(new FunkinLua('scripts/' + 'shaders' + '.lua'));
+						var shaderScript:String = 'scripts/' + 'shaders' + '.lua';
+						//filesPushed.push(shaderScript);
 
 					case 'schoolEvil': //Week 6 - Thorns
 						GameOverSubState.deathSoundName = 'fnf_loss_sfx-pixel';
@@ -779,6 +783,8 @@ class PlayState extends MusicBeatState
 							bg.antialiasing = false;
 							add(bg);
 						}
+						//luaArray.push(new FunkinLua('scripts/' + 'shaders' + '.lua'));
+						//filesPushed.push(shaderScript);
 				}
 			}
 
@@ -815,7 +821,7 @@ class PlayState extends MusicBeatState
 
 			#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 			// "GLOBAL" SCRIPTS
-			var filesPushed:Array<String> = [];
+			
 			var foldersToCheck:Array<String> = [Paths.getPreloadPath('scripts/')];
 
 			#if MODS_ALLOWED
@@ -830,6 +836,7 @@ class PlayState extends MusicBeatState
 					for (file in FileSystem.readDirectory(folder))
 					{
 						#if LUA_ALLOWED
+						var filesPushed:Array<String> = [];		
 						if (file.endsWith('.lua') && !filesPushed.contains(file))
 						{
 							luaArray.push(new FunkinLua(folder + file));
@@ -837,6 +844,7 @@ class PlayState extends MusicBeatState
 						}
 						#end
 						#if HSCRIPT_ALLOWED
+						var filesPushed:Array<String> = [];		
 						if (file.endsWith('.hscript') && !filesPushed.contains(file))
 						{
 							addHscript(folder + file);
@@ -889,6 +897,22 @@ class PlayState extends MusicBeatState
 				#end
 			}
 			#end
+		        #if LUA_ALLOWED
+		        public function loadLuaStage(stage:String)
+				{
+				var doPush:Bool = false;
+				var luaFile:String = 'stages/$stage';
+				#if MODS_ALLOWED
+				luaFile = Paths.modFolders(luaFile);
+				#else
+				luaFile = Paths.getPreloadPath(luaFile);
+				#end
+				if (FileSystem.exists(luaFile))
+				{
+				luaArray.push(new FunkinLua(luaFile));
+				}
+			    }
+				#end
 
 			if (ClientPrefs.gameQuality != 'Crappy') {
 				if (!modchartSprites.exists('blammedLightsBlack')) { //Creates blammed light black fade in case you didn't make your own
@@ -3592,7 +3616,7 @@ class PlayState extends MusicBeatState
 				stupidIcons[0].animation.curAnim.curFrame = 0;
 
 			if (healthBar.percent > 80)
-				stupidIcons[1].animation.curAnim.curFrame = 1;
+				stupidIcons[1].animation.curAnim.curFrame = 2;
 			else
 				stupidIcons[1].animation.curAnim.curFrame = 0;
 
@@ -3957,7 +3981,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public static var isDead:Bool = false; //Don't mess with this on Lua!!!
+	public var isDead:Bool = false; //Don't mess with this on Lua!!!
 	function doDeathCheck(skipHealthCheck:Bool = false) {
 		if (!cpuControlled && ((skipHealthCheck && instakillOnMiss) || health <= 0)) practiceFailed = true;
 		else return false;
