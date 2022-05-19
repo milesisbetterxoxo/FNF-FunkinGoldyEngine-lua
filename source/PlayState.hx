@@ -888,31 +888,15 @@ class PlayState extends MusicBeatState
 					if (OpenFlAssets.exists(hscriptFile)) {
 						doPush = true;
 					}
-				#if MODS_ALLOWED
 				}
-				#end
 
 				if (doPush) 
+				{	
 					addHscript(hscriptFile);
-				#end
+				}
 			}
 			#end
-		        #if LUA_ALLOWED
-		        public function loadLuaStage(stage:String)
-				{
-				var doPush:Bool = false;
-				var luaFile:String = 'stages/$stage';
-				#if MODS_ALLOWED
-				luaFile = Paths.modFolders(luaFile);
-				#else
-				luaFile = Paths.getPreloadPath(luaFile);
-				#end
-				if (FileSystem.exists(luaFile))
-				{
-				luaArray.push(new FunkinLua(luaFile));
-				}
-			    }
-				#end
+			#end
 
 			if (ClientPrefs.gameQuality != 'Crappy') {
 				if (!modchartSprites.exists('blammedLightsBlack')) { //Creates blammed light black fade in case you didn't make your own
@@ -3607,18 +3591,19 @@ class PlayState extends MusicBeatState
 
 			if (health > 2)
 				health = 2;
-
-			var stupidIcons:Array<HealthIcon> = [iconP1, iconP2];
-			if (opponentChart) stupidIcons = [iconP2, iconP1];
-			if (healthBar.percent < 20)
-				stupidIcons[0].animation.curAnim.curFrame = 1;
+			if (healthBar.percent < 20){
+				iconP1.animation.curAnim.curFrame = 1;
+				iconP2.animation.curAnim.curFrame = 2;
+				}
 			else
-				stupidIcons[0].animation.curAnim.curFrame = 0;
-
-			if (healthBar.percent > 80)
-				stupidIcons[1].animation.curAnim.curFrame = 2;
-			else
-				stupidIcons[1].animation.curAnim.curFrame = 0;
+			if (healthBar.percent > 80){
+				iconP2.animation.curAnim.curFrame = 1;
+				iconP1.animation.curAnim.curFrame = 2;
+			}
+			else{
+				iconP2.animation.curAnim.curFrame = 0;
+				iconP1.animation.curAnim.curFrame = 0;
+			}
 
 			#if desktop
 			if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
