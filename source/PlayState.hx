@@ -30,16 +30,16 @@ import flixel.util.FlxSave;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
+import openfl.display.Shader;
+import openfl.filters.ShaderFilter;
 #if HSCRIPT_ALLOWED
 import hscript.ParserEx;
 #end
 import lime.app.Application;
 import lime.graphics.Image;
 import openfl.events.KeyboardEvent;
-import openfl.display.Shader;
-import openfl.filters.BitmapFilter;
-import openfl.filters.ShaderFilter;
 import openfl.utils.Assets as OpenFlAssets;
+import openfl.filters.BitmapFilter;
 import Achievements;
 import Character;
 import DialogueBoxPsych;
@@ -84,6 +84,8 @@ class PlayState extends MusicBeatState
 	public var modchartSounds:Map<String, FlxSound> = new Map();
 	public var modchartTexts:Map<String, ModchartText> = new Map();
 	public var modchartSaves:Map<String, FlxSave> = new Map();
+
+	//shader shit
 	public var shader_chromatic_abberation:ChromaticAberrationEffect;
 	public var camGameShaders:Array<ShaderEffect> = [];
 	public var camHUDShaders:Array<ShaderEffect> = [];
@@ -752,10 +754,6 @@ class PlayState extends MusicBeatState
 							bgGirls.updateHitbox();
 							add(bgGirls);
 						}
-						
-						//luaArray.push(new FunkinLua('scripts/' + 'shaders' + '.lua'));
-						var shaderScript:String = 'scripts/' + 'shaders' + '.lua';
-						//filesPushed.push(shaderScript);
 
 					case 'schoolEvil': //Week 6 - Thorns
 						GameOverSubState.deathSoundName = 'fnf_loss_sfx-pixel';
@@ -783,8 +781,6 @@ class PlayState extends MusicBeatState
 							bg.antialiasing = false;
 							add(bg);
 						}
-						//luaArray.push(new FunkinLua('scripts/' + 'shaders' + '.lua'));
-						//filesPushed.push(shaderScript);
 				}
 			}
 
@@ -821,7 +817,7 @@ class PlayState extends MusicBeatState
 
 			#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 			// "GLOBAL" SCRIPTS
-			
+			var filesPushed:Array<String> = [];
 			var foldersToCheck:Array<String> = [Paths.getPreloadPath('scripts/')];
 
 			#if MODS_ALLOWED
@@ -836,7 +832,6 @@ class PlayState extends MusicBeatState
 					for (file in FileSystem.readDirectory(folder))
 					{
 						#if LUA_ALLOWED
-						var filesPushed:Array<String> = [];		
 						if (file.endsWith('.lua') && !filesPushed.contains(file))
 						{
 							luaArray.push(new FunkinLua(folder + file));
@@ -844,7 +839,6 @@ class PlayState extends MusicBeatState
 						}
 						#end
 						#if HSCRIPT_ALLOWED
-						var filesPushed:Array<String> = [];		
 						if (file.endsWith('.hscript') && !filesPushed.contains(file))
 						{
 							addHscript(folder + file);
@@ -888,14 +882,14 @@ class PlayState extends MusicBeatState
 					if (OpenFlAssets.exists(hscriptFile)) {
 						doPush = true;
 					}
+				#if MODS_ALLOWED
 				}
+				#end
 
 				if (doPush) 
-				{	
 					addHscript(hscriptFile);
-				}
+				#end
 			}
-			#end
 			#end
 
 			if (ClientPrefs.gameQuality != 'Crappy') {
@@ -1613,7 +1607,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function set_songSpeed(value:Float):Float
+	function set_songSpeed(value:Float):Float
 	{
 		if (generatedMusic)
 		{
@@ -3591,19 +3585,18 @@ class PlayState extends MusicBeatState
 
 			if (health > 2)
 				health = 2;
-			if (healthBar.percent < 20){
-				iconP1.animation.curAnim.curFrame = 1;
-				iconP2.animation.curAnim.curFrame = 2;
-				}
+
+			var stupidIcons:Array<HealthIcon> = [iconP1, iconP2];
+			if (opponentChart) stupidIcons = [iconP2, iconP1];
+			if (healthBar.percent < 20)
+				stupidIcons[0].animation.curAnim.curFrame = 1;
 			else
-			if (healthBar.percent > 80){
-				iconP2.animation.curAnim.curFrame = 1;
-				iconP1.animation.curAnim.curFrame = 2;
-			}
-			else{
-				iconP2.animation.curAnim.curFrame = 0;
-				iconP1.animation.curAnim.curFrame = 0;
-			}
+				stupidIcons[0].animation.curAnim.curFrame = 0;
+
+			if (healthBar.percent > 80)
+				stupidIcons[1].animation.curAnim.curFrame = 1;
+			else
+				stupidIcons[1].animation.curAnim.curFrame = 0;
 
 			#if desktop
 			if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
@@ -4447,6 +4440,11 @@ class PlayState extends MusicBeatState
 		{
 			moveCamera(true);
 			callOnScripts('onMoveCamera', ['dad']);
+		}
+		if (!SONG.notes[id].gfSection)
+		{
+			moveCamera(true);
+			callOnScripts('onMoveCamera', ['gf']);
 		}
 		else
 		{
@@ -5620,10 +5618,10 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (ClientPrefs.flashing && ClientPrefs.flashingAmount > 0 ) {
+		if (ClientPrefs.flashing) {
 			halloweenWhite.alpha = 0.4;
-			FlxTween.tween(halloweenWhite, {alpha: 0.5}, ClientPrefs.flashingAmount);
-			FlxTween.tween(halloweenWhite, {alpha: 0}, ClientPrefs.flashingAmount, {startDelay: 0.15});
+			FlxTween.tween(halloweenWhite, {alpha: 0.5}, 0.075);
+			FlxTween.tween(halloweenWhite, {alpha: 0}, 0.25, {startDelay: 0.15});
 		}
 	}
 
@@ -5735,10 +5733,6 @@ class PlayState extends MusicBeatState
 		lastStepHit = curStep;
 		setOnScripts('curStep', curStep);
 		callOnScripts('onStepHit', []);
-
-		//setOnScripts('curSection', curStep / 16);
-        callOnScripts('onSectionHit', [Math.floor(curStep / 16)]);
-
 	}
 
 	var lightningStrikeBeat:Int = 0;
@@ -5800,6 +5794,12 @@ class PlayState extends MusicBeatState
 				camHUD.zoom += 0.03;
 			}
 
+			if (iconBopSpeed > 0 && curBeat % iconBopSpeed == 0) {
+				iconP1.scale.set(1.2, 1.2);
+				iconP2.scale.set(1.2, 1.2);
+				iconP1.updateHitbox();
+				iconP2.updateHitbox();
+			}
 			if (curBeat % iconBopSpeed == 0) {
 				curBeat % (iconBopSpeed * 2) == 0 ? {
 					iconP1.scale.set(1.1, 0.8);
@@ -5819,9 +5819,9 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * iconBopSpeed, {ease: FlxEase.quadOut});
 	
 				iconP1.updateHitbox();
-				iconP2.updateHitbox(); // real!!!!
-				// copyed from golden apple
+				iconP2.updateHitbox();
 			}
+			// x2 bop icons lol
 
 			var chars = [boyfriendGroup, dadGroup, gfGroup];
 			for (group in chars) {
@@ -6233,7 +6233,8 @@ class PlayState extends MusicBeatState
 							}
 						}
 					case 'toastie':
-						if (ClientPrefs.gameQuality != 'Normal' && !ClientPrefs.globalAntialiasing) {
+						
+					    if (ClientPrefs.gameQuality != 'Normal' && !ClientPrefs.globalAntialiasing) {
 							unlock = true;
 						}
 					case 'debugger':
