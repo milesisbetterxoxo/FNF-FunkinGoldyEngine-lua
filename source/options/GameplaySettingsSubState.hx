@@ -143,7 +143,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		addOption(option);
 
-		var option:Option = new Option('Flashing Amount',
+		/*var option:Option = new Option('Flashing Amount',
 		    'Depends on the value, how hard it should flash on game, or title.',
 			'flashingAmount',
 			10);
@@ -151,6 +151,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.minValue = 0;
 		option.maxValue = 1;
 		option.changeValue = 0.1;
+		addOption(option);*/
+
+		var option = new Option('Opponent Health Drain',
+		"If checked, drains a bit of health, if opponent pressed a note.",
+		'opponentHealthDrain',
+		'bool',
+		true);
 		addOption(option);
 
 		var option:Option = new Option('Auto Pause',
