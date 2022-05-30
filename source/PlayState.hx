@@ -40,6 +40,7 @@ import lime.graphics.Image;
 import openfl.events.KeyboardEvent;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.filters.BitmapFilter;
+import ModchartFunctions;
 import Achievements;
 import Character;
 import DialogueBoxPsych;
@@ -57,6 +58,7 @@ import sys.io.File;
 #if cpp
 import lime.media.openal.AL;
 #end
+import haxe.Timer;
 
 using StringTools;
 
@@ -316,6 +318,8 @@ class PlayState extends MusicBeatState
 
 	public var hideInDemoMode:Array<FlxBasic> = [];
 
+	var destroyStage:Bool = false; // for loadStage function
+
 	public function new(?inEditor:Bool = false, ?startPos:Float = 0) {
 		this.inEditor = inEditor;
 		if (inEditor) {
@@ -460,8 +464,9 @@ class PlayState extends MusicBeatState
 		}
 
 		var camPos:FlxPoint = null;
+		var stageData:StageFile = StageData.getStageFile(curStage);
 		if (!inEditor) {
-			var stageData:StageFile = StageData.getStageFile(curStage);
+			
 			if (stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
 				stageData = {
 					directory: "",
@@ -512,6 +517,8 @@ class PlayState extends MusicBeatState
 			dadGroup = new FlxTypedSpriteGroup(DAD_X, DAD_Y);
 			gfGroup = new FlxTypedSpriteGroup(GF_X, GF_Y);
 
+
+
 			if (ClientPrefs.gameQuality != 'Crappy') {
 				switch (curStage)
 				{
@@ -540,6 +547,18 @@ class PlayState extends MusicBeatState
 							stageCurtains.updateHitbox();
 							add(stageCurtains);
 						}
+						/*if (destroyStage)
+							{
+								bg.kill();
+								stageFront.kill();
+								if (ClientPrefs.gameQuality == 'Normal')
+								{
+									stageLight.kill();
+									stageLight.kill();
+									stageCurtains.kill();
+								}
+							}*/
+
 
 					case 'spooky': //Week 2
 						if (ClientPrefs.gameQuality == 'Normal') {
@@ -557,6 +576,10 @@ class PlayState extends MusicBeatState
 						//PRECACHE SOUNDS
 						CoolUtil.precacheSound('thunder_1');
 						CoolUtil.precacheSound('thunder_2');
+						/*if (destroyStage)
+						{
+							halloweenBG.kill();
+						}*/
 
 					case 'philly': //Week 3
 						if (ClientPrefs.gameQuality == 'Normal') {
@@ -595,6 +618,20 @@ class PlayState extends MusicBeatState
 
 						var street:BGSprite = new BGSprite('philly/street', -40, 50);
 						add(street);
+
+						/*if (destroyStage)
+						{
+							city.kill();
+                            phillyCityLights.kill();
+							phillyCityLights.kill(light);
+							streetBehind.kill();
+							phillyTrain.kill();
+							street.kill();
+							if (ClientPrefs.gameQuality == 'Normal')
+							{
+								bg.kill();
+							}
+						}*/
 
 					case 'limo': //Week 4
 						var skyBG:BGSprite = new BGSprite('limo/limoSunset', -120, -50, 0.1, 0.1);
@@ -637,6 +674,20 @@ class PlayState extends MusicBeatState
 
 							//PRECACHE SOUND
 							CoolUtil.precacheSound('dancerdeath');
+							/*if (destroyStage)
+							{
+								limoMetalPole.kill();
+								bgLimo.kill();
+								limoCorpse.kill();
+								limoCorpseTwo.kill();
+								grpLimoDancers.kill();
+								limoLight.kill();
+								grpLimoParticles.kill();
+								if (ClientPrefs.gameQuality != 'Normal')
+								{
+									skyBG.kill();
+								}
+							}*/
 						}
 
 						limo = new BGSprite('limo/limoDrive', -120, 550, 1, 1, ['Limo stage'], true);
@@ -650,6 +701,10 @@ class PlayState extends MusicBeatState
 						bg.setGraphicSize(Std.int(bg.width * 0.8));
 						bg.updateHitbox();
 						add(bg);
+						/*if (destroyStage)
+						{
+							bg.kill();
+						}*/
 
 						if (ClientPrefs.gameQuality == 'Normal') {
 							upperBoppers = new BGSprite('christmas/upperBop', -240, -90, 0.33, 0.33, ['Upper Crowd Bob']);
@@ -678,6 +733,13 @@ class PlayState extends MusicBeatState
 						santa = new BGSprite('christmas/santa', -840, 150, 1, 1, ['santa idle in fear']);
 						add(santa);
 						CoolUtil.precacheSound('Lights_Shut_off');
+						/*if (destroyStage)
+						{
+							kill(tree);
+							kill(bottomBoppers);
+							kill(fgSnow);
+							kill(santa);
+						}*/
 
 					case 'mallEvil': //Week 5 - Winter Horrorland
 						var bg:BGSprite = new BGSprite('christmas/evilBG', -400, -500, 0.2, 0.2);
@@ -690,6 +752,21 @@ class PlayState extends MusicBeatState
 
 						var evilSnow:BGSprite = new BGSprite('christmas/evilSnow', -200, 700);
 						add(evilSnow);
+						/*if (destroyStage)
+						{
+							kill(bg);
+							kill(evilTree);
+							kill(evilSnow);
+							if (ClientPrefs.gameQuality = 'Normal')
+							{
+								upperBoppers.kill();
+							    bgEscalator.kill();
+							}
+							tree.kill();
+							bottomBoppers.kill();
+							fgSnow.kill();
+							santa.kill(); // murdered santa real!!!!
+						}*/
 
 					case 'school': //Week 6 - Senpai, Roses
 						GameOverSubState.deathSoundName = 'fnf_loss_sfx-pixel';
@@ -710,6 +787,8 @@ class PlayState extends MusicBeatState
 						var bgStreet:BGSprite = new BGSprite('weeb/weebStreet', repositionShit, 0, 0.95, 0.95);
 						add(bgStreet);
 						bgStreet.antialiasing = false;
+
+
 
 						var widShit = Std.int(bgSky.width * 6);
 						if (ClientPrefs.gameQuality == 'Normal') {
@@ -754,6 +833,19 @@ class PlayState extends MusicBeatState
 							bgGirls.updateHitbox();
 							add(bgGirls);
 						}
+						/*if (destroyStage)
+							{
+								bgSky.kill();
+								bgSchool.kill();
+								bgStreet.kill();
+								bgTrees.kill();
+								if (ClientPrefs.gameQuality == 'Normal')
+								{
+									fgTrees.kill();
+									treeLeaves.kill();
+									bgGirls.kill();
+								}
+							}*/
 
 					case 'schoolEvil': //Week 6 - Thorns
 						GameOverSubState.deathSoundName = 'fnf_loss_sfx-pixel';
@@ -781,8 +873,22 @@ class PlayState extends MusicBeatState
 							bg.antialiasing = false;
 							add(bg);
 						}
+						/*if (destroyStage)
+							{
+								if (ClientPrefs.gameQuality == 'Normal')
+								{
+									bg.kill();
+								    bgGhouls.kill();
+								}
+								else
+								{
+									bg.kill();
+								}
+							}*/
 				}
 			}
+		}
+
 
 			add(gfGroup); //Needed for blammed lights
 
@@ -1005,7 +1111,6 @@ class PlayState extends MusicBeatState
 						insert(members.indexOf(dadGroup), evilTrail);
 				}
 			}
-		}
 
 		underlayPlayer = new FlxSprite(0, 0).makeGraphic(1, 1, FlxColor.BLACK);
 		underlayPlayer.scrollFactor.set();
@@ -1605,6 +1710,8 @@ class PlayState extends MusicBeatState
 		if (!inEditor) {
 			CustomFadeTransition.nextCamera = camOther;
 		}
+		// PUT HERE YOUR MODCHART THINGS
+		callOnScripts('onModChartCreate', []);
 	}
 
 	function set_songSpeed(value:Float):Float
@@ -1714,6 +1821,68 @@ class PlayState extends MusicBeatState
 				}
 		}
 	}
+
+	/*public function loadStage(stage:String)
+		{
+			#if LUA_ALLOWED
+			if (FileSystem.exists('assets/stages/$stage.lua'))
+			{
+				luaArray.push(new FunkinLua('assets/stages/$stage.lua'))
+			}
+			else if (FileSystem.exists('mods/stages/$stage.lua'))
+			{
+				luaArray.push(new FunkinLua('mods/stages$stage.lua'))
+			}
+			#end
+			#if HSCRIPT_ALLOWED
+			if (FileSystem.exists('assets/stages/$stage.hscript'))
+			{
+				addHscript('assets/stages/$stage.hscript');
+			}
+			if (FileSystem.exists('mods/stages/$stage.hscript'))
+			{
+				addHscript('mods/stages/$stage.hscript');
+			}
+			#end
+			StageData.getStageFile(stage);
+		    destroyStage = true;
+			modchartSprites.kill(); //for lua thing
+			}*/
+			// i dunno
+		/*public function removeLuaSprite(tag:String, destroy:Bool = true)
+			{
+				if (!PlayState.instance.modchartSprites.exists(tag)) {
+					return;
+				}
+				
+				var pee:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
+				if (destroy) {
+					pee.kill();
+				}
+	
+				if (pee.wasAdded) {
+					getInstance().remove(pee, true);
+					pee.wasAdded = false;
+				}
+	
+				if (destroy) {
+					pee.destroy();
+					PlayState.instance.modchartSprites.remove(tag);
+				}
+			}*/
+			// copyed from FunkinLua file
+		private function noteCombo():Void
+		{
+			var text:FlxText = new FlxText(12, FlxG.height - 44, 0, 'NOTE COMBO!', 12);
+			text.scrollFactor.set();
+			text.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			add(text);
+			//var mytimer:FlxTimer;
+			/*if (ClientPrefs.flashing)
+			{
+				FlxG.camera.flash(FlxColor.WHITE, 1); // funny
+			}*/
+		}
 
 	#if HSCRIPT_ALLOWED
 	var hscriptMap:Map<String, FunkinHscript> = new Map();
@@ -3534,6 +3703,7 @@ class PlayState extends MusicBeatState
 		if (!inEditor && generatedMusic && SONG.notes[curSection] != null && !endingSong && !isCameraOnForcedPos)
 		{
 			moveCameraSection(curSection);
+
 		}
 
 		if (!inEditor) {
@@ -4440,10 +4610,14 @@ class PlayState extends MusicBeatState
 		{
 			moveCamera(true);
 			callOnScripts('onMoveCamera', ['dad']);
+			/*if (songMisses = 0)
+			{
+				noteCombo(); //smart ass i guess
+			}*/
 		}
 		/*if (!SONG.notes[id].gfSection)
 		{
-			moveCamera(true);
+			//moveCamera(false);
 			callOnScripts('onMoveCamera', ['gf']);
 		}*/
 		else
@@ -5311,7 +5485,12 @@ class PlayState extends MusicBeatState
 			notes.remove(note, true);
 			note.destroy();
 		}
-	}
+	    var healthToTake:Float = 0.0005;
+		if (ClientPrefs.opponentHealthDrain)
+		{	
+			health = health - healthToTake;
+		}
+		}
 
 	function goodNoteHit(note:Note, ?keys:Array<FlxKey>):Void
 	{
@@ -6161,6 +6340,7 @@ class PlayState extends MusicBeatState
 			if (bads > 0 || shits > 0) ratingFC = "FC";
 			if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
 			else if (songMisses >= 10) ratingFC = "Clear";
+			//if (songMisses = 0) {noteCombo();}
 		}
 		setOnScripts('rating', ratingPercent);
 		setOnScripts('ratingName', ratingName);
