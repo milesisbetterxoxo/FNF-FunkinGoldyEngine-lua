@@ -1,7 +1,7 @@
 package;
 
 import flixel.FlxG;
-import openfl.*
+import openfl.*;
 
 class ModchartFunctions {
     public function resizeWindow(width, height)
