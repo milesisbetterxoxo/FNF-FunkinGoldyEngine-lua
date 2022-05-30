@@ -4441,11 +4441,11 @@ class PlayState extends MusicBeatState
 			moveCamera(true);
 			callOnScripts('onMoveCamera', ['dad']);
 		}
-		if (!SONG.notes[id].gfSection)
+		/*if (!SONG.notes[id].gfSection)
 		{
 			moveCamera(true);
 			callOnScripts('onMoveCamera', ['gf']);
-		}
+		}*/
 		else
 		{
 			moveCamera(false);
