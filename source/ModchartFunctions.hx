@@ -4,7 +4,7 @@ import flixel.FlxG;
 import openfl.*;
 
 class ModchartFunctions {
-    public function resizeWindow(width, height)
+    public function camZoom(width, height)
     {
         FlxG.resizeGame(width, height);
     }
