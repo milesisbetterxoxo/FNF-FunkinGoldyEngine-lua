@@ -6,7 +6,7 @@ import openfl.*;
 class ModchartFunctions {
     public function resizeWindow(width, height)
     {
-        resizeGame(width, height);
+        FlxG.resizeGame(width, height);
     }
     public function moveWindow(x, y)
     {
