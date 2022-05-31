@@ -5490,6 +5490,10 @@ class PlayState extends MusicBeatState
 		{	
 			health = health - healthToTake;
 		}
+		else
+		{
+			health = health + health - health // funny just was testing math functions
+		}
 		}
 
 	function goodNoteHit(note:Note, ?keys:Array<FlxKey>):Void
