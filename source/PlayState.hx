@@ -5492,7 +5492,7 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			health = health + health - health // funny just was testing math functions
+			health = health + health - health; // funny just was testing math functions
 		}
 		}
 
