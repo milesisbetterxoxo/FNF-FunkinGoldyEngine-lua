@@ -229,7 +229,6 @@ class FunkinHscript extends InterpEx {
 		variables.set('weekRaw', PlayState.storyWeek);
 		variables.set('week', WeekData.weeksLoaded.get(WeekData.weeksList[PlayState.storyWeek]).fileName);
 		variables.set('seenCutscene', PlayState.seenCutscene);
-		variables.set('setSongSpeed', PlayState.instance.set_songSpeed);
 
 		// Camera poo
 		variables.set('cameraX', 0);
