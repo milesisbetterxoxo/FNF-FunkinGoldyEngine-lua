@@ -1,15 +1,23 @@
 package;
 
+import haxe.CallStack.StackItem;
+import haxe.CallStack;
+import haxe.io.Path;
+import lime.app.Application;
+import flixel.graphics.FlxGraphic;
+import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
+import openfl.Assets;
 import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.display.StageScaleMode;
 import openfl.events.UncaughtErrorEvent;
-#if html5
-import flixel.FlxG;
-#end
+import sys.FileSystem;
+import sys.io.File;
+import sys.io.Process;
 
 class Main extends Sprite
 {
@@ -23,17 +31,16 @@ class Main extends Sprite
 	public static var fpsVar:FPS;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
-
-	public static function main():Void
+	
+	public function main():Void
 	{
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		Lib.current.addChild(new Main());
 	}
 
 	public function new()
 	{
 		super();
-
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
 		if (stage != null)
 		{
@@ -54,41 +61,7 @@ class Main extends Sprite
 
 		setupGame();
 	}
-
-	private function setupGame():Void
-	{
-		var stageWidth:Int = Lib.current.stage.stageWidth;
-		var stageHeight:Int = Lib.current.stage.stageHeight;
-
-		if (zoom == -1)
-		{
-			var ratioX:Float = stageWidth / gameWidth;
-			var ratioY:Float = stageHeight / gameHeight;
-			zoom = Math.min(ratioX, ratioY);
-			gameWidth = Math.ceil(stageWidth / zoom);
-			gameHeight = Math.ceil(stageHeight / zoom);
-		}
-
-		#if !debug
-		initialState = TitleState;
-		#end
-
-		ClientPrefs.setupDefaults();
-		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
-
-		#if !mobile
-		fpsVar = new FPS(10, 3, 0xFFFFFF);
-		addChild(fpsVar);
-		if (fpsVar != null) {
-			fpsVar.visible = ClientPrefs.showFPS;
-		}
-		#end
-
-		#if html5
-		FlxG.mouse.visible = false;
-		#end
-	}
-	function onCrash(e:UncaughtErrorEvent):Void
+	private function onCrash(e:UncaughtErrorEvent):Void
 		{
 			var errMsg:String = "";
 			var path:String;
@@ -98,7 +71,7 @@ class Main extends Sprite
 			dateNow = StringTools.replace(dateNow, " ", "_");
 			dateNow = StringTools.replace(dateNow, ":", "'");
 	
-			path = "./crash/" + "FE_" + dateNow + ".txt";
+			path = "./crash/" + "GE_" + dateNow + ".txt";
 	
 			for (stackItem in callStack)
 			{
@@ -111,7 +84,7 @@ class Main extends Sprite
 				}
 			}
 	
-			errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/cheblol/FNF-FunkinGoldyEngine-lua (or Forever Engine)";
+			errMsg += "\nUncaught Error: " + e.error;
 	
 			if (!FileSystem.exists("./crash/"))
 				FileSystem.createDirectory("./crash/");
@@ -121,7 +94,7 @@ class Main extends Sprite
 			Sys.println(errMsg);
 			Sys.println("Crash dump saved in " + Path.normalize(path));
 	
-			var crashDialoguePath:String = "CrashDialog";
+			var crashDialoguePath:String = "FE-CrashDialog";
 	
 			#if windows
 			crashDialoguePath += ".exe";
@@ -144,4 +117,42 @@ class Main extends Sprite
 	
 			Sys.exit(1);
 		}
+	private function setupGame():Void
+	{
+		var stageWidth:Int = Lib.current.stage.stageWidth;
+		var stageHeight:Int = Lib.current.stage.stageHeight;
+
+		if (zoom == -1)
+		{
+			var ratioX:Float = stageWidth / gameWidth;
+			var ratioY:Float = stageHeight / gameHeight;
+			zoom = Math.min(ratioX, ratioY);
+			gameWidth = Math.ceil(stageWidth / zoom);
+			gameHeight = Math.ceil(stageHeight / zoom);
+		}
+
+		#if !debug
+		initialState = TitleState;
+		#end
+	
+		ClientPrefs.loadDefaultKeys();
+		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+
+		#if !mobile
+		fpsVar = new FPS(10, 3, 0xFFFFFF);
+		addChild(fpsVar);
+		Lib.current.stage.align = "tl";
+		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+		if(fpsVar != null) {
+			fpsVar.visible = ClientPrefs.showFPS;
+		}
+		#end
+
+		#if html5
+		FlxG.autoPause = false;
+		FlxG.mouse.visible = false;
+		#end
+	}
+	
+
 }
