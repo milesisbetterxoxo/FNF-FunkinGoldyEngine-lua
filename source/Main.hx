@@ -6,6 +6,7 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.events.UncaughtErrorEvent;
 #if html5
 import flixel.FlxG;
 #end
