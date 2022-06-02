@@ -15,7 +15,7 @@ class OutdatedState extends MusicBeatState
 {
 	public static var leftState:Bool = false;
 
-	var updateVersion = TitleState.updateVersion
+	var updateVersion = TitleState.updateVersion;
 
 	var warnText:FlxText;
 	override function create()
