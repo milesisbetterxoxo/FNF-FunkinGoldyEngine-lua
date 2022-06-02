@@ -13,8 +13,13 @@ import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import haxe.Json;
+#if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
+#else 
+import openfl.utils.Assets;
+#end
+
 //import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
@@ -123,7 +128,7 @@ class TitleState extends MusicBeatState
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
-				var curVersion:String = MainMenuState.psychEngineVersion.trim();
+				var curVersion:String = MainMenuState.engineVersion.trim();
 				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
 				if(updateVersion != curVersion) {
 					trace('versions arent matching!');
@@ -496,7 +501,17 @@ class TitleState extends MusicBeatState
 		super.beatHit();
 
 		if(logoBl != null) 
+		{
 			logoBl.animation.play('bump');
+			if (curBeat % PlayState.iconBopSpeed == 0) {
+				curBeat % (PlayState.iconBopSpeed * 2) == 0 ? {
+	
+					FlxTween.angle(logoBl, -15, 0, Conductor.crochet / 1300 * PlayState.iconBopSpeed, {ease: FlxEase.quadOut});
+				} : {
+					FlxTween.angle(logoBl, -15, 0, Conductor.crochet / 1300 * PlayState.iconBopSpeed, {ease: FlxEase.quadOut});
+				}
+		    }
+	    }
 
 		if(gfDance != null) {
 			danceLeft = !danceLeft;
@@ -511,6 +526,7 @@ class TitleState extends MusicBeatState
 			sickBeats++;
 			switch (sickBeats)
 			{
+				#if WATERMARKS_ALLOWED
 				case 1:
 					createCoolText(['Goldy Engine by'], 15);
 				// credTextShit.visible = true;
@@ -526,11 +542,11 @@ class TitleState extends MusicBeatState
 				// credTextShit.text = 'In association \nwith';
 				// credTextShit.screenCenter();
 				case 5:
-					createCoolText(['This is a mod to'], -60);
+					createCoolText(['This is a engine to'], -60);
 				case 7:
-					addMoreText('This game right below lol', -60);
-					logoSpr.visible = true;
+					addMoreText('Friday Night Funkin', -60);
 				// credTextShit.text += '\nNewgrounds';
+				#end
 				case 8:
 					deleteCoolText();
 					logoSpr.visible = false;
