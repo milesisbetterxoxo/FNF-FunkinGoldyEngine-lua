@@ -123,7 +123,7 @@ class TitleState extends MusicBeatState
 		#if CHECK_FOR_UPDATES
 		if(!closedState) {
 			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/cheblol/FNF-FunkinGoldyEngine/main/gitVersion.txt");
+			var http = new haxe.Http("https://raw.githubusercontent.com/cheblol/FNF-FunkinGoldyEngine-lua/main/gitVersion.txt");
 			
 			http.onData = function (data:String)
 			{
@@ -513,7 +513,7 @@ class TitleState extends MusicBeatState
 		    }
 	    }
 
-		if(gfDance != null) {
+		if(gfDance != null) {f
 			danceLeft = !danceLeft;
 
 			if (danceLeft)
