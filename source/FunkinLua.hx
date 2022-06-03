@@ -191,6 +191,8 @@ class FunkinLua {
 		set('buildTarget', 'browser');
 		#elseif android
 		set('buildTarget', 'android');
+		#elseif windows32
+		set('buildTarget', 'windows-32-bit')
 		#else
 		set('buildTarget', 'unknown');
 		#end
@@ -261,7 +263,7 @@ class FunkinLua {
 			return true;
 		});
 
-		Lua_helper.add_callback(lua, "changeWindowTitle", function(title:String = 'Friday Night Funkin\': Psych Engine Extra') {
+		Lua_helper.add_callback(lua, "changeWindowTitle", function(title:String = 'Friday Night Funkin\'') {
 			Application.current.window.title = title;
 		});
 		Lua_helper.add_callback(lua, "changeWindowIcon", function(image:String) {
