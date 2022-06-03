@@ -508,7 +508,7 @@ class TitleState extends MusicBeatState
 	
 					FlxTween.angle(logoBl, -15, 0, Conductor.crochet / 1300 * PlayState.iconBopSpeed, {ease: FlxEase.quadOut});
 				} : {
-					FlxTween.angle(logoBl, -15, 0, Conductor.crochet / 1300 * PlayState.iconBopSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(logoBl, 30, 0, Conductor.crochet / 1300 * PlayState.iconBopSpeed, {ease: FlxEase.quadOut});
 				}
 		    }
 	    }
