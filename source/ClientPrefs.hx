@@ -40,6 +40,7 @@ class ClientPrefs {
 	public static var shitMisses:Bool = true;
 	public static var smoothHealth:Bool = true;
 	public static var opponentHealthDrain:Bool = true;
+	public static var skipIntro:Bool = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
