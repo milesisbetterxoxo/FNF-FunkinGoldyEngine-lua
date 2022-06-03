@@ -200,7 +200,7 @@ class PlayState extends MusicBeatState
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var cameraSpeed:Float = 1;
-	public var iconBopSpeed:Int = 1;
+	public static var iconBopSpeed:Int = 1;
 
 	var dialogue:Array<String> = null;
 	var dialogueJson:DialogueFile = null;
@@ -1647,10 +1647,16 @@ class PlayState extends MusicBeatState
 					}
 				case 'senpai' | 'roses' | 'thorns':
 					if (curSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
+					if (!controls.ACCEPT && !ClientPrefs.skipIntro)
+					{
 					schoolIntro(doof);
+					}
 
 				default:
-					startCountdown();
+					if (!controls.ACCEPT && !ClientPrefs.skipIntro)
+					{
+				    startCountdown();
+					}
 			}
 			seenCutscene = true;
 		} else {
@@ -2562,6 +2568,7 @@ class PlayState extends MusicBeatState
 			if (OpenFlAssets.exists(fileName)) {
 			#end
 				foundFile = true;
+
 			}
 		}
 
@@ -3553,6 +3560,10 @@ class PlayState extends MusicBeatState
 					FlxVideo.skipText.alpha = 0;
 					skipCutsceneHold = 0;
 				}
+			}
+			if (controls.ACCEPT && ClientPrefs.skipIntro)
+			{
+				video = null;
 			}
 			#end
 
@@ -5485,14 +5496,11 @@ class PlayState extends MusicBeatState
 			notes.remove(note, true);
 			note.destroy();
 		}
-	    var healthToTake:Float = 0.0005;
 		if (ClientPrefs.opponentHealthDrain)
 		{	
-			health = health - healthToTake;
-		}
-		else
-		{
-			health = health + health - health; // funny just was testing math functions
+			health = health - note.hitHealth;
+			if (healthBar.percent < 20)
+				health = note.hitHealth * 1.5;
 		}
 		}
 
@@ -5879,7 +5887,7 @@ class PlayState extends MusicBeatState
 		}
 
 		//reset window to before lua messed with it
-		Application.current.window.title = lastTitle;
+		Application.current.window.title = 'Friday Night Funkin\'';
 		CoolUtil.setWindowIcon();
 
 		super.destroy();
@@ -5916,6 +5924,25 @@ class PlayState extends MusicBeatState
 		lastStepHit = curStep;
 		setOnScripts('curStep', curStep);
 		callOnScripts('onStepHit', []);
+		if (ClientPrefs.skipIntro && controls.ACCEPT)
+		{
+            skipCountdown = true;
+		    if (FileSystem.exists(Paths.getPreloadPath('data/$curSong/dialogue.json')))
+			{
+				psychDialogue = null;
+				dialogueJson = null;
+			}
+			var text = new FlxText(0, FlxG.height * 0.89 + 36, FlxG.width, "", 20);
+			text.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.scrollFactor.set();
+			text.borderSize = 1.25;
+			text.visible = true;
+			add(text);
+			var timer = new haxe.Timer(2000);
+            var now = Date.now();
+            timer.run = function() {text.visible = false; }
+            timer.stop;
+		}
 	}
 
 	var lightningStrikeBeat:Int = 0;
