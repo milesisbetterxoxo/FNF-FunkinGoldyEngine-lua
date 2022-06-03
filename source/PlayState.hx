@@ -1647,16 +1647,11 @@ class PlayState extends MusicBeatState
 					}
 				case 'senpai' | 'roses' | 'thorns':
 					if (curSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
-					if (!controls.ACCEPT && !ClientPrefs.skipIntro)
-					{
-					schoolIntro(doof);
-					}
+					    schoolIntro(doof);
+
 
 				default:
-					if (!controls.ACCEPT && !ClientPrefs.skipIntro)
-					{
 				    startCountdown();
-					}
 			}
 			seenCutscene = true;
 		} else {
@@ -3561,10 +3556,10 @@ class PlayState extends MusicBeatState
 					skipCutsceneHold = 0;
 				}
 			}
-			if (controls.ACCEPT && ClientPrefs.skipIntro)
+			/*if (controls.ACCEPT && ClientPrefs.skipIntro)
 			{
 				video = null;
-			}
+			}*/
 			#end
 
 			if (FlxG.keys.justPressed.NINE)
@@ -3768,16 +3763,26 @@ class PlayState extends MusicBeatState
 				health = 2;
 
 			var stupidIcons:Array<HealthIcon> = [iconP1, iconP2];
-			if (opponentChart) stupidIcons = [iconP2, iconP1];
+			// NEW HEALTH SYSTEM
+			if (health > 2)
+				health = 2;
 			if (healthBar.percent < 20)
-				stupidIcons[0].animation.curAnim.curFrame = 1;
-			else
-				stupidIcons[0].animation.curAnim.curFrame = 0;
-
-			if (healthBar.percent > 80)
-				stupidIcons[1].animation.curAnim.curFrame = 1;
-			else
-				stupidIcons[1].animation.curAnim.curFrame = 0;
+				iconP1.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent > 20 && healthBar.percent < 80)
+				iconP1.animation.curAnim.curFrame = 0;
+			else if (healthBar.percent > 80)
+				iconP1.animation.curAnim.curFrame = 2;
+		
+			switch(SONG.player2)
+			{
+				default:
+					if (healthBar.percent < 20)
+						iconP2.animation.curAnim.curFrame = 2;
+					else if (healthBar.percent > 20 && healthBar.percent < 80)
+						iconP2.animation.curAnim.curFrame = 0;
+					else if (healthBar.percent > 80)
+						iconP2.animation.curAnim.curFrame = 1;
+			} 
 
 			#if desktop
 			if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
@@ -5924,7 +5929,7 @@ class PlayState extends MusicBeatState
 		lastStepHit = curStep;
 		setOnScripts('curStep', curStep);
 		callOnScripts('onStepHit', []);
-		if (ClientPrefs.skipIntro && controls.ACCEPT)
+		/*if (ClientPrefs.skipIntro && controls.ACCEPT)
 		{
             skipCountdown = true;
 		    if (FileSystem.exists(Paths.getPreloadPath('data/$curSong/dialogue.json')))
@@ -5932,7 +5937,7 @@ class PlayState extends MusicBeatState
 				psychDialogue = null;
 				dialogueJson = null;
 			}
-			var text = new FlxText(0, FlxG.height * 0.89 + 36, FlxG.width, "", 20);
+			var text = new FlxText(0, FlxG.height * 0.89 + 36, FlxG.width, "Press ACCEPT to skip intro", 20);
 			text.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.scrollFactor.set();
 			text.borderSize = 1.25;
@@ -5942,7 +5947,7 @@ class PlayState extends MusicBeatState
             var now = Date.now();
             timer.run = function() {text.visible = false; }
             timer.stop;
-		}
+		}*/
 	}
 
 	var lightningStrikeBeat:Int = 0;
