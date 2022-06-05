@@ -38,7 +38,7 @@ class HealthIcon extends FlxSprite
 
 	public function swapOldIcon() {
 		if (!isOldIcon) changeIcon('bf-old', 'default');
-		else changeIcon(originalChar);
+		else changeIcon(originalChar, 'default');
 	}
 
 	private var iconOffsets:Array<Float> = [0, 0];
@@ -77,13 +77,9 @@ class HealthIcon extends FlxSprite
 			isOldIcon = (char == 'bf-old');
 		}
 	}*/
-	public function changeIcon(char:String, curAnim:String = 'default') // NEW VERSION
+	public function changeIcon(char:String, curAnim:String) // NEW VERSION
 	{
-		if (this.char != char) {
 			var name:String = 'icons/$char/$curAnim';
-			if (!Paths.fileExists('images/$name.png', IMAGE)) {
-				name = 'icons/icon-$char'; //Older versions of psych engine's support
-			}
 			if (!Paths.fileExists('images/$name.png', IMAGE)) {
 				name = 'icons/face/default'; //Prevents crash from missing icon
 				if (!CharacterEditorState.inEditor)
@@ -109,16 +105,6 @@ class HealthIcon extends FlxSprite
 			}
 
 			isOldIcon = (char == 'bf-old');
-
-			if (!FileSystem.exists('assets/images/icons/$char/win.png') /*|| !FileSystem.exists('mods/images/icons/$char/win.png')*/)
-			{
-				hasWinIcon = false;
-			}
-			if (!FileSystem.exists('assets/images/icons/$char/lose.png')/*|| !FileSystem.exists('mods/images/icons/$char/lose.png')*/)
-			{
-				hasLoseIcon = false;
-			}
-		}
 	}
 
 	override function updateHitbox()
