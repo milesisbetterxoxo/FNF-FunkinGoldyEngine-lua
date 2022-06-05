@@ -3766,22 +3766,22 @@ class PlayState extends MusicBeatState
 			// NEW HEALTH SYSTEM
 			if (health > 2)
 				health = 2;
-			if (healthBar.percent < 20)
-				iconP1.animation.curAnim.curFrame = 1;
+			if (healthBar.percent < 20 && iconP1.hasLoseIcon)
+				iconP1.changeIcon(boyfriend.healthIcon, 'lose');
 			else if (healthBar.percent > 20 && healthBar.percent < 80)
-				iconP1.animation.curAnim.curFrame = 0;
-			else if (healthBar.percent > 80)
-				iconP1.animation.curAnim.curFrame = 2;
+				iconP1.changeIcon(boyfriend.healthIcon, 'default');
+			else if (healthBar.percent > 80 && iconP1.hasWinIcon) // yeah
+				iconP1.changeIcon(boyfriend.healthIcon, 'win');
 		
 			switch(SONG.player2)
 			{
 				default:
 					if (healthBar.percent < 20)
-						iconP2.animation.curAnim.curFrame = 2;
+						iconP2.changeIcon(dad.healthIcon, 'win');
 					else if (healthBar.percent > 20 && healthBar.percent < 80)
-						iconP2.animation.curAnim.curFrame = 0;
-					else if (healthBar.percent > 80)
-						iconP2.animation.curAnim.curFrame = 1;
+						iconP2.changeIcon(dad.healthIcon, 'default')
+					else if (healthBar.percent > 80 && iconP2.hasLoseIcon)
+						iconP2.changeIcon(dad.healthIcon, 'lose');
 			} 
 
 			#if desktop
@@ -4513,7 +4513,7 @@ class PlayState extends MusicBeatState
 							makeDoubleTrail(boyfriendGroup.members[index], 'bf$index', true, index, boyfriendGroup);
 							boyfriend = boyfriendGroup.members[0];
 							if (boyfriendGroup.members.length == 1) {
-								iconP1.changeIcon(boyfriend.healthIcon);
+								iconP1.changeIcon(boyfriend.healthIcon, 'default');
 							}
 							setOnScripts('boyfriendName', boyfriend.curCharacter);
 							setOnHscripts('boyfriend', boyfriend);
@@ -4545,7 +4545,7 @@ class PlayState extends MusicBeatState
 							makeDoubleTrail(dadGroup.members[index], 'dad$index', false, index, dadGroup);
 							dad = dadGroup.members[0];
 							if (dadGroup.members.length == 1) {
-								iconP2.changeIcon(dad.healthIcon);
+								iconP2.changeIcon(dad.healthIcon, 'default');
 							}
 							setOnScripts('dadName', dad.curCharacter);
 							setOnHscripts('dad', dad);
@@ -5504,8 +5504,7 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.opponentHealthDrain)
 		{	
 			health = health - note.hitHealth;
-			if (healthBar.percent < 20)
-				health = note.hitHealth * 1.5;
+			if (healthBar.percent < 15) health = health + note.hitHealth;
 		}
 		}
 
