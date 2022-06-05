@@ -1012,13 +1012,13 @@ class FunkinLua {
 			daIcon.scale.set(1.2, 1.2);
 			daIcon.updateHitbox();
 		});
-		Lua_helper.add_callback(lua, "changeIcon", function(icon:String = '', char:String = 'bf') {
+		Lua_helper.add_callback(lua, "changeIcon", function(icon:String = '', char:String = 'bf', curAnim:String = 'default') {
 			var daIcon = PlayState.instance.iconP1;
 			switch (icon) {
 				case 'p2' | '2' | 'dad' | 'opponent' | 'player2':
 					daIcon = PlayState.instance.iconP2;
 			}
-			daIcon.changeIcon(char);
+			daIcon.changeIcon(char, curAnim);
 		});
 		Lua_helper.add_callback(lua, "setHealthBarColors", function(left:String = '0xFFFF0000', right:String = '0xFF66FF33') {
 			var leftColorNum:Int = Std.parseInt(left);
