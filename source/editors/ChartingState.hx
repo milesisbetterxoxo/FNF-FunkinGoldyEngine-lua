@@ -2442,7 +2442,7 @@ class ChartingState extends MusicBeatState
 		{
 			leftIcon.changeIcon(healthIconP1, 'default');
 			rightIcon.changeIcon(healthIconP2, 'default');
-			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
+			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf', 'default);
 		}
 		else
 		{
