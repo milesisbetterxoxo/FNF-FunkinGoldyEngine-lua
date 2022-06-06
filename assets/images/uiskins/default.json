@@ -1,0 +1,444 @@
+{
+	"mania": [
+		{
+			"keys": 1,
+			"noteSize": 0.7,
+			"noteSpacing": 112,
+			"xOffset": 222,
+			"colors": [
+				"center"
+			],
+			"directions": [
+				"CENTER"
+			],
+			"singAnimations": [
+				"singUP"
+			]
+		},
+		{
+			"keys": 2,
+			"noteSize": 0.7,
+			"noteSpacing": 112,
+			"xOffset": 166,
+			"colors": [
+				"left",
+				"right"
+			],
+			"directions": [
+				"LEFT",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 3,
+			"noteSize": 0.7,
+			"noteSpacing": 112,
+			"xOffset": 110,
+			"colors": [
+				"left",
+				"center",
+				"right"
+			],
+			"directions": [
+				"LEFT",
+				"CENTER",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singUP",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 4,
+			"noteSize": 0.7,
+			"noteSpacing": 112,
+			"xOffset": 54,
+			"colors": [
+				"left",
+				"down",
+				"up",
+				"right"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 5,
+			"noteSize": 0.7,
+			"noteSpacing": 112,
+			"xOffset": -2,
+			"colors": [
+				"left",
+				"down",
+				"center",
+				"up",
+				"right"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"CENTER",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singUP",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 6,
+			"noteSize": 0.6,
+			"noteSpacing": 96,
+			"xOffset": -10,
+			"colors": [
+				"left",
+				"up",
+				"right",
+				"left2",
+				"down",
+				"right2"
+			],
+			"directions": [
+				"LEFT",
+				"UP",
+				"RIGHT",
+				"LEFT",
+				"DOWN",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singDOWN",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 7,
+			"noteSize": 0.5,
+			"noteSpacing": 80,
+			"xOffset": -2,
+			"colors": [
+				"left",
+				"up",
+				"right",
+				"center",
+				"left2",
+				"down",
+				"right2"
+			],
+			"directions": [
+				"LEFT",
+				"UP",
+				"RIGHT",
+				"CENTER",
+				"LEFT",
+				"DOWN",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singUP",
+				"singRIGHT",
+				"singUP",
+				"singLEFT",
+				"singDOWN",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 8,
+			"noteSize": 0.45,
+			"noteSpacing": 72,
+			"xOffset": -10,
+			"colors": [
+				"left",
+				"down",
+				"up",
+				"right",
+				"left2",
+				"down2",
+				"up2",
+				"right2"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT",
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 9,
+			"noteSize": 0.4,
+			"noteSpacing": 64,
+			"xOffset": -10,
+			"colors": [
+				"left",
+				"down",
+				"up",
+				"right",
+				"center",
+				"left2",
+				"down2",
+				"up2",
+				"right2"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT",
+				"CENTER",
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT",
+				"singUP",
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 10,
+			"noteSize": 0.35,
+			"noteSpacing": 56,
+			"xOffset": -2,
+			"colors": [
+				"left",
+				"down",
+				"up",
+				"right",
+				"left3",
+				"right3",
+				"left2",
+				"down2",
+				"up2",
+				"right2"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT",
+				"LEFT2",
+				"RIGHT2",
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singRIGHT",
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 11,
+			"noteSize": 0.33,
+			"noteSpacing": 52.8,
+			"xOffset": -12,
+			"colors": [
+				"left",
+				"down",
+				"up",
+				"right",
+				"left3",
+				"center",
+				"right3",
+				"left2",
+				"down2",
+				"up2",
+				"right2"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT",
+				"LEFT2",
+				"CENTER",
+				"RIGHT2",
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 12,
+			"noteSize": 0.3,
+			"noteSpacing": 48,
+			"xOffset": -10,
+			"colors": [
+				"left",
+				"down",
+				"up",
+				"right",
+				"left3",
+				"down3",
+				"up3",
+				"right3",
+				"left2",
+				"down2",
+				"up2",
+				"right2"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT",
+				"LEFT2",
+				"DOWN2",
+				"UP2",
+				"RIGHT2",
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT"
+			]
+		},
+		{
+			"keys": 13,
+			"noteSize": 0.27,
+			"noteSpacing": 43.2,
+			"xOffset": -3,
+			"colors": [
+				"left",
+				"down",
+				"up",
+				"right",
+				"left3",
+				"down3",
+				"center",
+				"up3",
+				"right3",
+				"left2",
+				"down2",
+				"up2",
+				"right2"
+			],
+			"directions": [
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT",
+				"LEFT2",
+				"DOWN2",
+				"CENTER",
+				"UP2",
+				"RIGHT2",
+				"LEFT",
+				"DOWN",
+				"UP",
+				"RIGHT"
+			],
+			"singAnimations": [
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singUP",
+				"singRIGHT",
+				"singLEFT",
+				"singDOWN",
+				"singUP",
+				"singRIGHT"
+			]
+		}
+	],
+	"scale": 1,
+	"noteScale": 1,
+	"sustainYScale": 1,
+	"countdownScale": 1,
+	"ratingScale": 0.7,
+	"comboNumScale": 0.5,
+	"sustainXOffset": 0,
+	"downscrollTailYOffset": -19,
+	"noAntialiasing": false,
+	"isPixel": false,
+	"introSoundsSuffix": ""
+}
