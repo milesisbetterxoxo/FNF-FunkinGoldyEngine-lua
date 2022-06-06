@@ -3763,24 +3763,36 @@ class PlayState extends MusicBeatState
 				health = 2;
 
 			var stupidIcons:Array<HealthIcon> = [iconP1, iconP2];
+
+			var iconP2Name = boyfriend.healthIcon;
+			var iconP1Name = dad.healthIcon;
+			var currentModDirectory = Paths.currentModDirectory;
+			if (Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+			{
+				currentModDirectory = currentModDirectory + '/';
+			}
+			var boyfriendHasWinIcon = Paths.fileExists('images/icons/$iconP2Name/win.png', IMAGE);
+			var boyfriendHasLoseIcon = Paths.fileExists('images/icons/$iconP2Name/lose.png', IMAGE);
+			var dadHasWinIcon = Paths.fileExists('images/icons/$iconP1Name/win.png', IMAGE);
+			var dadHasLoseIcon = Paths.fileExists('images/icons/$iconP1Name/lose.png', IMAGE);
 			// NEW HEALTH SYSTEM
 			if (health > 2)
 				health = 2;
-			if (healthBar.percent < 20 && iconP1.hasLoseIcon)
+			if (healthBar.percent < 20 && boyfriendHasLoseIcon)
 				iconP1.changeIcon(boyfriend.healthIcon, 'lose');
 			else if (healthBar.percent > 20 && healthBar.percent < 80)
 				iconP1.changeIcon(boyfriend.healthIcon, 'default');
-			else if (healthBar.percent > 80 && iconP1.hasWinIcon) // yeah
+			else if (healthBar.percent > 80 && boyfriendHasWinIcon) // yeah
 				iconP1.changeIcon(boyfriend.healthIcon, 'win');
 		
 			switch(SONG.player2)
 			{
 				default:
-					if (healthBar.percent < 20)
+					if (healthBar.percent < 20 && dadHasWinIcon)
 						iconP2.changeIcon(dad.healthIcon, 'win');
 					else if (healthBar.percent > 20 && healthBar.percent < 80)
 						iconP2.changeIcon(dad.healthIcon, 'default')
-					else if (healthBar.percent > 80 && iconP2.hasLoseIcon)
+					else if (healthBar.percent > 80 && dadHasLoseIcon)
 						iconP2.changeIcon(dad.healthIcon, 'lose');
 			} 
 
