@@ -44,26 +44,25 @@
 
 	<classpath name="source" />
 	
-	<!-- PSYCH ENGINE CUSTOMIZATION -->
-	<define name="MODS_ALLOWED" if="desktop" />
+	<!-- GOLDY ENGINE CUSTOMIZATION -->
+	<define name="MODS_ALLOWED" if="desktop" unless="html5" />>
 	<define name="LUA_ALLOWED" if="desktop" />
 	<define name="HSCRIPT_ALLOWED" />
 	<define name="DISCORD_ALLOWED" if="desktop" />
 	<define name="ACHIEVEMENTS_ALLOWED" />
 	<define name="VIDEOS_ALLOWED" if="web || windows" unless="32bits"/>
 	<define name="HIGHSCORE_ALLOWED" unless="switch"/>
-	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
+	<define name="WATERMARKS_ALLOWED"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
 	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
+	<define name="CHECK_FOR_UPDATES"/>
+	<define name='MODCHART_FUNCTIONS_ALLOWED'/>
 
-	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
-	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
+	<assets path="assets/" rename="assets" exclude="*.ogg" if="web"/>
+	<assets path="assets/" rename="assets" exclude="*.mp3"  unless="web"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets" exclude="*.ogg" if="web"/>
 		<assets path="assets/secrets" rename="assets" exclude="*.mp3"  unless="web"/>
 	</section>
-
-	<!-- DONT ENABLE THIS -->
-	<define name="CHECK_FOR_UPDATES" if="desktop officialBuild"/>
 
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
@@ -129,6 +128,9 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="hscript" />
 	<haxelib name="hscript-ex" />
+
+	<!--modchart functions funny-->
+	<haxelib name="MoveOpenFLWindow" />
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
