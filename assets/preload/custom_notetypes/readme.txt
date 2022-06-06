@@ -1,1 +1,0 @@
-Add your custom note type's script file here
