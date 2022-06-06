@@ -1,0 +1,2 @@
+Add .lua and .hscript scripts here! You can add them within other scripts with the "addLuaScript" function. ("addScript" for hscript)
+Scripts in this folder will be loaded on all songs, no matter the difficulty, song name, week or anything.
