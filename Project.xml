@@ -130,7 +130,7 @@
 	<haxelib name="hscript-ex" />
 
 	<!--modchart functions funny-->
-	<haxelib name="MoveOpenFLWindow" />
+	<!--never mind-->
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
