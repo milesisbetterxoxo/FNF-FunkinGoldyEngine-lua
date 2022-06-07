@@ -1,4 +1,4 @@
- package;
+package;
 
 #if DISCORD_ALLOWED
 import Discord.DiscordClient;
@@ -24,7 +24,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var engineVersion:String = '0.5.8'; //This is also used for Discord RPC
+	public static var engineVersion:String = '0.6.0'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
