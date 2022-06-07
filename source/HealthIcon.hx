@@ -14,8 +14,6 @@ class HealthIcon extends FlxSprite
 	private var isPlayer:Bool = false;
 	public var char:String = ''; // makin it public cuz for playstate support
 	var originalChar:String = 'bf-old';
-	public var psychIcon:Bool = false;
-	var Any:Any; // cuz idk $ cant load abstract only var
 	public var hasWinIcon = true;
 	public var hasLoseIcon = true;
 
@@ -79,17 +77,16 @@ class HealthIcon extends FlxSprite
 	}*/
 	public function changeIcon(char:String, curAnim:String) // NEW VERSION
 	{
+		if (this.char != char) {
 			var name:String = 'icons/$char/$curAnim';
 			if (!Paths.fileExists('images/$name.png', IMAGE)) {
 				name = 'icons/face/default'; //Prevents crash from missing icon
-				if (!CharacterEditorState.inEditor)
-					FlxG.log.warn('Couldn\'t find icon file for $char!');
-				    FlxG.log.warn('Using the crash prevent icon, which is face!');
+				FlxG.log.warn('$name doesnt exist! Using face icon instead.');
 			}
 			var file = Paths.image(name);
 
 			loadGraphic(file); //Load stupidly first for getting the file size
-			loadGraphic(file, true, 150, 150); //Then load it fr
+			loadGraphic(file, true, Math.floor(width / 1), Math.floor(height)); //Then load it fr
 			iconOffsets[0] = (width - 150) / 1;
 			updateHitbox();
 
@@ -105,6 +102,15 @@ class HealthIcon extends FlxSprite
 			}
 
 			isOldIcon = (char == 'bf-old');
+			if (!Paths.fileExists('images/icons/$char/win.png', IMAGE))
+			{
+				hasWinIcon = false;
+			}
+			if (!Paths.fileExists('images/icons/$char/lose.png', IMAGE))
+			{
+				hasLoseIcon = false;
+			}
+		}
 	}
 
 	override function updateHitbox()
