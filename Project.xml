@@ -69,6 +69,8 @@
 	<library name="videos"        preload="true" />
 	<section if="PRELOAD_ALL">
 		<library name="songs"         preload="true" />
+		<library name="data"         preload="true" />
+
 		<library name="shared"        preload="true" />
 		<library name="week2"         preload="true" />
 		<library name="week3"         preload="true" />
