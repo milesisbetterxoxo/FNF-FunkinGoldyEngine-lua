@@ -183,12 +183,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			);
 		addOption(option);
 
-		var option:Option = new Option('Skip Intro',
-		'If checked, the intro will skip. (skip dialogue, countdown, cutscene.)',
-		'skipIntro',
-		'bool',
-		true
-		);
+		var option:Option = new Option('UI From:',
+			'',
+			'moreShit',
+			'string',
+			'Goldy',
+			['Goldy', 'Ice']);
 		addOption(option);
 
 		super();
