@@ -181,7 +181,8 @@ class TitleState extends MusicBeatState
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingState());
-		} else {
+		} 
+		else {
 			#if desktop
 			DiscordClient.initialize();
 			Application.current.onExit.add (function (exitCode) {
@@ -399,7 +400,10 @@ class TitleState extends MusicBeatState
 					if (mustUpdate) {
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
+						if (ClientPrefs.moreShit == 'Ice')
 						MusicBeatState.switchState(new MainMenuState());
+						else if (ClientPrefs.moreShit == 'Goldy')
+						MusicBeatState.switchState(new MainMenuStateGoldy());
 					}
 					closedState = true;
 				});
