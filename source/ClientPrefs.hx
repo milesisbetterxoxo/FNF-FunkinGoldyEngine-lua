@@ -31,7 +31,7 @@ class ClientPrefs {
 	public static var underlayAlpha:Float = 0;
 	public static var instantRestart:Bool = false;
 	public static var flashingAmount:Float = 1;
-	public static var moreShit:String = 'Goldy'
+	public static var moreShit:String = 'Goldy';
 	#if !html5
 	public static var autoPause:Bool = true;
 	#else
