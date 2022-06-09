@@ -846,7 +846,8 @@ class PlayState extends MusicBeatState
 									bgGirls.kill();
 								}
 							}*/
-
+							if (ClientPrefs.gameQuality == 'Normal') if (FileSystem.exists('assets/week6/scripts/shader.lua')) luaArray.push(new FunkinLua('assets/week6/scripts/shader.lua'));
+						
 					case 'schoolEvil': //Week 6 - Thorns
 						GameOverSubState.deathSoundName = 'fnf_loss_sfx-pixel';
 						GameOverSubState.loopSoundName = 'gameOver-pixel';
@@ -885,6 +886,7 @@ class PlayState extends MusicBeatState
 									bg.kill();
 								}
 							}*/
+						if (ClientPrefs.gameQuality == 'Normal') if (FileSystem.exists('assets/week6/scripts/shader.lua')) luaArray.push(new FunkinLua('assets/week6/scripts/shader.lua'));
 				}
 			}
 		}
@@ -1359,7 +1361,7 @@ class PlayState extends MusicBeatState
 			FlxG.fixedTimestep = false;
 			moveCameraSection(0);
 
-			healthBarBG = new AttachedSprite(UIData.checkImageFile('healthBar', uiSkinMap.get('healthBar')));
+			/*healthBarBG = new AttachedSprite(UIData.checkImageFile('healthBar', uiSkinMap.get('healthBar')));
 			healthBarBG.y = FlxG.height * 0.89;
 			healthBarBG.screenCenter(X);
 			healthBarBG.scrollFactor.set();
@@ -1376,7 +1378,7 @@ class PlayState extends MusicBeatState
 			healthBar.alpha = ClientPrefs.healthBarAlpha;
 			healthBar.numDivisions = 600;
 			add(healthBar);
-			healthBarBG.sprTracker = healthBar;
+			healthBarBG.sprTracker = healthBar;*/
 
 			if (bfGroupFile != null) {
 				iconP1 = new HealthIcon(bfGroupFile.healthicon, true);
@@ -2723,6 +2725,17 @@ class PlayState extends MusicBeatState
 	var startTimer:FlxTimer;
 	var endingTimer:FlxTimer = null;
 
+	// sum modchart shit
+	public function addObject(object:FlxBasic)
+	{
+		add(object);
+	}
+	
+	public function removeObject(object:FlxBasic)
+	{
+		remove(object);
+	}
+	
 	// For being able to mess with the sprites on Lua
 	public var countdownReady:FlxSprite;
 	public var countdownSet:FlxSprite;
@@ -3763,24 +3776,30 @@ class PlayState extends MusicBeatState
 				health = 2;
 
 			var stupidIcons:Array<HealthIcon> = [iconP1, iconP2];
+			var bfIconName = boyfriend.healthIcon;
+			var dadIconName = dad.healthIcon;
+			var bfHasLoseIcon = Paths.fileExists('images/icons/$bfIconName/lose.png', IMAGE);
+			var bfHasWinIcon = Paths.fileExists('images/icons/$bfIconName/win.png', IMAGE);
+			var dadHasLoseIcon = Paths.fileExists('images/icons/$dadIconName/lose.png', IMAGE);
+			var dadHasWinIcon = Paths.fileExists('images/icons/$dadIconName/win.png', IMAGE);
 			// NEW HEALTH SYSTEM
 			if (health > 2)
 				health = 2;
-			if (healthBar.percent < 20 && iconP1.hasLoseIcon)
+			if (healthBar.percent < 20 && bfHasLoseIcon)
 				iconP1.changeIcon(boyfriend.healthIcon, 'lose');
 			else if (healthBar.percent > 20 && healthBar.percent < 80)
 				iconP1.changeIcon(boyfriend.healthIcon, 'default');
-			else if (healthBar.percent > 80 && iconP1.hasWinIcon) // yeah
+			else if (healthBar.percent > 80 && bfHasWinIcon) // yeah
 				iconP1.changeIcon(boyfriend.healthIcon, 'win');
 		
 			switch(SONG.player2)
 			{
 				default:
-					if (healthBar.percent < 20)
+					if (healthBar.percent < 20 && dadHasWinIcon)
 						iconP2.changeIcon(dad.healthIcon, 'win');
-					else if (healthBar.percent > 20 && healthBar.percent < 80)
+					else if (healthBar.percent > 20)
 						iconP2.changeIcon(dad.healthIcon, 'default')
-					else if (healthBar.percent > 80 && iconP2.hasLoseIcon)
+					else if (healthBar.percent > 80 && dadHasLoseIcon)
 						iconP2.changeIcon(dad.healthIcon, 'lose');
 			} 
 
