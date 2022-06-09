@@ -4941,10 +4941,12 @@ class PlayState extends MusicBeatState
 		if (opponentChart) coolText.x = FlxG.width * 0.55;
 
 		var rating:FlxSprite = new FlxSprite();
+		var delayShit:FlxSprite = new FlxSprite();
 		var score:Int = 350;
 
 		//tryna do MS based judgment due to popular demand
-		var daRating:String = Conductor.judgeNote(noteDiff);
+		var daRating:String = Conductor.judgeNote(note)[0];
+		var daDelayShit:String = Conductor.judgeNote(note)[1];
 
 		switch (daRating)
 		{
@@ -5027,6 +5029,18 @@ class PlayState extends MusicBeatState
 		rating.visible = !ClientPrefs.hideHud && showRating && !demoMode;
 		rating.x += ClientPrefs.comboOffset[0];
 		rating.y -= ClientPrefs.comboOffset[1];
+		
+		delayShit.loadGraphic(Paths.image(pixelShitPart1 + daDelayShit + pixelShitPart2));
+		delayShit.cameras = [camHUD];
+		delayShit.screenCenter();
+		delayShit.x = coolText.x - 40;
+		delayShit.y += 5;
+		delayShit.acceleration.y = 550;
+		delayShit.velocity.y -= FlxG.random.int(140, 175);
+		delayShit.velocity.x -= FlxG.random.int(0, 10);
+		delayShit.visible = (!ClientPrefs.hideHud && showRating);
+		delayShit.x += ClientPrefs.comboOffset[0];
+		delayShit.y -= ClientPrefs.comboOffset[1];
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(UIData.checkImageFile('combo', uiSkinMap.get('combo'))));
 		if (!inEditor) comboSpr.cameras = [camHUD];
@@ -5047,8 +5061,14 @@ class PlayState extends MusicBeatState
 		rating.antialiasing = ClientPrefs.globalAntialiasing && !uiSkinMap.get(daRating).noAntialiasing;
 		comboSpr.antialiasing = ClientPrefs.globalAntialiasing && !uiSkinMap.get('combo').noAntialiasing;
 
+		delayShit.setGraphicSize(Std.int(delayShit.width * uiSkinMap.get(daRating).scale * uiSkinMap.get(daRating).ratingScale)));
+		delayShit.antialiasing = ClientPrefs.globalAntialiasing && !uiSkinMap.get('combo').noAntialiasing;
+		if (daDelayShit == 'early')
+			delayShit.y -= 10;
+
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
+		delayShit.updateHitbox();
 
 		var seperatedScore:Array<Int> = [];
 
@@ -5094,6 +5114,10 @@ class PlayState extends MusicBeatState
 		}
 
 		coolText.text = Std.string(seperatedScore);
+
+		FlxTween.tween(delayShit, {alpha: 0}, 0.2, {
+			startDelay: Conductor.crochet * 0.001
+		});
 
 		FlxTween.tween(rating, {alpha: 0}, 0.2, {
 			startDelay: Conductor.crochet * (Conductor.timeSignature[1] / 4) * 0.001
