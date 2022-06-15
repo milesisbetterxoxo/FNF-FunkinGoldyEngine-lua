@@ -211,7 +211,7 @@ class PlayState extends MusicBeatState
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var cameraSpeed:Float = 1;
-	public static var iconBopSpeed:Int = 0.5;
+	public static var iconBopSpeed:Float = 0.5;
 
 	var dialogue:Array<String> = null;
 	var dialogueJson:DialogueFile = null;
