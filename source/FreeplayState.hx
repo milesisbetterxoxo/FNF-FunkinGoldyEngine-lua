@@ -14,6 +14,8 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.system.FlxSound;
+import lime.app.Application;
+import flixel.util.FlxTimer;
 import WeekData;
 #if cpp
 import lime.media.openal.AL;
@@ -324,7 +326,7 @@ class FreeplayState extends MusicBeatState
 					colorTween.cancel();
 				}
 				FlxG.sound.play(Paths.sound('cancelMenu'), 0.7);
-				MusicBeatState.switchState(new MainMenuState());
+				MusicBeatState.switchState(new MainMenuStateGoldy());
 				FlxG.mouse.visible = false;
 			}
 
@@ -394,6 +396,8 @@ class FreeplayState extends MusicBeatState
 					PlayState.SONG = Song.loadFromJson(poop, song);
 					PlayState.isStoryMode = false;
 					PlayState.storyDifficulty = curDifficulty;
+
+					
 
 					trace('CURRENT WEEK: ${WeekData.getWeekName()}');
 					if (colorTween != null) {
@@ -560,10 +564,14 @@ class FreeplayState extends MusicBeatState
 			for (i in 0...iconArray.length)
 			{
 				iconArray[i].alpha = 0.6;
+				iconArray[i].changeIcon(iconArray[i].char, 'default');
 			}
 
 			if (iconArray[curSelected] != null)
+			{
 				iconArray[curSelected].alpha = 1;
+			    iconArray[curSelected].changeIcon(iconArray[curSelected].char, 'win');
+			}
 
 			for (item in grpSongs.members)
 			{

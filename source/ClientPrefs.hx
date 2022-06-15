@@ -40,7 +40,6 @@ class ClientPrefs {
 	public static var focusLostPause:Bool = true;
 	public static var shitMisses:Bool = true;
 	public static var smoothHealth:Bool = true;
-	public static var opponentHealthDrain:Bool = true;
 	public static var skipIntro:Bool = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -61,7 +60,8 @@ class ClientPrefs {
 		'practice' => false,
 		'botplay' => false,
 		'opponentplay' => false,
-		'demomode' => false
+		'demomode' => false,
+		'opponentHealthDrain'=> true
 	];
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
@@ -248,6 +248,7 @@ class ClientPrefs {
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.gameplaySettings = gameplaySettings;
+
 		FlxG.save.data.moreShit = moreShit;
 	
 		FlxG.save.flush();
@@ -386,6 +387,10 @@ class ClientPrefs {
 			{
 				gameplaySettings.set(name, value);
 			}
+		}
+		if (FlxG.save.data.moreShit != null)
+		{
+		    moreShit = FlxG.save.data.moreShit;
 		}
 		
 		// flixel automatically saves your volume!

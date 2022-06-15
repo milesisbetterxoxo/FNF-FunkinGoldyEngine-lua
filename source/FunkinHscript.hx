@@ -186,7 +186,9 @@ class FunkinHscript extends InterpEx {
         variables.set('HealthIcon', HealthIcon);
         variables.set('Highscore', Highscore);
         variables.set('InputFormatter', InputFormatter);
-        variables.set('MainMenuState', MainMenuState);
+        variables.set('MainMenuStatePsych', MainMenuStatePsych);
+		variables.set('MainMenuStateGoldy', MainMenuStateIce);
+		variables.set('MainMenuStateIce', MainMenuStateIce);
         variables.set('MasterEditorMenu', MasterEditorMenu);
         variables.set('MusicBeatState', MusicBeatState);
         variables.set('MusicBeatSubState', MusicBeatSubState);
@@ -250,7 +252,7 @@ class FunkinHscript extends InterpEx {
 		variables.set('rating', 0);
 		variables.set('ratingName', '');
 		variables.set('ratingFC', '');
-		variables.set('version', MainMenuState.engineVersion.trim());
+		variables.set('version', MainMenuStateGoldy.engineVersion.trim());
 		
 		variables.set('inGameOver', false);
 		variables.set('curSection', 0);
@@ -325,6 +327,8 @@ class FunkinHscript extends InterpEx {
         variables.set('instance', PlayState.instance);
         variables.set('window', Application.current.window);
 
+		variables.set('health', PlayState.instance.healthBar.percent);
+
         //EVENTS
 		var funcs = [
 			'onCreate',
@@ -335,6 +339,8 @@ class FunkinHscript extends InterpEx {
 			variables.set(i, function() {});
 		variables.set('onUpdate', function(elapsed) {});
 		variables.set('onUpdatePost', function(elapsed) {});
+		
+		variables.set('introSuffix', PlayState.instance.introSuffix);
     }
 
     inline function getInstance()

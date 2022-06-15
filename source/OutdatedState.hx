@@ -27,9 +27,9 @@ class OutdatedState extends MusicBeatState
 
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Hey, you are using the   \n
-			outdated version of Goldy Engine (" + MainMenuState.engineVersion + "),\n
+			outdated version of Goldy Engine (" + MainMenuStateGoldy.engineVersion + "),\n
 			going to update to " + TitleState.updateVersion + "!\n
-			Press enter or back to download it!\n
+			Press enter to download it!\n
 			Press back controls to prooced anyway. \n
 			Thank you for using the Engine!",
 			32);
@@ -50,7 +50,7 @@ class OutdatedState extends MusicBeatState
 				leftState = true;
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
-						MusicBeatState.switchState(new MainMenuState());
+						MusicBeatState.switchState(new MainMenuStateGoldy());
 					}
 				});
 				FlxG.sound.play(Paths.sound('cancelMenu'));

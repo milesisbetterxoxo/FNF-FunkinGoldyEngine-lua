@@ -83,25 +83,18 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			["Goldy Engine Team\n(best lua engine team)"],
-			['Cheb',				'cheb',				'Have did litteraly everything for the engine. Yeah', 		'https://gamejolt.com/@chebtheidk', 	'53E52C'],
-			['talking ben real?',	'lebronjames',		'Was helping with coding, music, and art.', 				'https://gamejolt.com/@ImAsimpguy', 	'53E52C'],
-            ['Saad',				'saad',				'Epic music. Yeah', 										'https://gamejolt.com/@saadthedrip', 	'6475F3'],
-			['Artevar',				'artevar',			'Epic art.', 												'https://www.youtube.com/channel/UCIns_iU4Jxeguyq2xvzGrlg', '00AAFF'],
-			[''],
-			['Ice Engine Team\n(mid engine *pensive*)'],
-			['OrdiRANy',	'ran',			'Main "Programmer" of Ice Engine\n*cough cough*',			'https://www.youtube.com/c/kaipkai/',	'AFFF6B'],
-			['WindowsWhistler',			'windows', 		'Programmer of Ice Engine',			 						'https://github.com/bot-beep-boop',		'FFEC6D'],
-			['Ring',					'ring',			'Additional Programmer of Ice Engine', 						'', 	'9271FD'],	
-			['Cheb',					'cheb',			'Helped with some code shit...\npre-merge even', 			'https://gamejolt.com/@chebtheidk', 	'53E52C'],
-			['JohnnyWereThere',			'tank',			'Week 7 Note Splash Offsets !!\ncock joke', 				'https://www.youtube.com/channel/UCnIv3iNRB4vehgx21IgMN-Q', 'F6B604'],
+			["Goldy Engine Team (best lua engine team)"],
+			['Cheb', 'cheb', 'Have did litteraly everything for the engine. Yeah', 'https://gamejolt.com/@chebtheidk', '53E52C'],
+			['talking ben real?', 'lebronjames', 'Was helping with coding, music, and art.', 'https://gamejolt.com/@ImAsimpguy', '53E52C'],
+            ['Saad', 'saad', 'Epic music. Yeah', 'https://gamejolt.com/@saadthedrip', '6475F3'],
+			['Artevar', 'artevar', 'Epic art.', 'https://www.youtube.com/channel/UCIns_iU4Jxeguyq2xvzGrlg', '00AAFF'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',							'https://twitter.com/Shadow_Mario_',	'444444'],
 			['RiverOaken',			'riveroaken',		'Main Artist/Animator of Psych Engine',						'https://twitter.com/RiverOaken',		'C30085'],
 			['shubs',				'shubs',			'Additional Programmer of Psych Engine',					'https://twitter.com/yoshubs',			'279ADC'],
 			[''],
-			['Former Psych Engine Members'],
+			['Former Engine Members'],
 			['bb-panzu',			'bb-panzu',			'Ex-Programmer of Psych Engine',							'https://twitter.com/bbsub3',			'389A58'],
 			[''],
 			['Engine Contributors'],
@@ -115,8 +108,7 @@ class CreditsState extends MusicBeatState
 			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",						'https://twitter.com/ninja_muffin99',	'F73838'],
 			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",							'https://twitter.com/PhantomArcade3K',	'FFBB1B'],
 			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",							'https://twitter.com/evilsk8r',			'53E52C'],
-			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							'https://twitter.com/kawaisprite',		'6475F3'],
-			['Donate',				'donate',			"Support the Funkin' Crew!",								'https://ninja-muffin24.itch.io/funkin','FFFF66']
+			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							'https://twitter.com/kawaisprite',		'6475F3']
 		];
 		
 		for(i in pisspoop) {
@@ -248,7 +240,7 @@ class CreditsState extends MusicBeatState
 						colorTween.cancel();
 					}
 					FlxG.sound.play(Paths.sound('cancelMenu'), 0.7);
-					MusicBeatState.switchState(new MainMenuState());
+					MusicBeatState.switchState(new MainMenuStateGoldy());
 					quitting = true;
 				}
 			} else {

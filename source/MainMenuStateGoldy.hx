@@ -1,4 +1,4 @@
-package;
+ package;
 
 #if DISCORD_ALLOWED
 import Discord.DiscordClient;
@@ -27,10 +27,9 @@ class MainMenuStateGoldy extends MusicBeatState
 	public static var psychEngineVersion:String = '0.5.2h'; //This is used for Discord RPC
 	public static var iceEngineVersion:String = '0.3.0h'; //This is also used for Discord RPC
 	public static var micdEngineVersion:String = '2.0.3'; //This is also also used for Discord RPC
-	public static var engineVersion:String = '0.5.8'; //This is TOO used for Discord RPC
-	// EVERYTHING IS USED FOR DISCORD RPC!!!!!
+	public static var engineVersion:String = '0.7.6'; //This is TOO used for Discord RPC
+	public static var curSelected:Int = 0;
 
-	var curSelected:Int = 0;
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
@@ -129,11 +128,23 @@ class MainMenuStateGoldy extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, 'Goldy Engine version $engineVersion', 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 64, 0, "Ice Engine v" + iceEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, 'Friday Night Funkin\' v${Application.current.meta.get('version')}', 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 24,  FlxG.width - 24, "Mic'd Up v" + micdEngineVersion, 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 84, 0, 'Goldy Engine v $engineVersion', 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -169,6 +180,15 @@ class MainMenuStateGoldy extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+		}
+
+		if (ClientPrefs.moreShit == 'Ice')
+		{
+			LoadingState.loadAndSwitchState(new MainMenuStateIce());
+		}
+		else if (ClientPrefs.moreShit == 'Psych')
+		{
+			LoadingState.loadAndSwitchState(new MainMenuStatePsych());
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);

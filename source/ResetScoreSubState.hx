@@ -17,12 +17,16 @@ class ResetScoreSubState extends MusicBeatSubState
 	var difficulty:Int;
 	var week:String;
 
+	var character:String;
+
 	// Week '' = Freeplay
 	public function new(song:String, difficulty:Int, character:String, week:String = '')
 	{
 		this.song = song;
 		this.difficulty = difficulty;
 		this.week = week;
+
+		this.character = character;
 
 		super();
 
@@ -111,6 +115,12 @@ class ResetScoreSubState extends MusicBeatSubState
 		yesText.scale.set(scales[confirmInt], scales[confirmInt]);
 		noText.alpha = alphas[1 - confirmInt];
 		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
-		if (week.length < 1) icon.animation.curAnim.curFrame = confirmInt;
+		if (week.length < 1)
+		{ 
+			if (confirmInt != 0)
+			icon.changeIcon(character, 'lose');
+			else 
+			icon.changeIcon(character, 'win');
+		}
 	}
 }

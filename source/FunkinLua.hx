@@ -124,7 +124,10 @@ class FunkinLua {
 		set('rating', 0);
 		set('ratingName', '');
 		set('ratingFC', '');
-		set('version', MainMenuState.engineVersion.trim());
+		set('version', MainMenuStateGoldy.engineVersion.trim());
+
+		set('health', PlayState.instance.healthBar.percent);
+		
 		
 		set('inGameOver', false);
 		set('curSection', 0);
@@ -197,6 +200,9 @@ class FunkinLua {
 		set('buildTarget', 'unknown');
 		#end
 
+		// intro bullshit
+		set('introSuffix', PlayState.instance.introSuffix);
+
 
 
 		Lua_helper.add_callback(lua, "addLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf. 
@@ -258,6 +264,14 @@ class FunkinLua {
 			luaTrace("Script doesn't exist!");
 		});
 
+		Lua_helper.add_callback(lua, "changeIconPlayer", function(char:String, curAnim:String) {
+            PlayState.instance.iconP1.changeIcon(char, curAnim);
+		});
+
+		Lua_helper.add_callback(lua, "changeIconOpponent", function(char:String, curAnim:String) {
+            PlayState.instance.iconP2.changeIcon(char, curAnim);
+		});
+
 		Lua_helper.add_callback(lua, "clearUnusedMemory", function() {
 			Paths.clearUnusedMemory();
 			return true;
@@ -271,6 +285,11 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "windowAlert", function(message:String = 'Message Here', title:String = 'Alert') {
 			Application.current.window.alert(message, title);
+		});
+		
+		Lua_helper.add_callback(lua, "setIntroSuffix", function(suffix:String = '')
+		{
+            PlayState.instance.introSuffix = suffix;
 		});
 
 		Lua_helper.add_callback(lua, "loadGraphic", function(variable:String, image:String) {

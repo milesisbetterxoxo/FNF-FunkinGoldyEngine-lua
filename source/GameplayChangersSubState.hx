@@ -82,6 +82,9 @@ class GameplayChangersSubState extends MusicBeatSubState
 
 		var option:GameplayOption = new GameplayOption('Demo Mode', 'demomode', 'bool', false);
 		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Opponent Health Drain', 'opponentHealthDrain', 'bool', false);
+		optionsArray.push(option);
 	}
 
 	public function getOptionByName(name:String)

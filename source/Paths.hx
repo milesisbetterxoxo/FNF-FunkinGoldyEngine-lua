@@ -433,7 +433,7 @@ class Paths
 			localTrackedAssets.push(path);
 			return currentTrackedAssets.get(path);
 		}
-		trace('oh no its returning null NOOOO: $path');
+		trace('$path Does not exist!');
 		return null;
 	}
 
