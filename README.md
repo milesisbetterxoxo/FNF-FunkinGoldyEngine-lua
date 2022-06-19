@@ -1,4 +1,4 @@
-# NOTE : This engine is still on work.
+# : Its done. Stable and stuff.
 
 
 # Friday Night Funkin' - Goldy engine
