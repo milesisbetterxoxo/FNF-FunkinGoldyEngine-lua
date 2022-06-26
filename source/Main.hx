@@ -13,6 +13,16 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+#if CRASH_HANDLER
+import lime.app.Application;
+import openfl.events.UncaughtErrorEvent;
+import haxe.CallStack;
+import haxe.io.Path;
+import Discord.DiscordClient;
+import sys.FileSystem;
+import sys.io.File;
+import sys.io.Process;
+#end
 import openfl.display.StageScaleMode;
 import openfl.events.UncaughtErrorEvent;
 import sys.FileSystem;
@@ -34,7 +44,9 @@ class Main extends Sprite
 	
 	public function main():Void
 	{
+		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		#end
 		Lib.current.addChild(new Main());
 	}
 
@@ -61,15 +73,16 @@ class Main extends Sprite
 
 		setupGame();
 	}
-	private function onCrash(e:UncaughtErrorEvent):Void
+    #if CRASH_HANDLER
+	function onCrash(e:UncaughtErrorEvent):Void
 		{
 			var errMsg:String = "";
 			var path:String;
 			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 			var dateNow:String = Date.now().toString();
 	
-			dateNow = StringTools.replace(dateNow, " ", "_");
-			dateNow = StringTools.replace(dateNow, ":", "'");
+			dateNow = dateNow.replace(" ", "_");
+			dateNow = dateNow.replace(":", "'");
 	
 			path = "./crash/" + "GE_" + dateNow + ".txt";
 	
@@ -84,7 +97,7 @@ class Main extends Sprite
 				}
 			}
 	
-			errMsg += "\nUncaught Error: " + e.error;
+			errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine\n\n> or https://github.com/cheblol/FNF-FunkinGoldyEngine-lua-0.5.8 Crash Handler written by: sqirra-rng";
 	
 			if (!FileSystem.exists("./crash/"))
 				FileSystem.createDirectory("./crash/");
@@ -94,29 +107,12 @@ class Main extends Sprite
 			Sys.println(errMsg);
 			Sys.println("Crash dump saved in " + Path.normalize(path));
 	
-			var crashDialoguePath:String = "CrashDialog";
-	
-			#if windows
-			crashDialoguePath += ".exe";
-			#end
-	
-			if (FileSystem.exists("./" + crashDialoguePath))
-			{
-				Sys.println("Found crash dialog: " + crashDialoguePath);
-	
-				#if linux
-				crashDialoguePath = "./" + crashDialoguePath;
-				#end
-				new Process(crashDialoguePath, [path]);
-			}
-			else
-			{
-				Sys.println("No crash dialog found! Making a simple alert instead...");
-				Application.current.window.alert(errMsg, "Error!");
-			}
-	
+			Application.current.window.alert(errMsg, "Error!");
+			DiscordClient.shutdown();
 			Sys.exit(1);
 		}
+		#end
+
 	private function setupGame():Void
 	{
 		var stageWidth:Int = Lib.current.stage.stageWidth;

@@ -186,9 +186,7 @@ class FunkinHscript extends InterpEx {
         variables.set('HealthIcon', HealthIcon);
         variables.set('Highscore', Highscore);
         variables.set('InputFormatter', InputFormatter);
-        variables.set('MainMenuStatePsych', MainMenuStatePsych);
-		variables.set('MainMenuStateGoldy', MainMenuStateIce);
-		variables.set('MainMenuStateIce', MainMenuStateIce);
+		variables.set('MainMenuStateGoldy', MainMenuStateGoldy);
         variables.set('MasterEditorMenu', MasterEditorMenu);
         variables.set('MusicBeatState', MusicBeatState);
         variables.set('MusicBeatSubState', MusicBeatSubState);

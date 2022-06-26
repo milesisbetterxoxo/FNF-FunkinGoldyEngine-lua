@@ -357,7 +357,7 @@ class Paths
 			return true;
 		}
 		return false;
-	}
+	}	
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{
@@ -453,7 +453,7 @@ class Paths
 		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
 		if (!OpenFlAssets.exists(gottenPath))
 		{
-			trace('oh no its returning null NOOOO: $gottenPath');
+			trace('Unexpected null at $gottenPath', true, true);
 			return null;
 		}
 		if (!currentTrackedSounds.exists(gottenPath)) {

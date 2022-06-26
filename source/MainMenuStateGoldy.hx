@@ -24,10 +24,11 @@ using StringTools;
 
 class MainMenuStateGoldy extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.5.2h'; //This is used for Discord RPC
+	public static var psychEngineVersion:String = '0.6.0'; //This is used for Discord RPC
 	public static var iceEngineVersion:String = '0.3.0h'; //This is also used for Discord RPC
 	public static var micdEngineVersion:String = '2.0.3'; //This is also also used for Discord RPC
 	public static var engineVersion:String = '0.7.6'; //This is TOO used for Discord RPC
+	// nvm actually
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -180,15 +181,6 @@ class MainMenuStateGoldy extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
-
-		if (ClientPrefs.moreShit == 'Ice')
-		{
-			LoadingState.loadAndSwitchState(new MainMenuStateIce());
-		}
-		else if (ClientPrefs.moreShit == 'Psych')
-		{
-			LoadingState.loadAndSwitchState(new MainMenuStatePsych());
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);

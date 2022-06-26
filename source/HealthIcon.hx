@@ -109,25 +109,10 @@ class HealthIcon extends FlxSprite
 			isOldIcon = (char == 'bf-old');
 		}
 	}*/
-	public function changeIcon(char:String, curAnim:String) // NEW VERSION
+	public function changeIcon(char:String, curAnim:String = "default") // NEW VERSION
 	{
 		var name:String = 'icons/$char/$curAnim';
 		var file = Paths.image(name);
-		if (!Paths.fileExists('images/$name.png', IMAGE))
-		{
-			name = 'icons/$char/default';
-			FlxG.log.warn('Icon type $curAnim of $char does not exist! Trying to use default type of $char instead.');
-		}
-		if (!Paths.fileExists('images/$name', IMAGE) && name == 'icons/$char/default')
-		{
-			name = 'icons/face/$curAnim';
-			FlxG.log.warn('Default type of $char does not exist! Using the face icon instead.');
-		}
-		else if (!Paths.fileExists('images/$name.png', IMAGE) && name == 'icons/face/$curAnim')
-		{
-			FlxG.log.warn('Face icon does not exist! Using nothing instead.');
-			name = 'nothing';
-		}
 
 		var configExists = Paths.fileExists('images/icons/$char/config.json', TEXT);
 		if (configExists)

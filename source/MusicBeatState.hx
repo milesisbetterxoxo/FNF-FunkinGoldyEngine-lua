@@ -109,6 +109,16 @@ class MusicBeatState extends FlxUIState
 			FlxG.switchState(nextState);
 		}
 	}
+	// hscript shit REAL!!!!
+	public static function switchHscriptState(nextState:String)
+	{
+		FlxGridOverlay.clearCache();
+		// Custom made Trans in
+		FlxG.state.openSubState(new CustomFadeTransition(0.6, false));
+		return;
+		FlxTransitionableState.skipNextTransIn = false;
+		new ModState(nextState);
+	}
 
 	public static function resetState() {
 		switchState(FlxG.state);
