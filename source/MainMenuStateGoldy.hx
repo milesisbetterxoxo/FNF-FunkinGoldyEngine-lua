@@ -181,7 +181,7 @@ class MainMenuStateGoldy extends MusicBeatState
 		if (ClientPrefs.moreShit == 'Ice')
 		   LoadingState.loadAndSwitchState(new MainMenuStateIce());
 		else if (ClientPrefs.moreShit == 'Psych')
-			LoadingState.loadAndSwitchState(new MainMenuStatePsych)
+			LoadingState.loadAndSwitchState(new MainMenuStatePsych());
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
