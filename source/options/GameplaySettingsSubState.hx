@@ -11,18 +11,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		title = 'Gameplay Settings';
 		rpcTitle = 'Gameplay Settings Menu'; //for Discord Rich Presence
 
-		var option:Option = new Option('Controller Mode',
-			'Check this if you want to play with a controller instead of using your keyboard.',
-			'controllerMode',
-			'bool',
-			false);
-		addOption(option);
-
 
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', //Name
 			'If checked, notes go down instead of up, simple enough.', //Description
-			'downScroll', //Save data variable name
+			'downScroll', //Save data varifable name
 			'bool', //Variable type
 			false); //Default value
 		addOption(option);
@@ -39,6 +32,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'ghostTapping',
 			'bool',
 			true);
+		addOption(option);
+
+		var option:Option = new Option("Camera follows the singing character",
+		"If checked, camera follows the singing character!",
+		'camFollow',
+		'bool',
+		true);
 		addOption(option);
 
 		var option:Option = new Option('"Shit" Counts as Miss',
@@ -153,12 +153,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		addOption(option);*/
 
-		var option = new Option('Opponent Health Drain',
-		"If checked, drains a bit of health, if opponent pressed a note.",
-		'opponentHealthDrain',
-		'bool',
-		true);
-		addOption(option);
 
 		var option:Option = new Option('Auto Pause',
 			"If checked, the game will be frozen when it loses focus.",
@@ -183,12 +177,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			);
 		addOption(option);
 
-		var option:Option = new Option('UI From:',
-			'',
-			'moreShit',
-			'string',
-			'Goldy',
-			['Goldy', 'Ice']);
+		var option:Option = new Option('Skip Intro',
+		'If checked, the intro will skip. (skip dialogue, countdown, cutscene.)',
+		'skipIntro',
+		'bool',
+		true
+		);
 		addOption(option);
 
 		super();
