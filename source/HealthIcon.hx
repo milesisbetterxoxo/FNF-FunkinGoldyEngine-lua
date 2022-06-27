@@ -87,25 +87,20 @@ class HealthIcon extends FlxSprite
 				    FlxG.log.warn('Using the crash prevent icon, which is icon-face!');
 			}
 			var file = Paths.image(name);
-
 			loadGraphic(file); //Load stupidly first for getting the file size
 			loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); //Then load it fr
 			iconOffsets[0] = (width - 150) / 3;
 			iconOffsets[1] = (width - 150) / 3;
 		    iconOffsets[2] = (width - 150) / 3;
 			updateHitbox();
-
 			animation.add(char, [0, 1, 2], 0, false, isPlayer);
-
 			animation.play(char);
 			this.char = char;
 			if (char != 'bf-old') originalChar = char;
-
 			antialiasing = ClientPrefs.globalAntialiasing;
 			if (char.endsWith('-pixel')) {
 				antialiasing = false;
 			}
-
 			isOldIcon = (char == 'bf-old');
 		}
 	}*/

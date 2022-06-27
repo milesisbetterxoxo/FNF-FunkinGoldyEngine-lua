@@ -12,7 +12,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.effects.FlxTrail;
-import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.FlxGraphic;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup;
 import flixel.input.keyboard.FlxKey;
@@ -32,12 +32,14 @@ import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import openfl.display.Shader;
 import openfl.filters.ShaderFilter;
+import flixel.addons.transition.FlxTransitionableState;
 #if HSCRIPT_ALLOWED
 import hscript.ParserEx;
 #end
 import lime.app.Application;
 import lime.graphics.Image;
 import openfl.events.KeyboardEvent;
+import flixel.input.gamepad.FlxGamepad;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.filters.BitmapFilter;
 import ModchartFunctions;
@@ -303,6 +305,9 @@ class PlayState extends MusicBeatState
 	
 	// Less laggy controls
 	private var keysArray:Array<Array<FlxKey>>;
+
+	// gamepad shit??
+	public var isUsingGamepad:Bool = false;
 
 	public var bfKeys:Int = 4;
 	public var dadKeys:Int = 4;
@@ -982,6 +987,9 @@ class PlayState extends MusicBeatState
 					}
 				}
 			}
+			// hmmmm
+			if (ClientPrefs.camFollow)
+               luaArray.push(new FunkinLua('assets/scripts/optional/camFollow.lua'));
 			#end
 			
 			// STAGE SCRIPTS
@@ -1707,11 +1715,8 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		if(!ClientPrefs.controllerMode)
-		{
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
-		}
+        FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 
 		Conductor.safeZoneOffset = (ClientPrefs.safeFrames / 60) * 1000;
 
@@ -1719,6 +1724,10 @@ class PlayState extends MusicBeatState
 		postSetHscript();
 		#end
 		callOnScripts('onCreatePost', []);
+
+		// gamepad shit again
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		isUsingGamepad = !FlxG.keys.justReleased.ANY && !FlxG.keys.pressed.ANY && gamepad != null && !gamepad.justReleased.ANY && gamepad.pressed.ANY;
 
 		//cache note splashes
 		var textureMap:Map<String, Bool> = new Map();
@@ -5155,7 +5164,7 @@ class PlayState extends MusicBeatState
 			var eventKey:FlxKey = event.keyCode;
 			var key:Int = getKeyFromEvent(eventKey);
 
-			if (key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode))
+			if (key > -1 && !cpuControlled && startedCountdown && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || isUsingGamepad))
 			{
 				if ((inEditor || !playerChar.members[0].stunned) && generatedMusic && !endingSong)
 				{
@@ -5280,7 +5289,7 @@ class PlayState extends MusicBeatState
 		}
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now
-		if(ClientPrefs.controllerMode)
+		if(isUsingGamepad)
 		{
 			var controlArray:Array<Bool> = [];
 			for (i in keysArray) {
@@ -5318,8 +5327,8 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		// TO DO: Find a better way to handle controller inputs, this should work for now
-		if(ClientPrefs.controllerMode)
+		// TO DO: Find a better way to handle controller inputs, this should work for now (actually coded now)
+		if(isUsingGamepad)
 		{
 			var controlArray:Array<Bool> = [];
 			for (i in keysArray) {
@@ -5907,7 +5916,7 @@ class PlayState extends MusicBeatState
 		vocalsDad.stop();
 		vocalsDad.destroy();
 
-		if (!ClientPrefs.controllerMode)
+		if (!isUsingGamepad)
 		{
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);

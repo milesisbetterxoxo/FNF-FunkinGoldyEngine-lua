@@ -26,10 +26,10 @@ using StringTools;
 
 class MainMenuStateIce extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.5.2h'; //This is used for Discord RPC
+	public static var psychEngineVersion:String = '0.6.0'; //This is used for Discord RPC
 	public static var iceEngineVersion:String = '0.3.0h'; //This is also used for Discord RPC
 	public static var micdEngineVersion:String = '2.0.3'; //This is also also used for Discord RPC
-	public static var engineVersion:String = '0.7.6'; //This is TOO used for Discord RPC
+	public static var engineVersion:String = '0.8.3'; //This is TOO used for Discord RPC
 	// nvm
 	public static var curSelected:Int = 0;
 	public static var nightly:String = "a";

@@ -188,7 +188,7 @@ class PauseSubState extends MusicBeatSubState
 				}
 		}
 
-		if (accepted)
+		if (accepted && !PlayState.instance.isUsingGamepad)
 		{
 			if (menuItems == difficultyChoices)
 			{
