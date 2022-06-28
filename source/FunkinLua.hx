@@ -413,6 +413,11 @@ class FunkinLua {
 			luaTrace('Object $obj doesn\'t exist!');
 		});
 
+		Lua_helper.add_callback(lua, "savePrefs", function(target:Dynamic)
+		{
+            FlxG.save.data.target = target;
+		});
+
 		function setObjectOrder(obj:String, position:Int)
 		{	
 			if (PlayState.instance.modchartSprites.exists(obj)) {
@@ -1038,13 +1043,14 @@ class FunkinLua {
 			daIcon.scale.set(1.2, 1.2);
 			daIcon.updateHitbox();
 		});
-		Lua_helper.add_callback(lua, "changeIcon", function(icon:String = '', char:String = 'bf', curAnim:String = 'default') {
+		Lua_helper.add_callback(lua, "changeIcon", function(icon:String = '', char:String = 'bf', curAnimShit:String = 'default') {
 			var daIcon = PlayState.instance.iconP1;
 			switch (icon) {
 				case 'p2' | '2' | 'dad' | 'opponent' | 'player2':
 					daIcon = PlayState.instance.iconP2;
 			}
-			daIcon.changeIcon(char, curAnim);
+			daIcon.changeIcon(char);
+			daIcon.curAnim = curAnimShit;
 		});
 		Lua_helper.add_callback(lua, "setHealthBarColors", function(left:String = '0xFFFF0000', right:String = '0xFF66FF33') {
 			var leftColorNum:Int = Std.parseInt(left);

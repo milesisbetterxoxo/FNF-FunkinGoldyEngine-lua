@@ -11,7 +11,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-#if MODS_ALLOWED
+#if (MODS_ALLOWED && !html5)
 import sys.FileSystem;
 import sys.io.File;
 #end

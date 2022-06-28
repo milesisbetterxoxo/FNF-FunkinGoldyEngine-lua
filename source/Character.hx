@@ -6,7 +6,9 @@ import flixel.tweens.FlxTween;
 import haxe.Json;
 #if MODS_ALLOWED
 import sys.io.File;
+#if !html5
 import sys.FileSystem;
+#end
 #else
 import openfl.utils.Assets;
 #end

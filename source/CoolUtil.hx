@@ -6,7 +6,7 @@ import flixel.util.FlxColor;
 import lime.app.Application;
 import lime.graphics.Image;
 import openfl.utils.Assets;
-#if MODS_ALLOWED
+#if (MODS_ALLOWED && !html5)
 import sys.io.File;
 import sys.FileSystem;
 #end

@@ -25,38 +25,14 @@ class HealthIcon extends FlxSprite
 	public var hasLoseIcon:Bool;
 	public var iconExists:Bool;
 	public var iconConfig:IconConfig;
+	public var curAnim:String = 'default';
 	
 	public function new(char:String = 'face', isPlayer:Bool = false)
 	{
-		if (Paths.fileExists('images/icons/$char/win.png', IMAGE))
-		{
-			hasWinIcon = true;
-		}
-		else
-	    {
-			hasWinIcon = false;
-		}
-		if (Paths.fileExists('images/icons/$char/lose.png', IMAGE))
-		{
-			hasLoseIcon = true;
-		}
-		else 
-		{
-			hasLoseIcon = false;
-		}
-		if (!Paths.fileExists('images/icons/$char/win.png', IMAGE) && !Paths.fileExists('images/icons/$char/lose.png', IMAGE) && !Paths.fileExists('images/icons/$char/default.png', IMAGE))
-		{
-			iconExists = false;
-		}
-		if (!iconExists)
-		{
-			FlxG.log.warn('Couldn\'t find icon $char! Using the crash prevent icon instead.');
-			char == 'face';
-		}
 		super();
 		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
-		changeIcon(char, 'default');
+		changeIcon(char);
 		scrollFactor.set();
 	}
 
@@ -66,11 +42,12 @@ class HealthIcon extends FlxSprite
 
 		if (sprTracker != null)
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
+		changeIcon(char);
 	}
 
 	public function swapOldIcon() {
-		if (!isOldIcon) changeIcon('bf-old', 'default');
-		else changeIcon(originalChar, 'default');
+		if (!isOldIcon) changeIcon('bf-old');
+		else changeIcon(originalChar);
 	}
 
 	private var iconOffsets:Array<Float> = [0, 0];
@@ -104,10 +81,26 @@ class HealthIcon extends FlxSprite
 			isOldIcon = (char == 'bf-old');
 		}
 	}*/
-	public function changeIcon(char:String, curAnim:String = "default") // NEW VERSION
+	public function changeIcon(char:String) // NEW VERSION
 	{
 		var name:String = 'icons/$char/$curAnim';
 		var file = Paths.image(name);
+		
+		if (!Paths.fileExists(name, IMAGE))
+		{
+			FlxG.log.warn('$name does not exist! Trying to use the default icon instead.');
+			name = 'icons/$char/default';
+		}
+		if (!Paths.fileExists(name, IMAGE) && name == 'icons/$char/default')
+		{
+			FlxG.log.warn('$name does not exist! Trying to use the default icon instead.');
+			name = 'icons/face/$curAnim';
+		}
+		if (!Paths.fileExists(name, IMAGE) && name == 'icons/face/$curAnim')
+		{
+			FlxG.log.warn('$name does not exist! Trying to use nothing instead.');
+			name == 'nothing';
+		}
 
 		var configExists = Paths.fileExists('images/icons/$char/config.json', TEXT);
 		if (configExists)

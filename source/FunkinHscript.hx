@@ -307,6 +307,10 @@ class FunkinHscript extends InterpEx {
 		variables.set('instantRestart', ClientPrefs.instantRestart);
 		variables.set('lowQuality', ClientPrefs.gameQuality != 'Normal');
 
+		// sum shit
+		variables.set('curStage', PlayState.curStage);
+		variables.set('curWeek', WeekData.getCurrentWeek());
+
 		#if windows
 		variables.set('buildTarget', 'windows');
 		#elseif linux

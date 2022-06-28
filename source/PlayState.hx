@@ -803,6 +803,7 @@ class PlayState extends MusicBeatState
 						GameOverSubState.endSoundName = 'gameOverEnd-pixel';
 						GameOverSubState.characterName = 'bf-pixel-dead';
 
+
 						introSuffix == '-pixel';
 
 						var bgSky:BGSprite = new BGSprite('weeb/weebSky', 0, 0, 0.1, 0.1);
@@ -883,6 +884,7 @@ class PlayState extends MusicBeatState
 						GameOverSubState.loopSoundName = 'gameOver-pixel';
 						GameOverSubState.endSoundName = 'gameOverEnd-pixel';
 						GameOverSubState.characterName = 'bf-pixel-dead';
+						
 
 						introSuffix == '-evil';
 
@@ -988,7 +990,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 			// hmmmm
-			if (ClientPrefs.camFollow)
+			if (ClientPrefs.camFollow && WeekData.getWeekFileName() != 'week6')
                luaArray.push(new FunkinLua('assets/scripts/optional/camFollow.lua'));
 			#end
 			
@@ -1560,6 +1562,42 @@ class PlayState extends MusicBeatState
 				}
 			}
 			#end
+		// WEEK SPECIFIC SCRIPTS
+		if (!inEditor) {
+			var filesPushed:Array<String> = [];
+			var weekName:String = WeekData.getWeekFileName();
+			var foldersToCheck:Array<String> = [Paths.getPreloadPath('$weekName/scripts/')];
+
+			#if MODS_ALLOWED
+			foldersToCheck.insert(0, Paths.mods('$weekName/scripts/'));
+			if (Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+				foldersToCheck.insert(0, Paths.mods('${Paths.currentModDirectory}/$weekName/scripts/'));
+
+			for (folder in foldersToCheck)
+			{
+				if (FileSystem.exists(folder))
+				{
+					for (file in FileSystem.readDirectory(folder))
+					{
+						#if LUA_ALLOWED
+						if (file.endsWith('.lua') && !filesPushed.contains(file))
+						{
+							luaArray.push(new FunkinLua(folder + file));
+							filesPushed.push(file);
+						}
+						#end
+
+						#if HSCRIPT_ALLOWED
+						if (file.endsWith('.hscript') && !filesPushed.contains(file))
+						{
+							addHscript(folder + file);
+							filesPushed.push(file);
+						}
+						#end
+					}
+				}
+			}
+			#end
 
 			if (OpenFlAssets.exists(Paths.getPreloadPath('data/$curSong/$curSong.hscript')) && !filesPushed.contains('$curSong.hscript')) {
 				addHscript(Paths.getPreloadPath('data/$curSong/$curSong.hscript'));
@@ -1752,6 +1790,7 @@ class PlayState extends MusicBeatState
 		// PUT HERE YOUR MODCHART THINGS
 		callOnScripts('onModChartCreate', []);
 	}
+}
 
 	function set_songSpeed(value:Float):Float
 	{
@@ -3787,26 +3826,24 @@ class PlayState extends MusicBeatState
 			}
 
 
-			// NEW HEALTH SYSTEM
+			// NEW HEALTH SYSTEM (actually old now)
 			if (health > 2)
 				health = 2;
-			if (healthBar.percent < 20 && iconP1.hasLoseIcon)
-				iconP1.changeIcon(boyfriend.healthIcon, 'lose');
-			else if (healthBar.percent > 20 && healthBar.percent < 80)
-				iconP1.changeIcon(boyfriend.healthIcon, 'default');
-			else if (healthBar.percent > 80 && iconP1.hasWinIcon) // yeah
-				iconP1.changeIcon(boyfriend.healthIcon, 'win');
-		
-			switch(SONG.player2)
-			{
-				default:
-					if (healthBar.percent < 20 && iconP1.hasWinIcon)
-						iconP2.changeIcon(dad.healthIcon, 'win');
-					else if (healthBar.percent > 20)
-						iconP2.changeIcon(dad.healthIcon, 'default')
-					else if (healthBar.percent > 80 && iconP1.hasLoseIcon)
-						iconP2.changeIcon(dad.healthIcon, 'lose');
-			} 
+			var stupidIcons:Array<HealthIcon> = [iconP1, iconP2];
+			if (opponentChart) stupidIcons = [iconP2, iconP1];
+			if (healthBar.percent < 20)
+				iconP1.curAnim = 'lose';
+			else if (healthBar.percent > 80)
+				iconP1.curAnim = 'win';
+			else
+				iconP1.curAnim = 'default';
+
+			if (healthBar.percent > 80)
+				iconP2.curAnim = 'lose';
+			else if (healthBar.percent < 20)
+				iconP2.curAnim = 'win';
+			else
+				iconP2.curAnim = 'default';
 
 			#if desktop
 			if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
@@ -4539,7 +4576,7 @@ class PlayState extends MusicBeatState
 							makeDoubleTrail(boyfriendGroup.members[index], 'bf$index', true, index, boyfriendGroup);
 							boyfriend = boyfriendGroup.members[0];
 							if (boyfriendGroup.members.length == 1) {
-								iconP1.changeIcon(boyfriend.healthIcon, 'default');
+								iconP1.curAnim = "default";
 							}
 							setOnScripts('boyfriendName', boyfriend.curCharacter);
 							setOnHscripts('boyfriend', boyfriend);
@@ -4571,7 +4608,7 @@ class PlayState extends MusicBeatState
 							makeDoubleTrail(dadGroup.members[index], 'dad$index', false, index, dadGroup);
 							dad = dadGroup.members[0];
 							if (dadGroup.members.length == 1) {
-								iconP2.changeIcon(dad.healthIcon, 'default');
+								iconP2.curAnim = 'default';
 							}
 							setOnScripts('dadName', dad.curCharacter);
 							setOnHscripts('dad', dad);
@@ -6046,32 +6083,24 @@ class PlayState extends MusicBeatState
 				curBeat % (iconBopSpeed * 2) == 0 ? {
 	
 					FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
-					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP2, 30, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
 
-					iconP1.scale.set(1.2, 1.2);
-					iconP2.scale.set(1.2, 1.2);
-					iconP1.updateHitbox();
-					iconP2.updateHitbox();
 				} : {
 	
 					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
-					FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP1, 30, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
 
-					iconP1.scale.set(1.2 + 0.5, 1.2 + 0.5);
-					iconP2.scale.set(1.2 + 0.5, 1.2 + 0.5); // im stupid asf
-					iconP1.updateHitbox();
-					iconP2.updateHitbox();
 				}
 	
 				FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * iconBopSpeed, {ease: FlxEase.quadOut});
 				FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * iconBopSpeed, {ease: FlxEase.quadOut});
 
-				iconP1.scale.set(1, 1);
-				iconP2.scale.set(1, 1);
-	
-				iconP1.updateHitbox();
-				iconP2.updateHitbox();
 			}
+			iconP1.scale.set(1.2, 1.2);
+			iconP2.scale.set(1.2, 1.2);
+
+			iconP2.updateHitbox();
+			iconP1.updateHitbox();
 			// x2 bop icons lol
 			// yes scale
 

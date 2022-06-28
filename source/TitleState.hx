@@ -13,8 +13,10 @@ import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import haxe.Json;
+#if !html5
 import sys.FileSystem;
 import sys.io.File;
+#end
 //import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
@@ -76,6 +78,8 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+
+		WeekData.loadTheFirstEnabledMod();
 		
 		
 		//titleJSON = Json.parse(Paths.getTextFromFile("data")) finna do it l8r
@@ -100,7 +104,7 @@ class TitleState extends MusicBeatState
 		
 		
 		
-		#if (polymod && !html5)
+		/*#if (MODS_ALLOWED && !html5)
 		if (sys.FileSystem.exists('mods/')) {
 			var folders:Array<String> = [];
 			for (file in sys.FileSystem.readDirectory('mods/')) {
@@ -113,12 +117,12 @@ class TitleState extends MusicBeatState
 				polymod.Polymod.init({modRoot: "mods", dirs: folders});
 			}
 		}
-		#end
+		#end*/
 		
 		#if CHECK_FOR_UPDATES
 		if(!closedState) {
 			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/cheblol/FNF-FunkinGoldyEngine/main/gitVersion.txt");
+			var http = new haxe.Http("https://raw.githubusercontent.com/cheblol/FNF-FunkinGoldyEngine-lua/main/gitVersion.txt");
 			
 			http.onData = function (data:String)
 			{
