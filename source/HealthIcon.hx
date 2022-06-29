@@ -3,7 +3,9 @@ package;
 import editors.CharacterEditorState;
 import flixel.FlxG;
 import flixel.FlxSprite;
+#if sys
 import sys.FileSystem;
+#end
 import haxe.Json;
 
 using StringTools;
