@@ -33,6 +33,7 @@ import openfl.utils.Assets as OpenFlAssets;
 import Section.SwagSection;
 import Song.SwagSong;
 import UIData;
+import lime.app.Application;
 #if desktop
 import flash.geom.Rectangle;
 import haxe.io.Bytes;
@@ -2437,18 +2438,23 @@ class ChartingState extends MusicBeatState
 	{
 		var healthIconP1:String = loadHealthIconFromCharacter(_song.player1);
 		var healthIconP2:String = loadHealthIconFromCharacter(_song.player2);
+		// sorry for that nvm!!!!!
 
 		if (_song.notes[curSection].mustHitSection)
 		{
-			leftIcon.changeIcon(healthIconP1, 'default');
-			rightIcon.changeIcon(healthIconP2, 'default');
-			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf', 'default');
+			leftIcon.changeIcon(healthIconP1);
+			leftIcon.curAnim = 'win';
+			rightIcon.changeIcon(healthIconP2);
+			rightIcon.curAnim = 'default';
+			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
 		}
 		else
 		{
-			leftIcon.changeIcon(healthIconP2, 'default');
-			rightIcon.changeIcon(healthIconP1, 'default');
-			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf', 'default');
+			leftIcon.changeIcon(healthIconP2);
+			leftIcon.curAnim = 'win';
+			rightIcon.changeIcon(healthIconP1);
+			rightIcon.curAnim = 'default';
+			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
 		}
 	}
 
