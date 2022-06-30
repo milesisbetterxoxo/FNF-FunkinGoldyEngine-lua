@@ -58,7 +58,8 @@ class ChartingState extends MusicBeatState
 		'Hurt Note',
 		'GF Sing',
 		'No Animation',
-		'Trail Note'
+		'Trail Note',
+		'Caution Note'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map();
@@ -2443,17 +2444,15 @@ class ChartingState extends MusicBeatState
 		if (_song.notes[curSection].mustHitSection)
 		{
 			leftIcon.changeIcon(healthIconP1);
-			leftIcon.curAnim = 'win';
 			rightIcon.changeIcon(healthIconP2);
-			rightIcon.curAnim = 'default';
+			rightIcon.isPlayer = true;
 			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
 		}
 		else
 		{
 			leftIcon.changeIcon(healthIconP2);
-			leftIcon.curAnim = 'win';
 			rightIcon.changeIcon(healthIconP1);
-			rightIcon.curAnim = 'default';
+			rightIcon.isPlayer = true;
 			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
 		}
 	}
