@@ -107,9 +107,24 @@ class VisualsUISubState extends BaseOptionsMenu
 			'pauseMusic',
 			'string',
 			'Tea Time',
-			['None', 'Breakfast', 'Tea Time']);
+			['None', 'Breakfast', 'Tea Time', 'Saad']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
+
+		var option:Option = new Option('Main Menu UI From:',
+		"",
+		'moreShit',
+		'string',
+		'Goldy',
+	    ['Goldy', 'Ice', 'Psych']);
+		addOption(option);
+
+		var option:Option = new Option('Note Combo:',
+		"If checked, enables the note combo!",
+		'noteCombo',
+		'bool',
+		true);
+		addOption(option);
 
 		super();
 	}
