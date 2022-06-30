@@ -359,9 +359,6 @@ class PlayState extends MusicBeatState
 		PauseSubState.songName = null; //Reset to default
 		woah = new FlxSprite(Paths.getPreloadPath('images/NOTECOMBO.png'));
 		woah.setGraphicSize(Std.int(woah.width * 1.6));
-		if (curStage != 'school' || curStage != 'schoolEvil')
-		woah.antialiasing = false;
-		else
 		woah.antialiasing = ClientPrefs.globalAntialiasing;
 		woah.scrollFactor.set();
 		woah.updateHitbox();
@@ -4720,7 +4717,7 @@ class PlayState extends MusicBeatState
 			tweenCamIn();
 			if (lastCamFocused != isDad)
 				{
-					if (!sectionComboBreaks && combo > 1)
+					if (!sectionComboBreaks && combo > 1 && ClientPrefs.noteCombo && WeekData.getWeekFileName() != 'week6') // disabled the note combo on week 6, get over it
 						noteCombo();
 					
 					sectionComboBreaks = false;
@@ -5434,6 +5431,11 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
+		switch (daNote.noteType)
+	    {
+			case 'Caution Note':
+				health = 0;
+		}
 
 		callOnScripts('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote, daNote.characters]);
 	}
@@ -6087,8 +6089,8 @@ class PlayState extends MusicBeatState
 
 				} : {
 	
-					FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
-					FlxTween.angle(iconP1, 30, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP2, 0, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
+					FlxTween.angle(iconP1, 0, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
 
 				}
 	

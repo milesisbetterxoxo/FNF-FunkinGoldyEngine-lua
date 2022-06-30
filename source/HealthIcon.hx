@@ -3,9 +3,7 @@ package;
 import editors.CharacterEditorState;
 import flixel.FlxG;
 import flixel.FlxSprite;
-#if sys
 import sys.FileSystem;
-#end
 import haxe.Json;
 
 using StringTools;
@@ -20,7 +18,7 @@ class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
 	private var isOldIcon:Bool = false;
-	private var isPlayer:Bool = false;
+    public var isPlayer:Bool = false;
 	public var char:String = ''; // for freeplay win shit
 	var originalChar:String = 'bf-old';
 	public var hasWinIcon:Bool;

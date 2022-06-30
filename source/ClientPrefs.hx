@@ -32,6 +32,7 @@ class ClientPrefs {
 	public static var flashingAmount:Float = 1;
 	public static var moreShit:String = 'Goldy';
 	public static var camFollow:Bool = true;
+	public static var noteCombo:Bool = true;
 	#if !html5
 	public static var autoPause:Bool = true;
 	#else
@@ -239,6 +240,7 @@ class ClientPrefs {
 		FlxG.save.data.smoothHealth = smoothHealth;
 		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
 		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
+		FlxG.save.data.noteCombo = noteCombo;
 
 		FlxG.save.data.ratingOffset = ratingOffset;
 		FlxG.save.data.sickWindow = sickWindow;

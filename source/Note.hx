@@ -135,6 +135,18 @@ class Note extends FlxSprite
 						noAnimation = true;
 					case 'GF Sing':
 						gfNote = true;
+					case 'Caution Note':
+						ignoreNote = isOpponent;
+						reloadNote('CAUTION');
+						colorSwap.hue = 0;
+						colorSwap.saturation = 0;
+						colorSwap.brightness = 0;
+						if (isSustainNote) {
+							missHealth = 0;
+						} else {
+							missHealth = 0;
+						}
+						noAnimation = true;
 				}
 				noteType = value;
 			}
