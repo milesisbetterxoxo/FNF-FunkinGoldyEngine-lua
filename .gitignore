@@ -9,6 +9,8 @@ art/flashFiles/*.svg
 !art/flashFiles/emptyAchievement.png
 !art/flashFiles/loading text.png
 
+vscode-project.hxml # yes
+
 ### VS Code
 export/*
 .vscode/*
