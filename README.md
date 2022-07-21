@@ -67,7 +67,6 @@ You'll also need to install a couple things that involve Gits. To do this, you n
 2. Follow instructions to install the application properly.
 3. Run `haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc` to install Discord RPC.
 4. Run `haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit` to install LuaJIT. (If you don't want your mod to be able to run .lua scripts, delete the "LUA_ALLOWED" line on Project.xml)
-5. Run `haxelib git MoveOpenFLWindow https://github.com/RafaelOliveira/MoveOpenFlWindow` to install MoveOpenFlWindow. It is for modchart functions, yeah. If you dont want it, delete the "MODCHART_FUNCTIONS_ALLOWED" line on Project.xml 
 6. Run `haxelib git hscript https://github.com/HaxeFoundation/hscript` to install hscript. After that, run `haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex` to install hscript-ex. (If you don't want your mod to be able to run .hscript scripts, delete the "HSCRIPT_ALLOWED" line on Project.xml)
 
 You should have everything ready for compiling the game! Follow the guide below to continue!
