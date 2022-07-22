@@ -9,11 +9,12 @@ art/flashFiles/*.svg
 !art/flashFiles/emptyAchievement.png
 !art/flashFiles/loading text.png
 
-vscode-project.hxml # yes
+# yes
+vscode-project.hxml
 
 ### VS Code
-export/*
-.vscode/*
+export/
+.vscode/
 *.code-workspace
 # Local history which shouldn't be shared.
 .history
