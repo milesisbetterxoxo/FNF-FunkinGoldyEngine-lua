@@ -17,7 +17,7 @@ modified epic psych engine with epic fucking shits
 
 ### Special Thanks
 * KadeDev & GitHub Contributors - Made Kade Engine (some code is from there)
-* Leather128 & GitHub Contributors - Made Leather Engine (some code is from there)
+* Leather128 & GitHub Contributors - Made Leather Engine and his Goldy Engine Fork (some code is from there)
 * srPerez - Made VS Shaggy & original 9K notes
 
 * SqirraRNG - Chart Editor's Sound Waveform base code
