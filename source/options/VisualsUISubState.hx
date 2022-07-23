@@ -18,6 +18,13 @@ class VisualsUISubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Opponent Note Splashes',
+			"If unchecked, disables notes splashes on the opponent side.",
+			'opponentNoteSplashes',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Hide HUD',
 			'If checked, hides most HUD elements.',
 			'hideHud',
