@@ -257,42 +257,6 @@ class FunkinLua {
 			luaTrace("Script doesn't exist!");
 		});
 		
-		Lua_helper.add_callback(lua, "runHaxeCode", function(codeToRun:String) {
-			#if hscript
-			initHaxeInterp();
-
-			try {
-				var myFunction:Dynamic = haxeInterp.expr(new Parser().parseString(codeToRun));
-				myFunction();
-			}
-			catch (e:Dynamic) {
-				switch(e)
-				{
-					case 'Null Function Pointer', 'SReturn':
-						//nothing
-					default:
-						luaTrace(scriptName + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
-				}
-			}
-			#end
-		});
-
-		Lua_helper.add_callback(lua, "addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
-			#if hscript
-			initHaxeInterp();
-
-			try {
-				var str:String = '';
-				if(libPackage.length > 0)
-					str = libPackage + '.';
-
-				haxeInterp.variables.set(libName, Type.resolveClass(str + libName));
-			}
-			catch (e:Dynamic) {
-				luaTrace(scriptName + ":" + lastCalledFunction + " - " + e, false, false, FlxColor.RED);
-			}
-			#end
-		});
 
 		Lua_helper.add_callback(lua, "clearUnusedMemory", function() {
 			Paths.clearUnusedMemory();
