@@ -42,6 +42,7 @@ class ClientPrefs {
 	public static var shitMisses:Bool = true;
 	public static var smoothHealth:Bool = true;
 	public static var skipIntro:Bool = false;
+	public static var opponentNoteSplashes:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -217,6 +218,7 @@ class ClientPrefs {
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
+		FlxG.save.data.opponentNoteSplashes = opponentNoteSplashes;
 		FlxG.save.data.gameQuality = gameQuality;
 		FlxG.save.data.framerate = framerate;
 		FlxG.save.data.camZooms = camZooms;
@@ -287,6 +289,9 @@ class ClientPrefs {
 		if (FlxG.save.data.noteSplashes != null) {
 			noteSplashes = FlxG.save.data.noteSplashes;
 		}
+		if (FlxG.save.data.opponentNoteSplashes != null) {
+			opponentNoteSplashes = FlxG.save.data.opponentNoteSplashes;
+		}
 		if (FlxG.save.data.gameQuality != null) {
 			gameQuality = FlxG.save.data.gameQuality;
 		} else if (FlxG.save.data.lowQuality != null) {
@@ -335,7 +340,7 @@ class ClientPrefs {
 		if (FlxG.save.data.comboOffset != null) {
 			comboOffset = FlxG.save.data.comboOffset;
 		}
-		
+
 		if (FlxG.save.data.ratingOffset != null) {
 			ratingOffset = FlxG.save.data.ratingOffset;
 		}

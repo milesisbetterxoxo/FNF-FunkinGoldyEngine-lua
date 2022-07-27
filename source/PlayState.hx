@@ -75,7 +75,6 @@ class PlayState extends MusicBeatState
 
 	var woah:FlxSprite;
 
-
 	var gottaHitNote:Bool;
 
 	public static var ratingStuff:Array<Array<Dynamic>> = [
@@ -408,7 +407,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (SONG == null)
-			SONG = Song.loadFromJson('tutorial', 'tutorial');
+			SONG = Song.loadFromJson('test', 'test');
 
 		originalSong = Reflect.copy(SONG);
 
@@ -541,8 +540,6 @@ class PlayState extends MusicBeatState
 			boyfriendGroup = new FlxTypedSpriteGroup(BF_X, BF_Y);
 			dadGroup = new FlxTypedSpriteGroup(DAD_X, DAD_Y);
 			gfGroup = new FlxTypedSpriteGroup(GF_X, GF_Y);
-
-
 
 			if (ClientPrefs.gameQuality != 'Crappy') {
 				switch (curStage)
@@ -5253,11 +5250,7 @@ class PlayState extends MusicBeatState
 						callOnScripts('noteMissPress', [key]);
 					}
 
-					// I dunno what you need this for but here you go
-					//									- Shubs
-
-					// Shubs, this is for the "Just the Two of Us" achievement lol
-					//									- Shadow Mario
+					// For the "Just the Two of Us achievement"
 					keysPressed[key] = true;
 
 					//more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
@@ -5559,7 +5552,7 @@ class PlayState extends MusicBeatState
 		strumPlayAnim(true, note.noteData, time);
 		note.hitByOpponent = true;
 
-		if (!note.noteSplashDisabled && !note.isSustainNote)
+		if (!note.noteSplashDisabled && !note.isSustainNote && ClientPrefs.opponentNoteSplashes)
 		{
 			spawnNoteSplashOnNote(note);
 		}
