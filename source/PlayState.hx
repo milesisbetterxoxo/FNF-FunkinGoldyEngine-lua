@@ -73,7 +73,7 @@ class PlayState extends MusicBeatState
 
 	public var introSuffix:String = '';
 
-	var woah:FlxSprite;
+	var woah:FlxText;
 
 
 	var gottaHitNote:Bool;
@@ -360,7 +360,9 @@ class PlayState extends MusicBeatState
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		PauseSubState.songName = null; //Reset to default
-		woah = new FlxSprite(Paths.getPreloadPath('images/NOTECOMBO.png'));
+		woah = new FlxText();
+		woah.text = "NOTE COMBO!";
+		woah.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		woah.setGraphicSize(Std.int(woah.width * 1.6));
 		woah.antialiasing = ClientPrefs.globalAntialiasing;
 		woah.scrollFactor.set();
@@ -1957,19 +1959,13 @@ function loadOgStages(stage:String) {
 			// copyed from FunkinLua file
 		private function noteCombo():Void
 		{
+			add(woah);
 			//var mytimer:FlxTimer;
 			if (ClientPrefs.flashing)
 			{
-				FlxG.camera.flash(FlxColor.WHITE, 1); // funny mukbang flash (wtf i wrote)
+				FlxG.camera.flash(FlxColor.WHITE, 0.5); // funny mukbang flash
 			}
-			FlxTween.tween(woah, {alpha: 1}, modifiedCrochet / 100, {
-				ease: FlxEase.cubeInOut,
-				onComplete: function(twn:FlxTween)
-				{
-					add(woah);
-				}
-			});
-			songScore = songScore + 100; // give one hundred score for shit
+			songScore = songScore + 1500; // no reason
 			FlxTween.tween(woah, {alpha: 0}, modifiedCrochet / 100, {
 				ease: FlxEase.cubeInOut,
 				onComplete: function(twn:FlxTween)
@@ -3849,19 +3845,21 @@ function loadOgStages(stage:String) {
 				health = 2;
 			var stupidIcons:Array<HealthIcon> = [iconP1, iconP2];
 			if (opponentChart) stupidIcons = [iconP2, iconP1];
+			var playerIcon:HealthIcon = stupidIcons[0]; // i just mess up sometimes
+			var opponentIcon:HealthIcon = stupidIcons[1];
 			if (healthBar.percent < 20)
-				iconP1.curAnim = 'lose';
+				playerIcon.changeIcon(playerIcon.char, 'lose');
 			else if (healthBar.percent > 80)
-				iconP1.curAnim = 'win';
+				playerIcon.changeIcon(playerIcon.char, 'win');
 			else
-				iconP1.curAnim = 'default';
+				playerIcon.changeIcon(playerIcon.char, 'default');
 
 			if (healthBar.percent > 80)
-				iconP2.curAnim = 'lose';
+				opponentIcon.changeIcon(opponentIcon.char, 'win');
 			else if (healthBar.percent < 20)
-				iconP2.curAnim = 'win';
+				opponentIcon.changeIcon(opponentIcon.char, 'lose');
 			else
-				iconP2.curAnim = 'default';
+				opponentIcon.changeIcon(opponentIcon.char, 'default');
 
 			#if desktop
 			if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
@@ -6107,11 +6105,15 @@ function loadOgStages(stage:String) {
 	
 					FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
 					FlxTween.angle(iconP2, 30, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
+					iconP2.updateHitbox();
+					iconP1.updateHitbox();
 
 				} : {
 	
 					FlxTween.angle(iconP2, 0, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
 					FlxTween.angle(iconP1, 0, 0, Conductor.crochet / 1300 * iconBopSpeed, {ease: FlxEase.quadOut});
+					iconP2.updateHitbox();
+					iconP1.updateHitbox();
 
 				}
 	
@@ -6457,6 +6459,7 @@ function loadOgStages(stage:String) {
 					}
 				}
 			}
+
 
 			// Rating FC
 			ratingFC = "";

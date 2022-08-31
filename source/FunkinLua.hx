@@ -1050,8 +1050,7 @@ class FunkinLua {
 				case 'p2' | '2' | 'dad' | 'opponent' | 'player2':
 					daIcon = PlayState.instance.iconP2;
 			}
-			daIcon.changeIcon(char);
-			daIcon.curAnim = curAnimShit;
+			daIcon.changeIcon(char, curAnimShit);
 		});
 		Lua_helper.add_callback(lua, "setHealthBarColors", function(left:String = '0xFFFF0000', right:String = '0xFF66FF33') {
 			var leftColorNum:Int = Std.parseInt(left);

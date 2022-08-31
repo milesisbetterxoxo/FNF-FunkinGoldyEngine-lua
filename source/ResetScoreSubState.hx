@@ -118,9 +118,9 @@ class ResetScoreSubState extends MusicBeatSubState
 		if (week.length < 1)
 		{ 
 			if (confirmInt != 0)
-			icon.curAnim = 'lose';
+			icon.changeIcon(icon.char, 'lose');
 			else 
-			icon.curAnim = 'win';
+			icon.changeIcon(icon.char, 'win');
 		}
 	}
 }

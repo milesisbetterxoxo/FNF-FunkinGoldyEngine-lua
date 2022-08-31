@@ -27,3 +27,5 @@ export/
 !.vscode/extensions.json
 .vs/*
 todo.txt
+something.txt
+# used for updates

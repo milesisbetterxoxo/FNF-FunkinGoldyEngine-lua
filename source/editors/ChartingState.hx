@@ -2443,17 +2443,17 @@ class ChartingState extends MusicBeatState
 
 		if (_song.notes[curSection].mustHitSection)
 		{
-			leftIcon.changeIcon(healthIconP1);
-			rightIcon.changeIcon(healthIconP2);
+			leftIcon.changeIcon(healthIconP1, 'default');
+			rightIcon.changeIcon(healthIconP2, 'default');
 			rightIcon.isPlayer = true;
-			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
+			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf', 'default');
 		}
 		else
 		{
-			leftIcon.changeIcon(healthIconP2);
-			rightIcon.changeIcon(healthIconP1);
+			leftIcon.changeIcon(healthIconP2, 'default');
+			rightIcon.changeIcon(healthIconP1, 'default');
 			rightIcon.isPlayer = true;
-			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
+			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf', 'default');
 		}
 	}
 
