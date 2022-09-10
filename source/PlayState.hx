@@ -1959,6 +1959,9 @@ function loadOgStages(stage:String) {
 			// copyed from FunkinLua file
 		private function noteCombo():Void
 		{
+			while (woah.alpha != 1) {
+				woah.alpha += 0.01; // quick tween
+			}
 			add(woah);
 			//var mytimer:FlxTimer;
 			if (ClientPrefs.flashing)
@@ -3861,6 +3864,18 @@ function loadOgStages(stage:String) {
 			else
 				opponentIcon.changeIcon(opponentIcon.char, 'default');
 
+			// real
+
+			if (healthBar.percent > 80) {
+				scoreTxt.color = 0xff0000;
+			}
+			else if (healthBar.percent < 20) {
+				scoreTxt.color = 0x09ff00;
+			}
+			else {
+				scoreTxt.color = 0xffffff;
+			}
+
 			#if desktop
 			if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 				var ret:Dynamic = callOnScripts('onOpenCharacterEditor', []);
@@ -4592,7 +4607,7 @@ function loadOgStages(stage:String) {
 							makeDoubleTrail(boyfriendGroup.members[index], 'bf$index', true, index, boyfriendGroup);
 							boyfriend = boyfriendGroup.members[0];
 							if (boyfriendGroup.members.length == 1) {
-								iconP1.curAnim = "default";
+								iconP1.changeIcon(iconP1.char, "default");
 							}
 							setOnScripts('boyfriendName', boyfriend.curCharacter);
 							setOnHscripts('boyfriend', boyfriend);
@@ -4624,7 +4639,7 @@ function loadOgStages(stage:String) {
 							makeDoubleTrail(dadGroup.members[index], 'dad$index', false, index, dadGroup);
 							dad = dadGroup.members[0];
 							if (dadGroup.members.length == 1) {
-								iconP2.curAnim = 'default';
+								iconP2.changeIcon(iconP2.char, "default");
 							}
 							setOnScripts('dadName', dad.curCharacter);
 							setOnHscripts('dad', dad);

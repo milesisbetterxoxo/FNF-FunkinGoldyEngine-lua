@@ -564,13 +564,13 @@ class FreeplayState extends MusicBeatState
 			for (i in 0...iconArray.length)
 			{
 				iconArray[i].alpha = 0.6;
-				iconArray[i].curAnim = 'default';
+				iconArray[i].changeIcon(iconArray[i].char);
 			}
 
 			if (iconArray[curSelected] != null)
 			{
 				iconArray[curSelected].alpha = 1;
-				iconArray[curSelected].curAnim = 'win';
+				iconArray[curSelected].changeIcon(iconArray[curSelected].char, 'win');
 			}
 
 			for (item in grpSongs.members)

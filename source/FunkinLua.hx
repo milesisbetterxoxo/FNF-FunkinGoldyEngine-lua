@@ -196,6 +196,10 @@ class FunkinLua {
 		set('buildTarget', 'unknown');
 		#end
 
+		Lua_helper.add_callback(lua, "getGameplaySetting", function(name:String, defaultSetting:Dynamic) {
+            return ClientPrefs.getGameplaySetting(name, defaultSetting);
+		});
+
 
 
 		Lua_helper.add_callback(lua, "addLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf. 

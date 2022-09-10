@@ -1,46 +1,35 @@
 package;
 
-import flixel.system.FlxAssets.FlxShader;
+import editors.CharacterEditorState;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.util.FlxColor;
 import haxe.Json;
-import openfl.Assets;
 
 using StringTools;
 
-typedef IconConfig =
+typedef HealthIconConfig =
 {
-	isPixel:Bool,
-	scale:Array<Float>,
-	flipX:Bool,
-	shader:String // idfk???
+	var ?flipX:Bool;
+    var ?color:FlxColor;
+	var ?scale:Array<Float>;
+	var ?antialiasing:Bool;
 }
 
 class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
-
 	private var isOldIcon:Bool = false;
-
 	public var isPlayer:Bool = false;
-	public var char:String = ''; // for freeplay win shit
-
+	public var char:String = '';
 	var originalChar:String = 'bf-old';
 
-	public var hasWinIcon:Bool;
-	public var hasLoseIcon:Bool;
-	public var iconExists:Bool;
-	public var config:IconConfig;
-	public var curAnim:String = 'default';
-
-	public function new(char:String = 'face', isPlayer:Bool = false)
+	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
 		super();
-
+		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
-
-		changeIcon(char, 'default');
-
+		changeIcon(char);
 		scrollFactor.set();
 	}
 
@@ -52,120 +41,93 @@ class HealthIcon extends FlxSprite
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 	}
 
-	public function swapOldIcon()
-	{
-		if (!isOldIcon)
-			changeIcon('bf-old', 'default');
-		else
-			changeIcon(originalChar, 'default');
+	public function swapOldIcon() {
+		if (!isOldIcon) changeIcon('bf-old');
+		else changeIcon(originalChar);
 	}
 
-	public var iconOffsets:Array<Float> = [0, 0];
-
-	public function changeIcon(char:String, curAnim:String = 'default') // NEW VERSION
-	{
-		var name:String = Paths.getPath('icons/$char/$curAnim', null);
-		var imageExists:Bool = true;
-
-		if (!Assets.exists('$name.png', IMAGE))
-		{
-			FlxG.log.warn('$name does not exist! Trying to use the default icon instead.');
-			name = 'icons/$char/default';
-		}
-
-		if (!Assets.exists('$name.png', IMAGE) && name == 'icons/$char/default')
-		{
-			FlxG.log.warn('$name does not exist! Trying to use the default icon instead.');
-			name = 'icons/face/$curAnim';
-		}
-
-		if (!Assets.exists('$name.png', IMAGE) && name == 'icons/face/$curAnim')
-		{
-			FlxG.log.warn('$name does not exist! Using nothing instead.');
-			imageExists = false;
-		}
-
-		var file = Paths.image(name);
-
-		var configExists = Paths.fileExists('images/icons/$char/config.json', TEXT);
-
-		if (configExists) {
-			config = Json.parse(Paths.getTextFromFile('images/icons/$char/config.json')); // icon config?!?!?
-			antialiasing = ClientPrefs.globalAntialiasing;
-			if (config.isPixel) {
-				antialiasing = false;
+	private var iconOffsets:Array<Float> = [0, 0];
+	public function changeIcon(char:String, curAnim:String = 'default') {
+		if (this.char != char) {
+			var config:HealthIconConfig;
+			if (Paths.fileExists('images/icons/$char/config.json', TEXT)) {
+				config = Json.parse(Paths.getTextFromFile('images/icons/$char/config.json'));
+				if (config.flipX == true) {
+					flipX = !isPlayer;
+				}
+				else {
+					flipX = isPlayer;
+				}
+				if (config.antialiasing != null) {
+					antialiasing = config.antialiasing;
+					if (config.antialiasing == true) {
+						antialiasing = ClientPrefs.globalAntialiasing;
+					}
+				}
+				if (config.color != null) {
+					color = config.color;
+				}
 			}
-			if (config.scale.length > 0 && config.scale != null) {
-				scale.set(config.scale[0], config.scale[1]);
+            var imageExists:Bool = true;
+			var name:String = 'icons/$char/$curAnim';
+			if (!Paths.fileExists('images/$name.png', IMAGE)) {
+				name = 'icons/$char/$curAnim'; //Older versions of psych engine's support
+			}
+			if (!Paths.fileExists('images/$name.png', IMAGE)) {
+				name = 'icons/$char/default'; //Prevents crash from missing icon
+				if (!CharacterEditorState.inEditor) {
+					FlxG.log.warn('Couldn\'t find icon file for $char!');
+				    FlxG.log.warn('Using the default animation...');
+				}
+			}
+			if (!Paths.fileExists('images/$name.png', IMAGE)) {
+				name = 'icons/face/$curAnim';
+				if (!CharacterEditorState.inEditor) {
+					FlxG.log.warn('Couldn\'t find icon file for $char!');
+				    FlxG.log.warn('Using the face icon...');
+				}
+			}
+			if (!Paths.fileExists('images/$name.png', IMAGE)) {
+				name = 'placeholder';
+				if (!CharacterEditorState.inEditor) {
+					FlxG.log.warn('funee placeholder'); // so true
+				}
+				setGraphicSize(150, 150); // real
 				updateHitbox();
 			}
-			if (config.shader.length > 0 && config.shader != null) {
-				shader = getShaderFromString(config.shader); // yeah, im very kool
+			if (!Paths.fileExists('images/$name.png', IMAGE)) {
+				imageExists = false;
 			}
+			var file = Paths.image(name);
+
+			if (imageExists) {
+				loadGraphic(file); //Load stupidly first for getting the file size
+			    iconOffsets[0] = (width - 150) / 2;
+			    iconOffsets[1] = (width - 150) / 2;
+			    iconOffsets[2] = (width - 150) / 2;
+			    updateHitbox();
+			}
+
+			this.char = char;
+			if (char != 'bf-old') originalChar = char;
+
+			antialiasing = ClientPrefs.globalAntialiasing;
+			if (char.endsWith('-pixel')) {
+				antialiasing = false;
+			}
+
+			isOldIcon = (char == 'bf-old');
 		}
-		else {
-            antialiasing = ClientPrefs.globalAntialiasing;
-			scale.set(1, 1);
-			updateHitbox();
-		}
-
-		if (imageExists) {
-			loadGraphic(file);
-		}
-		updateHitbox();
-
-		this.char = char;
-
-		// anyway
-		if (isPlayer)
-			flipX = true;
-
-		isOldIcon = (char == 'bf-old');
-	}
-
-	public function getShaderFromString(shader:String):FlxShader {
-		switch (shader) {
-            case 'building-shader':
-                return new Shaders.BuildingShader();
-            case 'chromatic-aberration-shader':
-                return new Shaders.ChromaticAberrationShader();
-            case 'scanline':
-                return new Shaders.Scanline();
-            case 'tiltshift':
-                return new Shaders.Tiltshift();
-            case 'greyscale':
-                return new Shaders.GreyscaleShader();
-            case 'grain':
-                return new Shaders.Grain();
-            case 'vcr-distortion-shader':
-                return new Shaders.VCRDistortionShader();
-            case '3D' | '3D-shader' | 'ThreeD':
-                return new Shaders.ThreeDShader();
-            case 'fucking-triangle' | 'triangle': // i dont think ppl will use this but whatever
-                return new Shaders.FuckingTriangle();
-            case 'bloom':
-                return new Shaders.BloomShader();
-            case 'glitch' | 'glitch-effect':
-                return new Shaders.GlitchShader(); // I LOVE BANUD 
-            case 'pulse':
-                return new Shaders.PulseShader();
-            case 'distort' | 'distortBG':
-                return new Shaders.DistortBGShader();
-            case 'invert':
-                return new Shaders.InvertShader();
-            // im too lazy to make it be customizable
-        }
-        return null;
 	}
 
 	override function updateHitbox()
 	{
 		super.updateHitbox();
-
 		offset.x = iconOffsets[0];
 		offset.y = iconOffsets[1];
 	}
 
-	public function getCharacter():String
+	public function getCharacter():String {
 		return char;
+	}
 }

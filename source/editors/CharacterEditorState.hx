@@ -84,6 +84,8 @@ class CharacterEditorState extends MusicBeatState
 
 	var cameraFollowPointer:FlxSprite;
 	var healthBarBG:FlxSprite;
+	
+	public static var inEditor:Bool = false;
 
 	override function create()
 	{
@@ -207,6 +209,8 @@ class CharacterEditorState extends MusicBeatState
 
 		FlxG.mouse.visible = true;
 		reloadCharacterOptions();
+
+		inEditor = true;
 
 		super.create();
 	}
@@ -1158,6 +1162,7 @@ class CharacterEditorState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				}
 				FlxG.mouse.visible = false;
+				inEditor = false;
 				return;
 			}
 			
