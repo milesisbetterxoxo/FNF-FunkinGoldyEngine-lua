@@ -336,6 +336,8 @@ class PlayState extends MusicBeatState
 
 	var lastTitle = '';
 
+	public var isInPlayState:Bool;
+
 	public var hideInDemoMode:Array<FlxBasic> = [];
 
 
@@ -348,6 +350,10 @@ class PlayState extends MusicBeatState
 		super();
 	}
 
+	public function getHealth():Float {
+		return healthBar.percent;
+	}
+
 	override public function create()
 	{
 		Paths.clearStoredMemory();
@@ -356,6 +362,7 @@ class PlayState extends MusicBeatState
 
 		// for lua
 		instance = this;
+
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
@@ -771,7 +778,6 @@ class PlayState extends MusicBeatState
 					case 'limo':
 						resetFastCar();
 						insert(members.indexOf(gfGroup), fastCar);
-						stageSprites.add(fastCar);
 					
 					case 'schoolEvil':
 						var evilTrail = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
@@ -1124,7 +1130,7 @@ class PlayState extends MusicBeatState
 		ratingTxtGroup.visible = !ClientPrefs.hideHud && ClientPrefs.showRatings;
 		hideInDemoMode.push(ratingTxtGroup);
 		for (i in 0...5) {
-			var ratingTxt = new FlxText(20, FlxG.height * 0.5 - 8 + (16 * (i - 2)), FlxG.width, "", 16);
+			var ratingTxt = new FlxText(20, FlxG.height * 0.15 - 8 + (16 * (i - 2)), FlxG.width, "", 16);
 			ratingTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			ratingTxt.scrollFactor.set();
 			ratingTxtGroup.add(ratingTxt);
@@ -1420,6 +1426,9 @@ class PlayState extends MusicBeatState
 		callOnScripts('onModChartCreate', []);
 	}
 }
+public function getCurSong():String {
+	return curSong;
+}
 function loadOgStages(stage:String) {
 	curStage = stage;
 	if (ClientPrefs.gameQuality != 'Crappy') {
@@ -1577,20 +1586,6 @@ function loadOgStages(stage:String) {
 
 							//PRECACHE SOUND
 							CoolUtil.precacheSound('dancerdeath');
-							/*if (destroyStage)
-							{
-								limoMetalPole.kill();
-								bgLimo.kill();
-								limoCorpse.kill();
-								limoCorpseTwo.kill();
-								grpLimoDancers.kill();
-								limoLight.kill();
-								grpLimoParticles.kill();
-								if (ClientPrefs.gameQuality != 'Normal')
-								{
-									skyBG.kill();
-								}
-							}*/
 						}
 
 						limo = new BGSprite('limo/limoDrive', -120, 550, 1, 1, ['Limo stage'], true);
@@ -2830,7 +2825,6 @@ function loadOgStages(stage:String) {
 			callOnScripts('onStartCountdown', []);
 			return;
 		}
-		gf.dance(); // cuz gf does stay on danceLeft forever
 
 		inCutscene = false;
 		var ret:Dynamic = callOnScripts('onStartCountdown', []);
@@ -2849,7 +2843,7 @@ function loadOgStages(stage:String) {
 				setOnScripts('defaultOpponentStrumY$i', opponentStrums.members[i].y);
 			}
 
-			
+			var modifiedCrochet:Float = Conductor.crochet * (Conductor.timeSignature[1] / 4); //slows or speeds up to mimic normal quarter notes
 
 			startedCountdown = true;
 			Conductor.songPosition = startPos;
@@ -2891,9 +2885,16 @@ function loadOgStages(stage:String) {
 					switch (swagCounter)
 					{
 						case 0:
-                            trace('starting countdown...');
-							FlxG.sound.play(Paths.sound('intro3$introSuffix'));
+							var introSuffix = !opponentChart ? uiSkinMap.get('player').introSoundsSuffix : uiSkinMap.get('opponent').introSoundsSuffix;
+							if (introSoundsSuffix != null && introSoundsSuffix.length > 0) {
+								introSuffix = introSoundsSuffix;
+							}
+							FlxG.sound.play(Paths.sound('intro3$introSuffix'), 0.6);
 						case 1:
+							var introSuffix = uiSkinMap.get('ready').introSoundsSuffix;
+							if (introSoundsSuffix != null && introSoundsSuffix.length > 0) {
+								introSuffix = introSoundsSuffix;
+							}
 							countdownReady = new FlxSprite().loadGraphic(Paths.image(UIData.checkImageFile('ready', uiSkinMap.get('ready'))));
 							countdownReady.scrollFactor.set();
 							countdownReady.updateHitbox();
@@ -2914,6 +2915,10 @@ function loadOgStages(stage:String) {
 							});
 							FlxG.sound.play(Paths.sound('intro2$introSuffix'), 0.6);
 						case 2:
+							var introSuffix = uiSkinMap.get('set').introSoundsSuffix;
+							if (introSoundsSuffix != null && introSoundsSuffix.length > 0) {
+								introSuffix = introSoundsSuffix;
+							}
 							countdownSet = new FlxSprite().loadGraphic(Paths.image(UIData.checkImageFile('set', uiSkinMap.get('set'))));
 							countdownSet.scrollFactor.set();
 
@@ -2933,6 +2938,10 @@ function loadOgStages(stage:String) {
 							});
 							FlxG.sound.play(Paths.sound('intro1$introSuffix'), 0.6);
 						case 3:
+							var introSuffix = uiSkinMap.get('go').introSoundsSuffix;
+							if (introSoundsSuffix != null && introSoundsSuffix.length > 0) {
+								introSuffix = introSoundsSuffix;
+							}
 							countdownGo = new FlxSprite().loadGraphic(Paths.image(UIData.checkImageFile('go', uiSkinMap.get('go'))));
 							countdownGo.scrollFactor.set();
 
@@ -3669,90 +3678,90 @@ function loadOgStages(stage:String) {
 							}
 						}
 						phillyCityLights.members[curLight].alpha -= (Conductor.crochet * (Conductor.timeSignature[1] / 4) / 1000) * FlxG.elapsed * 1.5;
-					case 'limo':
-						if (ClientPrefs.gameQuality == 'Normal') {
-							grpLimoParticles.forEach(function(spr:BGSprite) {
-								if (spr.animation.curAnim.finished) {
-									spr.kill();
-									grpLimoParticles.remove(spr, true);
-									spr.destroy();
+						case 'limo':
+							if (ClientPrefs.gameQuality == 'Normal') {
+								grpLimoParticles.forEach(function(spr:BGSprite) {
+									if (spr.animation.curAnim.finished) {
+										spr.kill();
+										grpLimoParticles.remove(spr, true);
+										spr.destroy();
+									}
+								});
+	
+								switch(limoKillingState) {
+									case 1:
+										limoMetalPole.x += 5000 * elapsed;
+										limoLight.x = limoMetalPole.x - 180;
+										limoCorpse.x = limoLight.x - 50;
+										limoCorpseTwo.x = limoLight.x + 35;
+	
+										var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
+										for (i in 0...dancers.length) {
+											if (dancers[i].x < FlxG.width * 1.5 && limoLight.x > (370 * i) + 130) {
+												switch(i) {
+													case 0 | 3:
+														if (i == 0) FlxG.sound.play(Paths.sound('dancerdeath'), 0.5);
+	
+														var diffStr:String = i == 3 ? ' 2 ' : ' ';
+														var particle:BGSprite = new BGSprite('gore/noooooo', dancers[i].x + 200, dancers[i].y, 0.4, 0.4, ['hench leg spin${diffStr}PINK'], false);
+														grpLimoParticles.add(particle);
+														var particle:BGSprite = new BGSprite('gore/noooooo', dancers[i].x + 160, dancers[i].y + 200, 0.4, 0.4, ['hench arm spin${diffStr}PINK'], false);
+														grpLimoParticles.add(particle);
+														var particle:BGSprite = new BGSprite('gore/noooooo', dancers[i].x, dancers[i].y + 50, 0.4, 0.4, ['hench head spin${diffStr}PINK'], false);
+														grpLimoParticles.add(particle);
+	
+														var particle:BGSprite = new BGSprite('gore/stupidBlood', dancers[i].x - 110, dancers[i].y + 20, 0.4, 0.4, ['blood'], false);
+														particle.flipX = true;
+														particle.angle = -57.5;
+														grpLimoParticles.add(particle);
+													case 1:
+														limoCorpse.visible = true;
+													case 2:
+														limoCorpseTwo.visible = true;
+												} //Note: Nobody cares about the fifth dancer because he is mostly hidden offscreen :(
+												dancers[i].x += FlxG.width * 2;
+											}
+										}
+	
+										if (limoMetalPole.x > FlxG.width * 2) {
+											resetLimoKill();
+											limoSpeed = 800;
+											limoKillingState = 2;
+										}
+	
+									case 2:
+										limoSpeed -= 4000 * elapsed;
+										bgLimo.x -= limoSpeed * elapsed;
+										if (bgLimo.x > FlxG.width * 1.5) {
+											limoSpeed = 3000;
+											limoKillingState = 3;
+										}
+	
+									case 3:
+										limoSpeed -= 2000 * elapsed;
+										if (limoSpeed < 1000) limoSpeed = 1000;
+	
+										bgLimo.x -= limoSpeed * elapsed;
+										if (bgLimo.x < -275) {
+											limoKillingState = 4;
+											limoSpeed = 800;
+										}
+	
+									case 4:
+										bgLimo.x = FlxMath.lerp(bgLimo.x, -150, CoolUtil.boundTo(elapsed * 9, 0, 1));
+										if (Math.round(bgLimo.x) == -150) {
+											bgLimo.x = -150;
+											limoKillingState = 0;
+										}
 								}
-							});
-
-							switch(limoKillingState) {
-								case 1:
-									limoMetalPole.x += 5000 * elapsed;
-									limoLight.x = limoMetalPole.x - 180;
-									limoCorpse.x = limoLight.x - 50;
-									limoCorpseTwo.x = limoLight.x + 35;
-
+	
+								if (limoKillingState > 2) {
 									var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
 									for (i in 0...dancers.length) {
-										if (dancers[i].x < FlxG.width * 1.5 && limoLight.x > (370 * i) + 130) {
-											switch(i) {
-												case 0 | 3:
-													if (i == 0) FlxG.sound.play(Paths.sound('dancerdeath'), 0.5);
-
-													var diffStr:String = i == 3 ? ' 2 ' : ' ';
-													var particle:BGSprite = new BGSprite('gore/noooooo', dancers[i].x + 200, dancers[i].y, 0.4, 0.4, ['hench leg spin${diffStr}PINK'], false);
-													grpLimoParticles.add(particle);
-													var particle:BGSprite = new BGSprite('gore/noooooo', dancers[i].x + 160, dancers[i].y + 200, 0.4, 0.4, ['hench arm spin${diffStr}PINK'], false);
-													grpLimoParticles.add(particle);
-													var particle:BGSprite = new BGSprite('gore/noooooo', dancers[i].x, dancers[i].y + 50, 0.4, 0.4, ['hench head spin${diffStr}PINK'], false);
-													grpLimoParticles.add(particle);
-
-													var particle:BGSprite = new BGSprite('gore/stupidBlood', dancers[i].x - 110, dancers[i].y + 20, 0.4, 0.4, ['blood'], false);
-													particle.flipX = true;
-													particle.angle = -57.5;
-													grpLimoParticles.add(particle);
-												case 1:
-													limoCorpse.visible = true;
-												case 2:
-													limoCorpseTwo.visible = true;
-											} //Note: Nobody cares about the fifth dancer because he is mostly hidden offscreen :(
-											dancers[i].x += FlxG.width * 2;
-										}
+										dancers[i].x = (370 * i) + bgLimo.x + 280;
 									}
-
-									if (limoMetalPole.x > FlxG.width * 2) {
-										resetLimoKill();
-										limoSpeed = 800;
-										limoKillingState = 2;
-									}
-
-								case 2:
-									limoSpeed -= 4000 * elapsed;
-									bgLimo.x -= limoSpeed * elapsed;
-									if (bgLimo.x > FlxG.width * 1.5) {
-										limoSpeed = 3000;
-										limoKillingState = 3;
-									}
-
-								case 3:
-									limoSpeed -= 2000 * elapsed;
-									if (limoSpeed < 1000) limoSpeed = 1000;
-
-									bgLimo.x -= limoSpeed * elapsed;
-									if (bgLimo.x < -275) {
-										limoKillingState = 4;
-										limoSpeed = 800;
-									}
-
-								case 4:
-									bgLimo.x = FlxMath.lerp(bgLimo.x, -150, CoolUtil.boundTo(elapsed * 9, 0, 1));
-									if (Math.round(bgLimo.x) == -150) {
-										bgLimo.x = -150;
-										limoKillingState = 0;
-									}
-							}
-
-							if (limoKillingState > 2) {
-								var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
-								for (i in 0...dancers.length) {
-									dancers[i].x = (370 * i) + bgLimo.x + 280;
 								}
 							}
-						}
 					case 'mall':
 						if (heyTimer > 0) {
 							heyTimer -= elapsed;
@@ -3867,10 +3876,10 @@ function loadOgStages(stage:String) {
 			// real
 
 			if (healthBar.percent > 80) {
-				scoreTxt.color = 0xff0000;
+				scoreTxt.color = 0x09ff00;
 			}
 			else if (healthBar.percent < 20) {
-				scoreTxt.color = 0x09ff00;
+				scoreTxt.color = 0xff0000;
 			}
 			else {
 				scoreTxt.color = 0xffffff;
@@ -5926,30 +5935,30 @@ function loadOgStages(stage:String) {
 	}
 
 	function killHenchmen():Void
-	{
-		if (ClientPrefs.gameQuality == 'Normal' && curStage == 'limo') {
-			if (limoKillingState < 1) {
-				limoMetalPole.x = -400;
-				limoMetalPole.visible = true;
-				limoLight.visible = true;
-				limoCorpse.visible = false;
-				limoCorpseTwo.visible = false;
-				limoKillingState = 1;
-
-				#if ACHIEVEMENTS_ALLOWED
-				Achievements.henchmenDeath++;
-				FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
-				var achieve:String = checkForAchievement(['roadkill_enthusiast']);
-				if (achieve != null) {
-					startAchievement(achieve);
-				} else {
-					FlxG.save.flush();
+		{
+			if (ClientPrefs.gameQuality == 'Normal' && curStage == 'limo') {
+				if (limoKillingState < 1) {
+					limoMetalPole.x = -400;
+					limoMetalPole.visible = true;
+					limoLight.visible = true;
+					limoCorpse.visible = false;
+					limoCorpseTwo.visible = false;
+					limoKillingState = 1;
+	
+					#if ACHIEVEMENTS_ALLOWED
+					Achievements.henchmenDeath++;
+					FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
+					var achieve:String = checkForAchievement(['roadkill_enthusiast']);
+					if (achieve != null) {
+						startAchievement(achieve);
+					} else {
+						FlxG.save.flush();
+					}
+					FlxG.log.add('Deaths: ${Achievements.henchmenDeath}');
+					#end
 				}
-				FlxG.log.add('Deaths: ${Achievements.henchmenDeath}');
-				#end
 			}
 		}
-	}
 
 	function resetLimoKill():Void
 	{
@@ -6170,16 +6179,16 @@ function loadOgStages(stage:String) {
 						if (heyTimer <= 0) bottomBoppers.dance(true);
 						santa.dance(true);
 
-					case 'limo':
-						if (ClientPrefs.gameQuality == 'Normal') {
-							grpLimoDancers.forEach(function(dancer:BackgroundDancer)
-							{
-								dancer.dance();
-							});
-						}
-
-						if (FlxG.random.bool(10) && fastCarCanDrive)
-							fastCarDrive();
+						case 'limo':
+							if (ClientPrefs.gameQuality == 'Normal') {
+								grpLimoDancers.forEach(function(dancer:BackgroundDancer)
+								{
+									dancer.dance();
+								});
+							}
+	
+							if (FlxG.random.bool(10) && fastCarCanDrive)
+								fastCarDrive();
 					case "philly":
 						if (!trainMoving)
 							trainCooldown += 1;

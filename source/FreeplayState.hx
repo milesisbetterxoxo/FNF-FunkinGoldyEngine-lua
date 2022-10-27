@@ -564,7 +564,7 @@ class FreeplayState extends MusicBeatState
 			for (i in 0...iconArray.length)
 			{
 				iconArray[i].alpha = 0.6;
-				iconArray[i].changeIcon(iconArray[i].char);
+				iconArray[i].changeIcon(iconArray[i].char, 'default');
 			}
 
 			if (iconArray[curSelected] != null)

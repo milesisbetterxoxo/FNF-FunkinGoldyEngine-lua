@@ -1,5 +1,8 @@
 package;
 
+import flixel.FlxSprite;
+import flixel.FlxText;
+
 class ErrorState extends MusicBeatState
 {
     private var error:String;

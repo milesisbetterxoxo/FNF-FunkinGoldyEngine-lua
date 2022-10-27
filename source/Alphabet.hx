@@ -18,6 +18,8 @@ class Alphabet extends FlxSpriteGroup
 	public var delay:Float = 0.05;
 	public var paused:Bool = false;
 
+	public var real:Bool = false; // sonc
+
 	// for menu shit
 	public var forceX:Float = Math.NEGATIVE_INFINITY;
 	public var targetY:Float = 0;
@@ -375,6 +377,7 @@ class AlphaCharacter extends FlxSprite
 	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyz";
 	public static var numbers:String = "1234567890";
 	public static var symbols:String = "|~#$%()*+-:;<=>@[]^_.,'!?&";
+	public var tex = Paths.getSparrowAtlas('alphabet');
 
 	public var row:Int = 0;
 	private var textSize:Float = 1;
@@ -382,7 +385,6 @@ class AlphaCharacter extends FlxSprite
 	public function new(x:Float, y:Float, textSize:Float)
 	{
 		super(x, y);
-		var tex = Paths.getSparrowAtlas('alphabet');
 		frames = tex;
 
 		setGraphicSize(Std.int(width * textSize));

@@ -33,6 +33,7 @@ class ClientPrefs {
 	public static var moreShit:String = 'Goldy';
 	public static var camFollow:Bool = true;
 	public static var noteCombo:Bool = true;
+	public static var osWorking:Bool = true; // use this only on your risks.
 	#if !html5
 	public static var autoPause:Bool = true;
 	#else
@@ -65,6 +66,8 @@ class ClientPrefs {
 		'demomode' => false,
 		'opponentHealthDrain'=> true
 	];
+
+	public static var shadersEnabled:Bool = true;
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
 	public static var ratingOffset:Int = 0;
@@ -254,6 +257,8 @@ class ClientPrefs {
 		FlxG.save.data.gameplaySettings = gameplaySettings;
 
 		FlxG.save.data.moreShit = moreShit;
+
+		FlxG.save.data.shadersEnabled = shadersEnabled;
 	
 		FlxG.save.flush();
 
@@ -265,6 +270,9 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		if (FlxG.save.data.shadersEnabled != null) {
+			shadersEnabled = FlxG.save.data.shadersEnabled;
+		}
 		if (FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}

@@ -271,6 +271,7 @@ class PauseSubState extends MusicBeatSubState
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
 					PlayState.startOnTime = 0;
+					PlayState.instance.isInPlayState = false;
 			}
 		}
 	}

@@ -10,8 +10,8 @@ using StringTools;
 
 typedef HealthIconConfig =
 {
-	var ?flipX:Bool;
-    var ?color:FlxColor;
+	//var ?flipX:Bool; no more
+	//var ?color:FlxColor; no more
 	var ?scale:Array<Float>;
 	var ?antialiasing:Bool;
 }
@@ -23,15 +23,18 @@ class HealthIcon extends FlxSprite
 	public var isPlayer:Bool = false;
 	public var char:String = '';
 	var originalChar:String = 'bf-old';
+	var type:String = 'default'; // can be 'default' or 'classic' (psych)
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
 		super();
 		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
-		changeIcon(char);
+		changeIcon(char, 'default');
 		scrollFactor.set();
 	}
+
+	
 
 	override function update(elapsed:Float)
 	{
@@ -39,11 +42,15 @@ class HealthIcon extends FlxSprite
 
 		if (sprTracker != null)
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
+
+		//selfUpdate(); // omfg
+		// self expanatory
+		// nvm doesnt work LFMAOFsdk
 	}
 
 	public function swapOldIcon() {
-		if (!isOldIcon) changeIcon('bf-old');
-		else changeIcon(originalChar);
+		if (!isOldIcon) changeIcon('bf-old', 'default');
+		else changeIcon(originalChar, 'default');
 	}
 
 	private var iconOffsets:Array<Float> = [0, 0];
@@ -52,21 +59,13 @@ class HealthIcon extends FlxSprite
 			var config:HealthIconConfig;
 			if (Paths.fileExists('images/icons/$char/config.json', TEXT)) {
 				config = Json.parse(Paths.getTextFromFile('images/icons/$char/config.json'));
-				if (config.flipX == true) {
-					flipX = !isPlayer;
-				}
-				else {
-					flipX = isPlayer;
-				}
 				if (config.antialiasing != null) {
 					antialiasing = config.antialiasing;
 					if (config.antialiasing == true) {
 						antialiasing = ClientPrefs.globalAntialiasing;
 					}
 				}
-				if (config.color != null) {
-					color = config.color;
-				}
+
 			}
             var imageExists:Bool = true;
 			var name:String = 'icons/$char/$curAnim';
@@ -116,6 +115,8 @@ class HealthIcon extends FlxSprite
 				antialiasing = false;
 			}
 
+			flipX = isPlayer;
+
 			isOldIcon = (char == 'bf-old');
 		}
 	}
@@ -130,4 +131,5 @@ class HealthIcon extends FlxSprite
 	public function getCharacter():String {
 		return char;
 	}
+
 }

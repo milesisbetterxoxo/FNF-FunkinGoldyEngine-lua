@@ -117,6 +117,7 @@ class FunkinLua {
 		set('curBeat', 0);
 		set('curNumeratorBeat', 0);
 		set('curStep', 0);
+		set('curSong', PlayState.instance.getCurSong());
 
 		set('score', 0);
 		set('misses', 0);
