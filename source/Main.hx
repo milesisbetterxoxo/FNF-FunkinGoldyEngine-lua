@@ -37,7 +37,9 @@ class Main extends Sprite
 
 	public function main():Void
 	{
+		#if !html5
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		#end
 		Lib.current.addChild(new Main());
 	}
 
