@@ -37,7 +37,9 @@ class Main extends Sprite
 
 	public function main():Void
 	{
+		#if !html5
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		#end
 		Lib.current.addChild(new Main());
 	}
 
@@ -77,7 +79,7 @@ class Main extends Sprite
 		dateNow = StringTools.replace(dateNow, " ", "_");
 		dateNow = StringTools.replace(dateNow, ":", "'");
 
-		path = "./crash/" + "ICE_" + dateNow + ".txt";
+		path = "./crash/" + "GE_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{
