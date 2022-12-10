@@ -3,6 +3,8 @@
 	<!-- _________________________ Application Settings _________________________ -->
 
 	<!-- NOTE: The window name is changed manually in TitleState, so go there if you want to edit it!-->
+	<!-- no it isnt actually lmao, just write "lime.app.application.current.window.title = 'titlename'"-->
+	<!-- you can do it with .lua files also so read the lua documentation or watch psych engine lua tutorials cuz this engine is loseeley based on psych engine-->
 	<app title="Friday Night Funkin'" file="GoldyEngine" packageName="goldyengine" package="goldyenigne" main="Main" version="0.2.7.1" company="Goldy Engine Team" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
@@ -56,6 +58,7 @@
 	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 	<define name="CHECK_FOR_UPDATES"/>
 	<define name='MODCHART_FUNCTIONS_ALLOWED'/>
+	<define name="CRASH_HANDLER" unless="html5" />
 
 	<assets path="assets/" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/" rename="assets" exclude="*.mp3"  unless="web"/>
@@ -123,6 +126,8 @@
 
 	<haxelib name="flixel" />
 	<haxedev set='webgl' />
+
+	
 
 	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />

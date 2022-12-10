@@ -23,7 +23,7 @@ class HealthIcon extends FlxSprite
 	public var isPlayer:Bool = false;
 	public var char:String = '';
 	var originalChar:String = 'bf-old';
-	var type:String = 'default'; // can be 'default' or 'classic' (psych)
+	var type:String = 'goldy'; // can be goldy or psych
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
@@ -54,7 +54,10 @@ class HealthIcon extends FlxSprite
 	}
 
 	private var iconOffsets:Array<Float> = [0, 0];
-	public function changeIcon(char:String, curAnim:String = 'default') {
+
+	
+ 
+	public function changeIcon(char:String = 'bf', curAnim:String = 'default') {
 		if (this.char != char) {
 			var config:HealthIconConfig;
 			if (Paths.fileExists('images/icons/$char/config.json', TEXT)) {

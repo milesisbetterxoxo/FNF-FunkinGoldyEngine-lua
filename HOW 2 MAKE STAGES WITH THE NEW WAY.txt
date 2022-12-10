@@ -1,0 +1,37 @@
+YOU CAN USE LUA STAGES TOO, I DIDNT CANCEL THAT. 
+GONNA CREATE A STAGE EDITOR IN THE NEXT VERSION
+1) create a hscript file in scripts folder (assets or mods)
+2) write in this:
+var stage:Stage = new Stage('stageNameHere');
+function onCreate()
+{
+    // remove these lines if your sprite isnt animated
+    var animations:Array<Animation>
+    var animaton:Animation;
+    animation.name = 'animationnamehere'; // ex: myanimation
+    animation.prefix = 'animationprefixhere'; // ex: myanimation
+    animation.fps = animationfpshere; // ex: 24
+    animation.frames = [frames here]; // ex: [2, 3, 5];
+    animation.loop = loop; // is looped
+    animations.add(animation);
+    // until this line
+    
+    // you can loop like this until you finish adding the whole animations
+    var color:FlxColor = 0xFFFFFFFF; // you can change to an other color with an color picker, but if the color stays being white, it will be nothing.
+    // you can loop like this until you add all the sprites too 
+    stage.newSprite(imageNameHere, isAnimated, animations, positionX, positionY, scale, color);
+    // thats all
+    // scripting about the sprites will be added in the "onUpdate" function so still keep copying until the end of the update function
+}
+
+function onUpdate()
+{
+    if (curBeat == value) // or if (curStep == value) etc
+       stage.forEach(function(spr:FlxSprite)) {
+           FlxTween.tween(spr, {alpha : floatValue} {
+               // anything here
+               trace('funny thing');
+           });
+       }
+    // you can discuss about things like "is there anything else that can be scripted?" or something like that. ill probably add more stuff xd
+}

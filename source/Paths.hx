@@ -256,6 +256,11 @@ class Paths
 		return getPath('data/$key.json', TEXT, library);
 	}
 
+	inline static public function stageJson(key:String, ?library:String)
+	{
+		return getPath('stages/$key.json', TEXT, library);
+	}
+
 	inline static public function lua(key:String, ?library:String)
 	{
 		return getPath('$key.lua', TEXT, library);

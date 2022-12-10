@@ -8,6 +8,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import editors.StageEditorState;
 
 using StringTools;
 
@@ -18,9 +19,9 @@ class MasterEditorMenu extends MusicBeatState
 		'Menu Character Editor',
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
-		//'UI Skin Editor',
 		'Character Editor',
-		'Chart Editor'
+		'Chart Editor',
+		'Stage Editor'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -114,9 +115,9 @@ class MasterEditorMenu extends MusicBeatState
 					MusicBeatState.switchState(new WeekEditorState());
 				case 'Menu Character Editor':
 					MusicBeatState.switchState(new MenuCharacterEditorState());
-				case 'UI Skin Editor':
+				/*case 'Stage Editor':
 					PlayState.SONG = null;
-					LoadingState.loadAndSwitchState(new SkinEditorState());
+					LoadingState.loadAndSwitchState(new StageEditorState());*/ // uhhhhh
 				case 'Dialogue Portrait Editor':
 					PlayState.SONG = null;
 					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState());

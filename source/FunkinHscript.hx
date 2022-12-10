@@ -82,6 +82,8 @@ class FunkinHscript extends InterpEx {
         //CLASSES
         //THIS IS PROBABLY MORE THAN ANYONE EVER NEEDS AND YOU CAN IMPORT CLASSES MANUALLY ANYWAYS BUT WHATEVER
         variables.set('AL', AL);
+		variables.set('Stage', Stage);
+		variables.set('Animation', Stage.Animation);
         variables.set('Application', Application);
         variables.set('AudioBuffer', AudioBuffer);
         variables.set('BitmapData', BitmapData);

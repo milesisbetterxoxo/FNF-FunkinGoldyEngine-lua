@@ -9,7 +9,6 @@ import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUICheckBox;
-import flixel.addons.ui.FlxUIDropDownMenu;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
@@ -37,7 +36,7 @@ class SkinEditorState extends MusicBeatState {
 
     private var blockPressWhileTypingOn:Array<FlxUIInputText> = [];
 	private var blockPressWhileTypingOnStepper:Array<FlxUINumericStepper> = [];
-	private var blockPressWhileScrolling:Array<FlxUIDropDownMenu> = [];
+	private var blockPressWhileScrolling:Array<FlxUIDropDownMenuCustom> = [];
 
     var curMania:Int = 4;
 
@@ -57,7 +56,9 @@ class SkinEditorState extends MusicBeatState {
         camMenu.bgColor.alpha = 0;
 
         FlxG.cameras.reset(camEditor);
-		FlxG.cameras.add(camMenu, false);
+		FlxG.cameras.setDefaultDrawTarget(camEditor, true);
+		FlxG.cameras.add(camMenu);
+		FlxG.cameras.setDefaultDrawTarget(camMenu, false);
 
         gridBG = FlxGridOverlay.create(40, 40);
         add(gridBG);

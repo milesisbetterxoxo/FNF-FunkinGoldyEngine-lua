@@ -38,8 +38,7 @@ class MainMenuStateGoldy extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
+		'ost',
 		'credits',
 		#if !switch 'donate', #end
 		'options'
@@ -88,7 +87,6 @@ class MainMenuStateGoldy extends MusicBeatState
 		menuThing.updateHitbox();
 		menuThing.screenCenter();
 		menuThing.antialiasing = ClientPrefs.globalAntialiasing;
-		add(menuThing);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
@@ -105,6 +103,8 @@ class MainMenuStateGoldy extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 
+		add(menuThing);
+
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
@@ -112,12 +112,22 @@ class MainMenuStateGoldy extends MusicBeatState
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
 			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
-			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_${optionShit[i]}');
-			menuItem.animation.addByPrefix('idle', '${optionShit[i]} basic', 24);
-			menuItem.animation.addByPrefix('selected', '${optionShit[i]} white', 24);
-			menuItem.animation.play('idle');
-			menuItem.ID = i;
-			menuItem.x = 150;
+			if (optionShit[i] != 'ost') {
+			    menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_${optionShit[i]}');
+			    menuItem.animation.addByPrefix('idle', '${optionShit[i]} basic', 24);
+			    menuItem.animation.addByPrefix('selected', '${optionShit[i]} white', 24);
+			    menuItem.animation.play('idle');
+			    menuItem.ID = i;
+			    menuItem.x = 150; 
+			}
+			else {
+				menuItem.frames = Paths.getSparrowAtlas('FNF_main_menu_assets');
+				menuItem.animation.addByPrefix('idle', 'ost basic', 24);
+				menuItem.animation.addByPrefix('selected', 'ost white', 24);
+				menuItem.animation.play('idle');
+				menuItem.ID = i;
+				menuItem.x = 150;
+			}
 
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
