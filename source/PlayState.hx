@@ -369,7 +369,7 @@ class PlayState extends MusicBeatState
 		PauseSubState.songName = null; //Reset to default
 		woah = new FlxText();
 		woah.text = "NOTE COMBO!";
-		woah.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		woah.setFormat('Pixels', 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		woah.setGraphicSize(Std.int(woah.width * 1.6));
 		woah.antialiasing = ClientPrefs.globalAntialiasing;
 		woah.scrollFactor.set();

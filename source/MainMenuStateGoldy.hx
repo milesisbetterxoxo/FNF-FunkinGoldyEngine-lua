@@ -35,14 +35,7 @@ class MainMenuStateGoldy extends MusicBeatState
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
-	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		'ost',
-		'credits',
-		#if !switch 'donate', #end
-		'options'
-	];
+	var optionShit:Array<String> = [];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -52,6 +45,36 @@ class MainMenuStateGoldy extends MusicBeatState
 	override function create()
 	{
 		WeekData.loadTheFirstEnabledMod();
+
+		if (ClientPrefs.storyModeVisible) {
+			optionShit.push('story_mode');
+		}
+
+		if (ClientPrefs.freeplayVisible) {
+			optionShit.push('freeplay');
+		}
+
+		if (ClientPrefs.modsVisible) {
+			optionShit.push('mods');
+		}
+
+		if (ClientPrefs.creditsVisible) {
+			optionShit.push('credits');
+		}
+
+		if (ClientPrefs.awardsVisible) {
+			optionShit.push('awards');
+		}
+
+		#if !switch
+		if (ClientPrefs.donateVisible) {
+			optionShit.push('donate');
+		}
+		#end
+
+		if (ClientPrefs.optionsVisible) {
+			optionShit.push('options');
+		}
 		
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence

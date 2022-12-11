@@ -213,7 +213,22 @@ class ClientPrefs {
 		}
 	}
 
+	// MENU SHIT
+	public static var storyModeVisible:Bool = true;
+	public static var freeplayVisible:Bool = true;
+	public static var modsVisible:Bool = true;
+	public static var creditsVisible:Bool = true;
+	public static var awardsVisible:Bool = true;
+	#if !switch public static var donateVisible:Bool = true; #end
+	public static var optionsVisible:Bool = true;
+
 	public static function saveSettings() {
+		FlxG.save.data.storyModeVisible = storyModeVisible;
+		FlxG.save.data.freeplayVisible = freeplayVisible;
+		FlxG.save.data.modsVisible = modsVisible;
+		FlxG.save.data.creditsVisible = creditsVisible;
+		#if !switch FlxG.save.data.donateVisible = donateVisible; #end
+		FlxG.save.data.optionsVisible = optionsVisible;
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.camFollow = camFollow;
 		FlxG.save.data.middleScroll = middleScroll;
@@ -272,6 +287,27 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if (FlxG.save.data.shadersEnabled != null) {
 			shadersEnabled = FlxG.save.data.shadersEnabled;
+		}
+		if (FlxG.save.data.storyModeVisible != null) {
+			storyModeVisible = FlxG.save.data.storyModeVisible;
+		}
+		if (FlxG.save.data.freeplayVisible != null) {
+			freeplayVisible = FlxG.save.data.freeplayVisible;
+		}
+		if (FlxG.save.data.modsVisible != null) {
+			modsVisible = FlxG.save.data.modsVisible;
+		}
+		if (FlxG.save.data.creditsVisible != null) {
+			creditsVisible = FlxG.save.data.creditsVisible;
+		}
+		if (FlxG.save.data.awardsVisible != null) {
+			awardsVisible = FlxG.save.data.awardsVisible;
+		}
+		if (FlxG.save.data.donateVisible != null) {
+			donateVisible = FlxG.save.data.donateVisible;
+		}
+		if (FlxG.save.data.optionsVisible != null) {
+			optionsVisible = FlxG.save.data.optionsVisible;
 		}
 		if (FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
