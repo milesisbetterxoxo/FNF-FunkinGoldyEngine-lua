@@ -198,7 +198,7 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	public static function getPath(file:String, type:AssetType, library:String = null)
+	public static function getPath(file:String, type:AssetType = null, library:String = null)
 	{
 		if (library != null)
 			return getLibraryPath(file, library);
@@ -350,7 +350,7 @@ class Paths
 		return 'assets/fonts/$key';
 	}
 
-	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
+	inline static public function fileExists(key:String, type:AssetType = null, ?ignoreMods:Bool = false, ?library:String)
 	{
 		#if MODS_ALLOWED
 		if (!ignoreMods && (FileSystem.exists(mods('$currentModDirectory/' + (library != null ? '$library/' : '') + '$key')) || FileSystem.exists(mods((library != null ? '$library/' : '') + key)))) {

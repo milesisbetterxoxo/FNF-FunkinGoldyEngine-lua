@@ -100,7 +100,7 @@ class HealthIcon extends FlxSprite
 			if (!Paths.fileExists('images/$name.png', IMAGE)) {
 				imageExists = false;
 			}
-			var file = Paths.image(name);
+			var file = name;
 
 			if (imageExists) {
 				loadGraphic(file); //Load stupidly first for getting the file size

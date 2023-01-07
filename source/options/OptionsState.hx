@@ -44,6 +44,7 @@ class OptionsState extends MusicBeatState
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 			case 'Save Data':
 				openSubState(new options.SaveDataSubState());
+
 		}
 	}
 

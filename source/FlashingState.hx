@@ -18,7 +18,11 @@ class FlashingState extends MusicBeatState
 	{
 		super.create();
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		var bg:FlxSprite = new FlxSprite();
+		bg.loadGraphic('menuDesat');
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.screenCenter();
+		bg.color = 0x3A3A3A;
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
@@ -31,6 +35,9 @@ class FlashingState extends MusicBeatState
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
+
+		FlxG.sound.music = null;
+		
 	}
 
 	override function update(elapsed:Float)
@@ -50,6 +57,7 @@ class FlashingState extends MusicBeatState
 							MusicBeatState.switchState(new TitleState());
 						});
 					});
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				} else {
 					FlxG.sound.play(Paths.sound('cancelMenu'), 0.7);
 					FlxTween.tween(warnText, {alpha: 0}, 1, {
@@ -57,6 +65,7 @@ class FlashingState extends MusicBeatState
 							MusicBeatState.switchState(new TitleState());
 						}
 					});
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				}
 			}
 		}

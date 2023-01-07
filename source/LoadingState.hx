@@ -61,7 +61,7 @@ class LoadingState extends MusicBeatState
 					curStage = 'schoolEvil';
 			}
 		}
-		var imagePath = Paths.image('preloaders/funkay');
+		var imagePath = 'preloaders/funkay';
 		var imageSuffix = (PlayState.isStoryMode ? '-story' : '');
 		if (Assets.exists(Paths.getPath('images/preloaders/${curStage + imageSuffix}.png', IMAGE))) {
 			imagePath = Paths.image('preloaders/${curStage + imageSuffix}');

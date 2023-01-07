@@ -393,7 +393,16 @@ class FreeplayState extends MusicBeatState
 					var poop:String = Highscore.formatSong(song, curDifficulty, false);
 					trace(poop);
 
-					PlayState.SONG = Song.loadFromJson(poop, song);
+					var path:String = Paths.formatToSongPath('data/$song/$poop.json');
+
+					trace(path);
+
+					if (Paths.fileExists(path)) {
+						PlayState.SONG = Song.loadFromJson(poop, song);
+					}
+					else {
+						PlayState.SONG = Song.loadFromJson('test', 'test');
+					}
 					PlayState.isStoryMode = false;
 					PlayState.storyDifficulty = curDifficulty;
 

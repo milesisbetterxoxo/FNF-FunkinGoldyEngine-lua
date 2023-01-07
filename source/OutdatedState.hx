@@ -22,7 +22,7 @@ class OutdatedState extends MusicBeatState
 	{
 		super.create();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBG'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0x2C2B2B;
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		add(bg);
@@ -38,6 +38,9 @@ class OutdatedState extends MusicBeatState
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
+
+		FlxG.sound.music = null;
+		FlxG.sound.playMusic(Paths.music('freakyMenuEdited2'));
 	}
 
 	override function update(elapsed:Float)
@@ -46,7 +49,7 @@ class OutdatedState extends MusicBeatState
 			if (controls.ACCEPT) {
 				leftState = true;
 				CoolUtil.browserLoad('https://github.com/cheblol/FNF-FunkinGoldyEngine-lua/releases/download/${TitleState.updateVersion}/build.rar');
-				FlxG.sound.play(Paths.sound('confirmMenu'));
+			    FlxG.sound.play(Paths.sound('confirmMenu'));
 			}
 			else if (controls.BACK)
 			{
@@ -57,6 +60,8 @@ class OutdatedState extends MusicBeatState
 					}
 				});
 				FlxG.sound.play(Paths.sound('cancelMenu'));
+				FlxG.sound.music.stop();
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 		}
 		super.update(elapsed);

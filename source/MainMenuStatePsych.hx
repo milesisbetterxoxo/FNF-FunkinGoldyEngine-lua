@@ -36,13 +36,6 @@ class MainMenuStatePsych extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
-		#if !switch 'donate', #end
-		'options'
 	];
 
 	var magenta:FlxSprite;
@@ -52,6 +45,36 @@ class MainMenuStatePsych extends MusicBeatState
 
 	override function create()
 	{
+		if (ClientPrefs.storyModeVisible) {
+			optionShit.push('story_mode');
+		}
+
+		if (ClientPrefs.freeplayVisible) {
+			optionShit.push('freeplay');
+		}
+
+		if (ClientPrefs.modsVisible) {
+			optionShit.push('mods');
+		}
+
+		if (ClientPrefs.creditsVisible) {
+			optionShit.push('credits');
+		}
+
+		if (ClientPrefs.awardsVisible) {
+			optionShit.push('awards');
+		}
+
+		#if !switch
+		if (ClientPrefs.donateVisible) {
+			optionShit.push('donate');
+		}
+		#end
+
+		if (ClientPrefs.optionsVisible) {
+			optionShit.push('options');
+		}
+
 		WeekData.loadTheFirstEnabledMod();
 
 		#if desktop
@@ -87,7 +110,7 @@ class MainMenuStatePsych extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		magenta = new FlxSprite(-80).loadGraphic('menuDesat');
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();

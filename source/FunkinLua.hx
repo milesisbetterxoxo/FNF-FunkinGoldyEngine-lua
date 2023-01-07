@@ -282,7 +282,7 @@ class FunkinLua {
 			var spr:FlxSprite = getObjectDirectly(variable);
 			if (spr != null && image != null && image.length > 0)
 			{
-				spr.loadGraphic(Paths.image(image));
+				spr.loadGraphic(image));
 			}
 		});
 		Lua_helper.add_callback(lua, "loadFrames", function(variable:String, image:String, spriteType:String = "sparrow") {
@@ -1073,7 +1073,7 @@ class FunkinLua {
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 			if (image != null && image.length > 0)
 			{
-				leSprite.loadGraphic(Paths.image(image));
+				leSprite.loadGraphic(image);
 			}
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);

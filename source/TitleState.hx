@@ -179,6 +179,7 @@ class TitleState extends MusicBeatState
 		if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
+			FlxG.sound.music.stop();
 			MusicBeatState.switchState(new FlashingState());
 		} else {
 			#if desktop
@@ -225,11 +226,12 @@ class TitleState extends MusicBeatState
 			// FlxG.sound.list.add(music);
 			// music.play();
 
-			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 
-				FlxG.sound.music.fadeIn(4, 0, 0.7);
-			}
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+
+			
 		}
 
 		Conductor.changeBPM(titleJSON.bpm);
@@ -396,6 +398,9 @@ class TitleState extends MusicBeatState
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					if (mustUpdate) {
+						FlxG.sound.music.fadeOut(4, 0);
+						new FlxTimer().start(4);
+						FlxG.sound.music.stop();
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
 						MusicBeatState.switchState(new MainMenuStateGoldy());

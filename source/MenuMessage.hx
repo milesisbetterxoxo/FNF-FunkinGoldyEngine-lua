@@ -15,7 +15,7 @@ class MenuMessage extends MusicBeatSubState {
         add(message);
 
         var okButton = new FlxSprite(0, 0);
-        okButton.loadGraphic(Paths.image("enterToClose", "preload"));
+        okButton.loadGraphic("enterToClose");
         okButton.scale.x = okButton.scale.y = 0.6;
         okButton.updateHitbox();
         okButton.setPosition(1280 * 0.75 - 10 - okButton.width, 720 * 0.75 - 10 - okButton.height);

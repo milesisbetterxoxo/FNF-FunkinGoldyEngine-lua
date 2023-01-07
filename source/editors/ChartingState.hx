@@ -61,6 +61,8 @@ class ChartingState extends MusicBeatState
 		'Trail Note',
 		'Caution Note'
 	];
+
+	public static var instance:ChartingState;
 	private var noteTypeIntMap:Map<Int, String> = new Map();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map();
 	private var didAThing = false;
@@ -197,6 +199,7 @@ class ChartingState extends MusicBeatState
 
 	override function create()
 	{
+		instance = this;
 		if (PlayState.SONG != null)
 			_song = PlayState.SONG;
 		else
@@ -2956,14 +2959,52 @@ class ChartingState extends MusicBeatState
 		if (play) vocalsDad.play();
 	}
 
-	function loadJson(song:String):Void
+	public function loadJson(song:String):Void
 	{
+		var crashDetect = Paths.getPath('data/') + Paths.formatToSongPath(_song.song) + CoolUtil.getDifficultyFilePath() + '.json'; // my logic is broken
+		var crash:Bool = !Paths.fileExists(crashDetect);
+		var crashState:Bool = crash;
+		var chooseOtherSong = false;
+		var switchToPlayState = false;
+		trace('loading' + crashDetect); // for crash issues
 		try {
 			CoolUtil.getDifficulties(currentSongName);
-			PlayState.SONG = Song.loadFromJson(song + CoolUtil.getDifficultyFilePath(), song);
+			if (!crash) {
+				PlayState.SONG = Song.loadFromJson(song + CoolUtil.getDifficultyFilePath(), song);
+			}
+			else {
+				FlxG.log.warn('File $crashDetect was not found.');
+				var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+				bg.screenCenter();
+				bg.alpha = 0;
+				add(bg);
+				FlxTween.tween(bg, {alpha: 0.6}, 0.75);
+
+				var text:FlxText = new FlxText();
+				text.setFormat(Paths.font('vcr.ttf'), 32);
+				text.text = 'Hey! The chart the game is trying to load does not exist. The path is $crashDetect. \nPress ENTER to load the test song.\nPress ESCAPE to choose an  other song.\nPress CTRL to leave the charting state\n with loading the test song.';
+                text.alpha = 0;
+				text.antialiasing = ClientPrefs.globalAntialiasing;
+				add(text);
+				FlxTween.tween(bg, {alpha: 1}, 0.75);
+				crashState = true;
+				if (FlxG.keys.justPressed.ENTER) {
+					crashState = false;
+					loadJson('test');
+				}
+				else if (FlxG.keys.justPressed.ENTER) {
+					crashState = false;
+					chooseOtherSong = true;
+				}
+				else if (FlxG.keys.justPressed.CONTROL) {
+					crashState = false;
+					PlayState.SONG = Song.loadFromJson('test', 'test');
+				}
+			}
 		} catch (e) {
-			FlxG.log.warn('File ${Paths.formatToSongPath(_song.song) + CoolUtil.getDifficultyFilePath()} was not found.');
-			PlayState.SONG = Song.loadFromJson(song, song);
+			if (!chooseOtherSong && !switchToPlayState) {
+				PlayState.SONG = Song.loadFromJson(song, song);
+			}
 		}
 		LoadingState.loadAndResetState();
 	}

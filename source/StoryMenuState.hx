@@ -316,7 +316,15 @@ class StoryMenuState extends MusicBeatState
 
 			PlayState.storyDifficulty = curDifficulty;
 
-			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + diffic, PlayState.storyPlaylist[0]);
+			var song:String = PlayState.storyPlaylist[0];
+			var path:String = Paths.formatToSongPath('data/$song/$song$diffic');
+
+			if (Paths.fileExists(path)) {
+				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + diffic, PlayState.storyPlaylist[0]);
+			}
+			else {
+				PlayState.SONG = Song.loadFromJson('test', 'test');
+			}
 			PlayState.campaignScore = 0;
 			PlayState.campaignMisses = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer)

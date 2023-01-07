@@ -19,7 +19,8 @@ class MasterEditorMenu extends MusicBeatState
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
 		'Character Editor',
-		'Chart Editor'
+		'Chart Editor',
+		'Stage Editor'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -113,9 +114,6 @@ class MasterEditorMenu extends MusicBeatState
 					MusicBeatState.switchState(new WeekEditorState());
 				case 'Menu Character Editor':
 					MusicBeatState.switchState(new MenuCharacterEditorState());
-				/*case 'Stage Editor':
-					PlayState.SONG = null;
-					LoadingState.loadAndSwitchState(new StageEditorState());*/ // uhhhhh
 				case 'Dialogue Portrait Editor':
 					PlayState.SONG = null;
 					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState());
@@ -124,8 +122,6 @@ class MasterEditorMenu extends MusicBeatState
 					LoadingState.loadAndSwitchState(new DialogueEditorState());
 				case 'Chart Editor'://felt it would be cool maybe
 					LoadingState.loadAndSwitchState(new ChartingState(true));
-				/*case 'Stage Editor': // yeah
-				    LoadingState.loadAndSwitchState(new StageEditorState(true)); idk its fucking buggy*/
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL
