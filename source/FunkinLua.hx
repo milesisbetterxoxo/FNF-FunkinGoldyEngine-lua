@@ -280,7 +280,7 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "loadGraphic", function(variable:String, image:String) {
 			var spr:FlxSprite = getObjectDirectly(variable);
-			if (spr != null && image != null && image.length > 0)
+			if (spr != null && image != null && image.length > 0);
 			{
 				spr.loadGraphic(image));
 			}
