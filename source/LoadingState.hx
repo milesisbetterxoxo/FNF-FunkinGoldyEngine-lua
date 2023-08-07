@@ -64,9 +64,9 @@ class LoadingState extends MusicBeatState
 		var imagePath = 'preloaders/funkay';
 		var imageSuffix = (PlayState.isStoryMode ? '-story' : '');
 		if (Assets.exists(Paths.getPath('images/preloaders/${curStage + imageSuffix}.png', IMAGE))) {
-			imagePath = Paths.image('preloaders/${curStage + imageSuffix}');
+			imagePath = 'preloaders/${curStage + imageSuffix}';
 		} else if (Assets.exists(Paths.getPath('images/preloaders/$curStage.png', IMAGE))) {
-			imagePath = Paths.image('preloaders/$curStage');
+			imagePath = 'preloaders/$curStage';
 		}
 		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d);
 		add(bg);

@@ -16,7 +16,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxSave;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -280,11 +280,11 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "loadGraphic", function(variable:String, image:String) {
 			var spr:FlxSprite = getObjectDirectly(variable);
-			if (spr != null && image != null && image.length > 0);
-			{
-				spr.loadGraphic(image));
+			if (spr != null && image != null && image.length > 0) {
+				spr.loadGraphic(image);
 			}
 		});
+		
 		Lua_helper.add_callback(lua, "loadFrames", function(variable:String, image:String, spriteType:String = "sparrow") {
 			var spr:FlxSprite = getObjectDirectly(variable);
 			if (spr != null && image != null && image.length > 0)

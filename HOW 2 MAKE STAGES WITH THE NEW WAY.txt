@@ -27,7 +27,8 @@ function onCreate()
 function onUpdate()
 {
     if (curBeat == value) // or if (curStep == value) etc
-       stage.forEach(function(spr:FlxSprite)) {
+    {
+        stage.forEach(function(spr:FlxSprite)) {
            FlxTween.tween(spr, {alpha : floatValue} {
                // anything here
                trace('funny thing');
