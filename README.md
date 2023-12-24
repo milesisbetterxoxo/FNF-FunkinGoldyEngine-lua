@@ -2,7 +2,7 @@
 
 
 # Friday Night Funkin' - Goldy engine
-like modded psych engine **plus** with epic stuff added ⁉️⁉️
+like modded psych engine **extra** with epic stuff added ⁉️⁉️
 
 ## Credits:
 * cheb -- coding and shit (formerly known as milesisbetterxoxo now)
@@ -15,7 +15,6 @@ like modded psych engine **plus** with epic stuff added ⁉️⁉️
 * RiverOaken - Arts and Animations
 * shubs - Assistant Coder
 * bbpanzu - Former Coder
-* of coursely any other contributors
 
 ### Special Thanks
 * KadeDev & GitHub Contributors - Made Kade Engine (some code is from there)
