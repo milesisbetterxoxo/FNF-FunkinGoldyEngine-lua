@@ -1283,12 +1283,12 @@ class FlxSprite extends FlxObject
 
 		if ((graphic != Value) && (Value != null))
 		{
-			Value.useCount++;
+			Value.useCount + 1;
 		}
 
 		if ((oldGraphic != null) && (oldGraphic != Value))
 		{
-			oldGraphic.useCount--;
+			oldGraphic.useCount - 1;
 		}
 
 		return graphic = Value;

@@ -314,10 +314,10 @@ class FlxBackdrop extends FlxSprite
 		if (Frame != _tileFrame)
 		{
 			if (_tileFrame != null)
-				_tileFrame.parent.useCount--;
+				_tileFrame.parent.useCount - 1;
 
 			if (Frame != null)
-				Frame.parent.useCount++;
+				Frame.parent.useCount + 1;
 		}
 
 		return _tileFrame = Frame;

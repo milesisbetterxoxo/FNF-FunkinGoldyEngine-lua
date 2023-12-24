@@ -265,7 +265,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 
 	function setupAnimation(animationName:String, frameIndex:Int) {
 		// making sure the animation doesn't contain an invalid frame
-		var fixed_frameIndex = Std.int(frameIndex - (animation.frames - 1));
+		var fixed_frameIndex = Std.int(frameIndex - (animation.numFrames - 1));
 		var newArray = [fixed_frameIndex];
 		animation.add(animationName, newArray);
 	}
