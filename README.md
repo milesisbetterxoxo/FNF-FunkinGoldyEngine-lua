@@ -2,24 +2,27 @@
 
 
 # Friday Night Funkin' - Goldy engine
-modified epic psych engine with epic fucking shits
+like modded psych engine **plus** with epic stuff added ⁉️⁉️
 
 ## Credits:
-* cheb -- coding and shit
-* ben?!?! -- coding music shit
-* artevar -- pretty cool art
-* saad - pretty cool music
+* cheb -- coding and shit (formerly known as milesisbetterxoxo now)
+* ben?!?! -- coding music shit (retired)
+* artevar -- pretty cool art (retired)
+* lunatic - pretty cool music
 
+## Psych Engine Credits:
 * Shadow Mario - Coding
 * RiverOaken - Arts and Animations
 * shubs - Assistant Coder
 * bbpanzu - Former Coder
+* of coursely any other contributors
 
 ### Special Thanks
 * KadeDev & GitHub Contributors - Made Kade Engine (some code is from there)
 * Leather128 & GitHub Contributors - Made Leather Engine and his Goldy Engine Fork (some code is from there)
 * srPerez - Made VS Shaggy & original 9K notes
 
+## Psych Engine's Special Thanks
 * SqirraRNG - Chart Editor's Sound Waveform base code
 * iFlicky - Delay/Combo Menu Song Composer + Dialogue Sounds
 * PolybiusProxy - Video Loader Extension
