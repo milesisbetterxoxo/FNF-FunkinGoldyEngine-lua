@@ -85,7 +85,6 @@ class MusicBeatState extends FlxUIState
 	}
 
 	public static function switchState(nextState:FlxState) {
-		FlxGridOverlay.clearCache();
 		// Custom made Trans in
 		var curState:Dynamic = FlxG.state;
 		var leState:MusicBeatState = curState;
@@ -112,7 +111,6 @@ class MusicBeatState extends FlxUIState
 	// hscript shit REAL!!!!
 	public static function switchHscriptState(nextState:String)
 	{
-		FlxGridOverlay.clearCache();
 		// Custom made Trans in
 		FlxG.state.openSubState(new CustomFadeTransition(0.6, false));
 		return;
@@ -138,6 +136,17 @@ class MusicBeatState extends FlxUIState
 
 	public function beatHit():Void
 	{
-		//do literally nothing dumbass
+		//do literally nothing dumbass (no atleast do smth cs it literally crashes)
+
+		var wtv:Bool = true;
+
+		wtv = !wtv;
+
+		var erm:Int = 0;
+		if (wtv)
+			erm = 0;
+		
+		else 
+			erm = 1;
 	}
 }

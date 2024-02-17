@@ -72,12 +72,12 @@ class Main extends Sprite
 		var path:String;
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
-
+		
 		dateNow = StringTools.replace(dateNow, " ", "_");
 		dateNow = StringTools.replace(dateNow, ":", "'");
-
+		
 		path = "./crash/" + "ICE_" + dateNow + ".txt";
-
+		
 		for (stackItem in callStack)
 		{
 			switch (stackItem)
@@ -85,30 +85,31 @@ class Main extends Sprite
 				case FilePos(s, file, line, column):
 					errMsg += file + " (line " + line + ")\n";
 				default:
-					Sys.println(stackItem);
+					errMsg += stackItem + ""; // Add stack item to error message
 			}
 		}
-
+		
 		errMsg += "\nUncaught Error: " + e.error;
-
+		
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
-
+		
 		File.saveContent(path, errMsg + "\n");
-
-		Sys.println(errMsg);
-		Sys.println("Crash dump saved in " + Path.normalize(path));
-
+	
+		trace(errMsg); // Output error message to console
+		
+		trace("Crash dump saved in " + Path.normalize(path)); // Output path to console
+		
 		var crashDialoguePath:String = "FE-CrashDialog";
-
+		
 		#if windows
 		crashDialoguePath += ".exe";
 		#end
-
+		
 		if (FileSystem.exists("./" + crashDialoguePath))
 		{
-			Sys.println("Found crash dialog: " + crashDialoguePath);
-
+			trace("Found crash dialog: " + crashDialoguePath);
+		
 			#if linux
 			crashDialoguePath = "./" + crashDialoguePath;
 			#end
@@ -116,11 +117,13 @@ class Main extends Sprite
 		}
 		else
 		{
-			Sys.println("No crash dialog found! Making a simple alert instead...");
+			trace("No crash dialog found! Making a simple alert instead...");
 			Application.current.window.alert(errMsg, "Error!");
 		}
 
-		Sys.exit(1);
+		// omg maybe this will work im so tired
+
+		trace(errMsg);
 	}
 	#end
 
@@ -140,7 +143,7 @@ class Main extends Sprite
 
 		#if !debug
 		initialState = TitleState;
-		#end
+		#end 
 
 		ClientPrefs.setupDefaults();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));

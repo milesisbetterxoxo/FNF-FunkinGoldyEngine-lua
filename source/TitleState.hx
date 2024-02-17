@@ -23,7 +23,7 @@ import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import flixel.sound.FlxSound;
+import flixel.system.FlxSound;
 import flixel.system.ui.FlxSoundTray;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -179,7 +179,8 @@ class TitleState extends MusicBeatState
 		if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			FlxG.sound.music.stop();
+			//FlxG.sound.music.stop(); 
+			FlxG.sound.music = null; // kinda tweak to stop crashing??
 			MusicBeatState.switchState(new FlashingState());
 		} else {
 			#if desktop
