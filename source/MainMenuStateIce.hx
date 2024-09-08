@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if DISCORD_ALLOWED
 import Discord.DiscordClient;
 #end
 import flixel.util.FlxTimer;
@@ -21,6 +21,7 @@ import flixel.math.FlxMath;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import flixel.util.FlxAxes;
 
 using StringTools;
 
@@ -51,7 +52,7 @@ class MainMenuStateIce extends MusicBeatState
 	var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('mBG_Main'));
 	public var menuItem:FlxSprite;
 	public var yScroll:Float;
-	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Main_Checker'), 0.2, 0.2, true, true);
+	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Main_Checker'), FlxAxes.XY, 0.2, 0.2);
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFAA00AA);
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
@@ -62,7 +63,7 @@ class MainMenuStateIce extends MusicBeatState
 	override function create()
 	{
 
-		#if desktop
+		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		DiscordClient.initialize();

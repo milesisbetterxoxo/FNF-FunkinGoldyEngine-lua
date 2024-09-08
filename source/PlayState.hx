@@ -20,7 +20,7 @@ import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.FlxAssets.FlxShader;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -2520,21 +2520,21 @@ function loadOgStages(stage:String) {
 					for(i in camHUDShaders){
 					  newCamEffects.push(new ShaderFilter(i.shader));
 					}
-					camHUD._filters = newCamEffects;
+					camHUD.filters = newCamEffects;
 			case 'camother' | 'other':
 					camOtherShaders.push(effect);
 					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
 					for(i in camOtherShaders){
 					  newCamEffects.push(new ShaderFilter(i.shader));
 					}
-					camOther._filters = newCamEffects;
+					camOther.filters = newCamEffects;
 			case 'camgame' | 'game':
 					camGameShaders.push(effect);
 					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
 					for(i in camGameShaders){
 					  newCamEffects.push(new ShaderFilter(i.shader));
 					}
-					camGame._filters = newCamEffects;
+					camGame.filters = newCamEffects;
 			default:
 				if(modchartSprites.exists(cam)) {
 					Reflect.setProperty(modchartSprites.get(cam),"shader",effect.shader);
@@ -2565,21 +2565,21 @@ function loadOgStages(stage:String) {
     for(i in camHUDShaders){
       newCamEffects.push(new ShaderFilter(i.shader));
     }
-    camHUD._filters = newCamEffects;
+    camHUD.filters = newCamEffects;
 			case 'camother' | 'other': 
 					camOtherShaders.remove(effect);
 					var newCamEffects:Array<BitmapFilter>=[];
 					for(i in camOtherShaders){
 					  newCamEffects.push(new ShaderFilter(i.shader));
 					}
-					camOther._filters = newCamEffects;
+					camOther.filters = newCamEffects;
 			default: 
 				camGameShaders.remove(effect);
 				var newCamEffects:Array<BitmapFilter>=[];
 				for(i in camGameShaders){
 				  newCamEffects.push(new ShaderFilter(i.shader));
 				}
-				camGame._filters = newCamEffects;
+				camGame.filters = newCamEffects;
 		}
 		
 	  
@@ -2594,15 +2594,15 @@ function loadOgStages(stage:String) {
 			case 'camhud' | 'hud': 
 				camHUDShaders = [];
 				var newCamEffects:Array<BitmapFilter>=[];
-				camHUD._filters = newCamEffects;
+				camHUD.filters = newCamEffects;
 			case 'camother' | 'other': 
 				camOtherShaders = [];
 				var newCamEffects:Array<BitmapFilter>=[];
-				camOther._filters = newCamEffects;
+				camOther.filters = newCamEffects;
 			default: 
 				camGameShaders = [];
 				var newCamEffects:Array<BitmapFilter>=[];
-				camGame._filters = newCamEffects;
+				camGame.filters = newCamEffects;
 		}
 		
 	  
@@ -4915,7 +4915,7 @@ function loadOgStages(stage:String) {
 					#if cpp
 					@:privateAccess
 					{
-						AL.sourcef(FlxG.sound.music._channel.__source.__backend.handle, AL.PITCH, 1);
+						AL.sourcef(FlxG.sound.music._channel.__audioSource.__backend.handle, AL.PITCH, 1);
 					}
 					#end
 
@@ -4991,7 +4991,7 @@ function loadOgStages(stage:String) {
 				#if cpp
 				@:privateAccess
 				{
-					AL.sourcef(FlxG.sound.music._channel.__source.__backend.handle, AL.PITCH, 1);
+					AL.sourcef(FlxG.sound.music._channel.__audioSource.__backend.handle, AL.PITCH, 1);
 				}
 				#end
 				changedDifficulty = false;

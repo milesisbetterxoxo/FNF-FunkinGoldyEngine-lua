@@ -24,7 +24,7 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
-	<window width="1280" height="720" fps="" background="#000000" hardware="true" vsync="false" />
+	<window width="1280" height="720" fps="120" background="#000000" hardware="true" vsync="false" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
@@ -50,7 +50,7 @@
 	<define name="MODS_ALLOWED" if="desktop" unless="html5" />>
 	<define name="LUA_ALLOWED" if="desktop" />
 	<define name="HSCRIPT_ALLOWED" />
-	<define name="DISCORD_ALLOWED" if="desktop" />
+	<!--define name="DISCORD_ALLOWED" if="desktop" -->
 	<define name="ACHIEVEMENTS_ALLOWED" />
 	<define name="VIDEOS_ALLOWED" if="web || windows" unless="32bits"/>
 	<define name="HIGHSCORE_ALLOWED" unless="switch"/>
@@ -119,7 +119,7 @@
 	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
 		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO
 		THEN UHHH I USED THE NAME OF THE FONT WITH SETFORMAT() ON THE TEXT!!!
-		NOT USING A DIRECT THING TO THE ASSET!!!
+		NOT USING A DIRECT THgING TO THE ASSET!!!
 	-->
 	<assets path="assets/fonts" embed='true'/>
 	<!-- _______________________________ Libraries ______________________________ -->
@@ -150,6 +150,9 @@
 	<!--<haxelib name="nape-haxe4" />-->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
+
+	<!-- Fix CFG error -->
+	<haxedef name="HXCPP_NO_CFG" />
 
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->

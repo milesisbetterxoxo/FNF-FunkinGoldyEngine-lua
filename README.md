@@ -1,8 +1,5 @@
-# : Its done. Stable and stuff.
-
-
 # Friday Night Funkin' - Goldy engine
-like modded psych engine **extra** with epic stuff added ⁉️⁉️
+modded psych engine **extra** with epic stuff added ⁉️⁉️
 
 ## Credits:
 * cheb -- coding and shit (formerly known as milesisbetterxoxo now)
@@ -20,6 +17,7 @@ like modded psych engine **extra** with epic stuff added ⁉️⁉️
 * KadeDev & GitHub Contributors - Made Kade Engine (some code is from there)
 * Leather128 & GitHub Contributors - Made Leather Engine and his Goldy Engine Fork (some code is from there)
 * srPerez - Made VS Shaggy & original 9K notes
+* Starmapo - Made Psych Engine Extra, which is the base of Goldy Engine.
 
 ## Psych Engine's Special Thanks
 * SqirraRNG - Chart Editor's Sound Waveform base code

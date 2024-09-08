@@ -1,3 +1,8 @@
 use Psych Engine's library versions
 works with Goldy Engine too of coursely lmfao
-https://github.com/ShadowMario/FNF-PsychEngine/wiki/Libraries-versions
+
+for visual studio settings, vs 2019 doesnt work anymore due to control flow guard.
+use visual studio 2022, and use these settings:
+MSVC v143 - VS 2022 C++ x64/86 build tools (latest)
+Windows Universal C Runtime -- side note: i dont think this is required but just incase 
+Windows SDK -- side note: any latest version available.
