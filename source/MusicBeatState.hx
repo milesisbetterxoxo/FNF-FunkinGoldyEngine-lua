@@ -136,17 +136,7 @@ class MusicBeatState extends FlxUIState
 
 	public function beatHit():Void
 	{
-		//do literally nothing dumbass (no atleast do smth cs it literally crashes)
-
-		var wtv:Bool = true;
-
-		wtv = !wtv;
-
-		var erm:Int = 0;
-		if (wtv)
-			erm = 0;
-		
-		else 
-			erm = 1;
+		// uh yeah well
+		return;
 	}
 }
