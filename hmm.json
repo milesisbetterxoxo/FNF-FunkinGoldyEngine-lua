@@ -56,13 +56,6 @@
         "version": "1.4.0"
       },
       {
-        "name": "hxdiscord_rpc",
-        "type": "git",
-        "dir": null,
-        "ref": "main",
-        "url": "https://github.com/MAJigsaw77/hxdiscord_rpc"
-      },
-      {
         "name": "flxanimate",
         "type": "git",
         "dir": null,
@@ -75,6 +68,17 @@
         "dir": null,
         "ref": "master",
         "url": "https://github.com/superpowers04/linc_luajit"
+      },
+      {
+        "name": "hscript-ex",
+        "type": "haxelib",
+        "version": null
+      },
+      {
+        "name": "discord-rpc",
+        "type": "git",
+        "ref": "dev",
+        "url": "https://github.com/Aidan63/linc_discord-rpc"
       }
     ]
   }
