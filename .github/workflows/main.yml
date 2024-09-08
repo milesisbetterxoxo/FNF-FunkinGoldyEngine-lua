@@ -31,18 +31,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
-          haxelib setup ~/haxelib
-          haxelib install hxcpp > /dev/null
-          haxelib install lime
-          haxelib install openfl
-          haxelib --never install flixel
-          haxelib run lime setup flixel
-          haxelib run lime setup
-          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit
-          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib git hscript https://github.com/HaxeFoundation/hscript
-          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
-          haxelib list
+        haxelib --global install hmm
+        haxelib --global run hmm setup
+        hmm install
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
       - name: Compile
@@ -65,18 +56,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
-          haxelib setup C:/haxelib
-          haxelib install hxcpp > nul
-          haxelib install lime
-          haxelib install openfl
-          haxelib --never install flixel
-          haxelib run lime setup flixel
-          haxelib run lime setup
-          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit
-          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib git hscript https://github.com/HaxeFoundation/hscript
-          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
-          haxelib list
+          haxelib --global install hmm
+          haxelib --global run hmm setup
+          hmm install
         shell: cmd
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
@@ -100,18 +82,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
-          haxelib setup C:/haxelib
-          haxelib install hxcpp > nul
-          haxelib install lime
-          haxelib install openfl
-          haxelib --never install flixel
-          haxelib run lime setup flixel
-          haxelib run lime setup
-          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit
-          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib git hscript https://github.com/HaxeFoundation/hscript
-          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
-          haxelib list
+          haxelib --global install hmm
+          haxelib --global run hmm setup
+          hmm install
         shell: cmd
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
@@ -135,18 +108,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
-          haxelib setup ~/haxelib
-          haxelib install hxcpp > /dev/null
-          haxelib install lime
-          haxelib install openfl
-          haxelib --never install flixel
-          haxelib run lime setup flixel
-          haxelib run lime setup
-          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit
-          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib git hscript https://github.com/HaxeFoundation/hscript
-          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
-          haxelib list
+          haxelib --global install hmm
+          haxelib --global run hmm setup
+          hmm install
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
       - name: Compile
@@ -169,16 +133,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Haxelib
         run: |
-          haxelib setup C:/haxelib
-          haxelib install hxcpp > nul
-          haxelib install lime
-          haxelib install openfl
-          haxelib --never install flixel
-          haxelib run lime setup flixel
-          haxelib run lime setup
-          haxelib git hscript https://github.com/HaxeFoundation/hscript
-          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
-          haxelib list
+          haxelib --global install hmm
+          haxelib --global run hmm setup
+          hmm install
         shell: cmd
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
