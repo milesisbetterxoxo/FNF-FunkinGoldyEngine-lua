@@ -317,12 +317,14 @@ class StoryMenuState extends MusicBeatState
 			PlayState.storyDifficulty = curDifficulty;
 
 			var song:String = PlayState.storyPlaylist[0];
-			var path:String = Paths.formatToSongPath('data/$song/$song$diffic');
+			var path:String = Paths.formatToSongPath('data/$song/$song$diffic.json'); // so for some reason it doesnt have the json
 
 			if (Paths.fileExists(path)) {
+				FlxG.log.add('Found song path: ${Paths.getPath(path)}.');
 				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + diffic, PlayState.storyPlaylist[0]);
 			}
 			else {
+				FlxG.log.add('Couldnt find song path: ${Paths.getPath(path)}!');
 				PlayState.SONG = Song.loadFromJson('test', 'test');
 			}
 			PlayState.campaignScore = 0;
