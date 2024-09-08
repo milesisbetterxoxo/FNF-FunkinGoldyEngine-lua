@@ -1,6 +1,6 @@
 package;
 
-#if DESKTOP_ALLOWED
+#if DISCORD_ALLOWED
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;

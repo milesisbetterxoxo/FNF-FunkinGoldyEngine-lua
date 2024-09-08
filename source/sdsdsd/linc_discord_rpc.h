@@ -4,7 +4,7 @@
 #endif
 
 #include <hxcpp.h>
-#include "../lib/discord-rpc/include/discord-rpc.h"
+#include "../../.haxelib/discord_rpc/git/lib/discord-rpc/include/discord-rpc.h"
 
 namespace linc
 {

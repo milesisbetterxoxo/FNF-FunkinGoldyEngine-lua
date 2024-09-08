@@ -3,7 +3,7 @@
       {
         "name": "lime",
         "type": "haxelib",
-        "version": "8.0.1"
+        "version": "8.1.3"
       },
       {
         "name": "openfl",
@@ -33,12 +33,12 @@
       {
         "name": "hxcpp",
         "type": "haxelib",
-        "version": null
+        "version": "4.3.2"
       },
       {
         "name": "hxCodec",
         "type": "haxelib",
-        "version": null
+        "version": "3.0.2"
       },
       {
         "name": "SScript",
@@ -48,7 +48,7 @@
       {
         "name": "hxcpp-debug-server",
         "type": "haxelib",
-        "version": null
+        "version": "1.2.4"
       },
       {
         "name": "tjson",
@@ -72,13 +72,19 @@
       {
         "name": "hscript-ex",
         "type": "haxelib",
-        "version": null
+        "version": "0.0.0"
       },
       {
-        "name": "discord-rpc",
+        "name": "discord_rpc",
         "type": "git",
-        "ref": "dev",
+        "ref": "master",
+        "dir": null,
         "url": "https://github.com/Aidan63/linc_discord-rpc"
+      },
+      {
+        "name": "hscript",
+        "type": "haxelib",
+        "version": "2.5.0"
       }
     ]
   }
