@@ -1,6 +1,4 @@
-use Psych Engine's library versions
-works with Goldy Engine too of coursely lmfao
--- todo: hmm
+library versions managed by hmm.
 
 for visual studio settings, vs 2019 doesnt work anymore due to control flow guard.
 use visual studio 2022, and use these settings:

@@ -12,6 +12,9 @@ art/flashFiles/*.svg
 # yes
 vscode-project.hxml
 
+#hmm
+.haxelib/*
+
 ### VS Code
 export/
 .vscode/
