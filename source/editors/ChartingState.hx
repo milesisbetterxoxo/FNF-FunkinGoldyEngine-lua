@@ -342,7 +342,6 @@ class ChartingState extends MusicBeatState
 		\nHold Control and click on an arrow to select it
 		\nZ/X - Zoom in/out
 		\n
-		\nEsc - Test your chart inside Chart Editor
 		\nEnter - Play your chart
 		\nQ/E - Decrease/Increase Note Sustain Length
 		\nSpace - Stop/Resume song";
@@ -1829,11 +1828,12 @@ class ChartingState extends MusicBeatState
 
 		if (!blockInput)
 		{
-			if (FlxG.keys.justPressed.ESCAPE)
-			{
-				autosaveSong();
-				LoadingState.loadAndSwitchState(new PlayState(true, sectionStartTime()));
-			}
+			// playstate inside charting state crashes.
+			// if (FlxG.keys.justPressed.ESCAPE)
+			// {
+			// 	autosaveSong();
+			// 	LoadingState.loadAndSwitchState(new PlayState(true, sectionStartTime()));
+			// }
 			if (FlxG.keys.justPressed.ENTER)
 			{
 				autosaveSong();

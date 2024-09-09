@@ -1,4 +1,9 @@
 library versions managed by hmm.
+to install run:
+haxelib install hmm
+hmm install
+
+make sure your running the command in the same directory as 'hmm.json'. (root directory of the source code)
 
 for visual studio settings, vs 2019 doesnt work anymore due to control flow guard.
 use visual studio 2022, and use these settings:
