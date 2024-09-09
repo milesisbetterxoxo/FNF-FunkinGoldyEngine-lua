@@ -550,5 +550,9 @@ class Paths
 		}
 		return list;
 	}
+
+	static public function shader(key:String):String {
+		return getPath('shaders/$key.frag');
+	}
 	#end
 }

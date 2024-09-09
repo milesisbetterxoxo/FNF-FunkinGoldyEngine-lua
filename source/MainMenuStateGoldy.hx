@@ -24,11 +24,10 @@ using StringTools;
 
 class MainMenuStateGoldy extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.6.0'; //This is used for Discord RPC
-	public static var iceEngineVersion:String = '0.3.0h'; //This is also used for Discord RPC
-	public static var micdEngineVersion:String = '2.0.3'; //This is also also used for Discord RPC
-	public static var engineVersion:String = '1.0.5'; //This is TOO used for Discord RPC
-	// nvm actually
+	public static var psychEngineVersion:String = '0.6.0'; 
+	public static var iceEngineVersion:String = '0.3.0h';
+	public static var micdEngineVersion:String = '2.0.3';
+	public static var engineVersion:String = '1.0.6';
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -219,7 +218,6 @@ class MainMenuStateGoldy extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
-
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 

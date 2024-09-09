@@ -1398,6 +1398,15 @@ class PlayState extends MusicBeatState
 		#end
 		callOnScripts('onCreatePost', []);
 
+		if (WeekData.getWeekFileName() == "week6") {
+			// week 6 shaders to haxe
+			addShaderToCamera("camgame", new ChromaticAberrationEffect(0.003));
+			addShaderToCamera("camHUD", new ChromaticAberrationEffect(0.003));
+			addShaderToCamera("camgame", new ScanlineEffect(true));
+			addShaderToCamera('camHUD', new ScanlineEffect(false));
+			addShaderToCamera("camother", new VCRDistortionEffect(0.01,true,false,false));
+		}
+
 		// gamepad shit again
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 		isUsingGamepad = !FlxG.keys.justReleased.ANY && !FlxG.keys.pressed.ANY && gamepad != null && !gamepad.justReleased.ANY && gamepad.pressed.ANY;
