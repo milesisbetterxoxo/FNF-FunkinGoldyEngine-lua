@@ -24,6 +24,7 @@ class HealthIcon extends FlxSprite
 	public var char:String = '';
 	var originalChar:String = 'bf-old';
 	var type:String = 'goldy'; // can be goldy or psych
+	public  var curAnim:String = 'default';
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
@@ -43,9 +44,7 @@ class HealthIcon extends FlxSprite
 		if (sprTracker != null)
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 
-		//selfUpdate(); // omfg
-		// self expanatory
-		// nvm doesnt work LFMAOFsdk
+		
 	}
 
 	public function swapOldIcon() {
@@ -58,7 +57,7 @@ class HealthIcon extends FlxSprite
 	
  
 	public function changeIcon(char:String = 'bf', curAnim:String = 'default') {
-		if (this.char != char) {
+		if (this.char != char || this.curAnim != curAnim) {
 			var config:HealthIconConfig;
 			if (Paths.fileExists('images/icons/$char/config.json', TEXT)) {
 				config = Json.parse(Paths.getTextFromFile('images/icons/$char/config.json'));
@@ -112,6 +111,8 @@ class HealthIcon extends FlxSprite
 
 			this.char = char;
 			if (char != 'bf-old') originalChar = char;
+
+			this.curAnim = curAnim;
 
 			antialiasing = ClientPrefs.globalAntialiasing;
 			if (char.endsWith('-pixel')) {
